@@ -37,17 +37,18 @@ export const WHATSAPP_ENABLED = true;
 export const WHATSAPP_NUMBER = "529992498890";
 
 /** Ubicaciones desde donde se abre WhatsApp; cada una lleva un texto distinto para poder medir el origen. */
-export type WhatsAppLocation = "hero" | "nav" | "floating" | "pricing" | "contact";
+export type WhatsAppLocation = "hero" | "nav" | "floating" | "audience" | "pricing" | "contact";
 
 /**
  * Texto precargado por ubicación. Deben seguir siendo DISTINTOS entre sí: así, al llegar el primer
- * mensaje, se sabe desde qué botón escribió el cliente. Se usan hoy: hero, nav y floating;
+ * mensaje, se sabe desde qué botón escribió el cliente. Se usan hoy: hero, nav, floating y audience;
  * pricing (G4) y contact (G6) quedan listos.
  */
 export const WHATSAPP_MESSAGES: Record<WhatsAppLocation, string> = {
   hero: "Hola, vi su página y quiero que mi WhatsApp atienda solo. ¿Me pueden ayudar?",
   nav: "Hola, quiero información sobre ERVIA.",
   floating: "Hola, me gustaría platicar con ustedes sobre ERVIA.",
+  audience: "Hola, mi giro no aparece en su página. Quiero contarles mi caso.",
   pricing: "Hola, quiero saber más sobre los planes de ERVIA.",
   contact: "Hola, quiero agendar mi diagnóstico gratis con ERVIA.",
 };
