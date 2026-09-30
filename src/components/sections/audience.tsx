@@ -6,7 +6,7 @@ export function Audience() {
   return (
     <Section aria-labelledby="para-quien-titulo">
       <SectionHeading id="para-quien-titulo">
-        Para <Accent>quién</Accent> es
+        ¿Es para mi <Accent>negocio</Accent>?
       </SectionHeading>
     </Section>
   );
