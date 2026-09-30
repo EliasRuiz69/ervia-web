@@ -46,11 +46,11 @@ Cuando se **detiene** una aplicación en Dokploy, su dominio **no se libera**. E
 **Idea clave:** el cambio de dominio, que es lo que falló antes, se hace **pronto y con una página sencilla**, cuando no hay nada en juego. Así el lanzamiento final es un simple redespliegue de la misma app, sin tocar dominios ni certificados. La alternativa (mantener la landing vieja hasta el final) está en la decisión D-A.
 
 ### 0.1 Decisiones tomadas (29/09/2026)
-- **D-A = (a):** la landing actual sale de producción **hoy** y se sustituye por la página "Próximamente" en la app nueva. La landing completa se publica en cuanto esté lista (objetivo: mañana).
+- **D-A (revisada el 30/09):** **no habrá página "Próximamente".** Se construye hoy la landing completa (alcance v1) y se publica directamente. Hasta el corte (Bloque F), www.ervia.tech sigue mostrando la landing vieja; no tiene visitas, así que no importa. Ver la secuencia vigente en **0.4**.
 - **D4:** número de WhatsApp de ERVIA = **999 249 8890** (el número de demo), para economizar. Se cambiará cuando haya ingresos. Enlaces: `https://wa.me/529992498890`. Formato internacional para el JSON-LD: `+529992498890`.
 - **Resultado de la Fase D1 (29/09):** el fondo del hero no es un canvas sino un **vídeo HLS de Mux** con `hls.js` (la mayor parte de los 216 kB comprimidos de JS). **No existe logo ni isotipo en SVG**: solo dos PNG. **El formulario antiguo no enviaba nada** (sin backend). Las políticas legales usan fondo blanco y Segoe UI, y fechan "junio de 2025".
-- **D-I (fondo del hero):** se sustituye el vídeo por un fondo estático: un fotograma del vídeo en WebP/AVIF (≤ 80 kB) con la misma opacidad del 40 % + los degradados/glows de los tokens. Cero JS, sin CDN externo. El movimiento del hero lo aporta el mockup de WhatsApp.
-- **D-J (uso del color):** verde = CTAs, chips de resultado ✅ y **una palabra destacada por titular** (firma visual de la marca). Azul = eyebrows/overlines, guiones de listas, "+/−" del FAQ, enlaces, nodos del método y etiqueta "Recomendado". Cifras en blanco.
+- **D-I (fondo del hero, revisada el 30/09 por derechos de uso):** el vídeo de la landing anterior no es nuestro, así que no se usa ni como fotograma. Fondo elegido: variante **`nodes`** (solo recursos de marca: glow azul, malla de puntos sutil e isotipo fantasma con el degradado dúo al 17 %), CSS/SVG sin imágenes ni JavaScript. Contraste medido: titular y cuerpo ≥ 10:1; gris atenuado ≥ 5,5:1.
+- **D-J (uso del color):** verde = CTAs, chips de resultado ✅ y **una palabra destacada por titular** (firma visual de la marca). Azul = eyebrows/overlines, guiones de listas, "+/−" del FAQ, enlaces, nodos del método y etiqueta "Recomendado". Cifras en blanco. **Excepción aceptada:** el degradado dúo (verde-azul) del isotipo fantasma del fondo `nodes`, porque es ambiente de marca muy tenue y no compite con los botones.
 - **Logo:** se busca el SVG original; si no existe, Claude Code redibuja el isotipo y el wordmark en SVG y se validan contra los PNG antes de usarlos.
 
 ### 0.2 ⚠️ Antes de publicar el número: quién contesta hoy en él
@@ -68,7 +68,7 @@ Ese número es el que se usa para las demos de Full Motor. **Si en YCloud sigue 
 
 **Texto de los CTA:** mientras no haya un **agente de ERVIA** respondiendo en ese número, el CTA principal es **"Escríbenos por WhatsApp"**, no "Pruébalo en WhatsApp ahora". Esa segunda frase promete una demo automática, y si contestas tú a mano horas después, rompe la promesa. Cuando conectes un agente propio de ERVIA, se cambia el texto.
 
-### 0.3 Calendario realista: hoy y mañana
+### 0.3 Calendario realista: hoy y mañana — ⚠️ SUPERADO por la sección 0.4 (se conserva el alcance de la v1)
 
 **HOY: retirar la landing actual y dejar el dominio resuelto** (≈ 3–4 horas)
 
@@ -102,6 +102,39 @@ Ser realista: construir, revisar y probar **toda** la auditoría en un día es p
 | — | Promesa "Te llevas tu Mapa de Fugas" | Solo cuando exista la plantilla del Mapa (D11) |
 
 En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro de la landing). La estructura ya queda preparada en G1 para añadirlas sin rehacer nada.
+
+### 0.4 Secuencia vigente desde el 30/09/2026 (sustituye al calendario de 0.3)
+
+**Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
+
+**Estado a esta fecha:** G1 ✅ (`7a14de5`, `7eb3420`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+
+**Decisión WhatsApp (30/09):** `WHATSAPP_ENABLED = true` desde la G1. El número 999 249 8890 sigue hoy con su webhook actual en YCloud; Elias creará el workflow del agente de ERVIA y cambiará el webhook antes de publicar. La comprobación de la sección 0.2 pasa a ser un **requisito previo del Bloque F** (ver F0).
+
+| # | Paso | Quién | Nota |
+|---|---|---|---|
+| 1 | **G0**: conectar el remoto de GitHub y subir `main` y `develop` | CC | ✅ Hecho |
+| 2 | ~~Sección 0.2~~ | — | Decidido: `WHATSAPP_ENABLED = true`; las comprobaciones pasan a F0 |
+| 3 | **G1**: estructura, nav, franja de confianza y WhatsApp | CC | |
+| 4 | **G2**: hero con mockup (solo la conversación del **taller**) | CC | |
+| 5 | **G3**: espejo, "Lo que ganas", "Para quién es" | CC | Solo giros con demo real |
+| 6 | **G4**: Método ERVIA y precios **sin cifras** ("Detectar: gratis" · "Cotización tras el diagnóstico") | CC | |
+| 7 | **G6**: FAQ, CTA final, formulario y `/api/lead` + **G6-bis** workflow de leads en n8n | CC + Tú | |
+| 8 | **G7**: SEO, GEO y metadatos; analítica solo Cloudflare Web Analytics | CC | |
+| 9 | **G8**: QA completa | CC | No se publica sin QA |
+| 10 | **H1–H2**: PR `develop` → `main`, revisión y fusión | CC + Tú | |
+| 11 | **Bloque E**: app `ervia-web-staging` (rama `develop`) en `test.ervia.tech` | Tú | Ensayo del dominio + prueba del formulario real en el servidor |
+| 12 | **Bloque F**: corte de www.ervia.tech a la app `ervia-web` (rama `main`) | Tú | F1 ya despliega la landing completa; **H3 queda absorbido en F1** |
+| 13 | **H4**: checklist de lanzamiento | Tú | |
+| 14 | **Bloque I**: limpieza, 7 días después | Tú | |
+
+**Fuera de la v1 de hoy** (se añaden después sin rehacer nada): G5 (caso real Full Motor y "Quién está detrás"), conversaciones de consultorio y restaurante en el hero, cifras de precios en MXN (D2), analítica con eventos (D6), enlace de agenda directa (D8) y la promesa del Mapa de Fugas (D11).
+
+**Estimación honesta:** G0–G8 son 5–7 horas de Claude Code con tus revisiones, y E + F una hora más. Si el día no alcanza, se para después de G8 o de E sin riesgo: www.ervia.tech sigue sirviendo la landing vieja hasta el Bloque F.
+
+**Variables de entorno (se definen en Dokploy ANTES del primer despliegue, porque `NEXT_PUBLIC_SITE_ENV` se fija al compilar):**
+- Staging: `NEXT_PUBLIC_SITE_ENV=staging`, `LEAD_WEBHOOK_URL`, `LEAD_WEBHOOK_SECRET`.
+- Producción: `NEXT_PUBLIC_SITE_ENV=production`, `LEAD_WEBHOOK_URL`, `LEAD_WEBHOOK_SECRET`.
 
 ---
 
@@ -435,7 +468,7 @@ REGLAS: no despliegues. Crea la rama develop y trabaja en ella; main solo tendr�
    c) Copia a public/brand/ las variantes necesarias y crea un único componente <Logo variant="horizontal|mark" tone="onDark|onLight" /> que las use (en el Header y el Footer, sobre fondo navy, la variante para fondo oscuro). Los PNG anteriores ya no se usan en la web.
    d) Genera desde el isotipo: src/app/icon.svg, src/app/favicon.ico (16, 32 y 48 px) y src/app/apple-icon.png (180×180, con fondo navy y margen interior); comprueba que a 16 px el isotipo sigue siendo reconocible.
    e) Muéstrame una lámina de comprobación (docs/design-base/capturas/logo-check.png) con cada SVG sobre fondo navy y sobre blanco a 32, 64 y 256 px, y el favicon a 16 y 32 px.
-15. FONDO DEL HERO (decisión D-I): sin vídeo ni hls.js. Extrae con ffmpeg un fotograma representativo del vídeo de Mux de la landing anterior, expórtalo a WebP y AVIF (≤ 80 kB, ancho 1920 px) en public/media/, y déjalo preparado como componente HeroBackground (imagen al 40 % de opacidad + glows de los tokens). Si no puedes acceder al vídeo, crea el fondo solo con los degradados y glows de los tokens y dímelo.
+15. [HISTÓRICO: sustituido por la variante `nodes`, ver D-I en 0.1] FONDO DEL HERO (decisión D-I): sin vídeo ni hls.js. Extrae con ffmpeg un fotograma representativo del vídeo de Mux de la landing anterior, expórtalo a WebP y AVIF (≤ 80 kB, ancho 1920 px) en public/media/, y déjalo preparado como componente HeroBackground (imagen al 40 % de opacidad + glows de los tokens). Si no puedes acceder al vídeo, crea el fondo solo con los degradados y glows de los tokens y dímelo.
 16. COLOR (decisión D-J): documenta en docs/design-base.md una sección "Reglas de color de la nueva landing": verde = CTAs, chips de resultado y una palabra destacada por titular; azul = eyebrows, guiones de listas, +/− del FAQ, enlaces, nodos del método y etiqueta "Recomendado"; cifras en blanco.
 17. PÁGINAS LEGALES: muéstralas con el sistema de diseño de la landing (fondo navy, DM Sans, texto a 17–18 px, ancho de lectura de ~70 caracteres). Cambios de contenido autorizados, y SOLO estos:
    a) En ambas páginas, la fecha "junio de 2025" pasa a "junio de 2026".
@@ -446,7 +479,7 @@ REGLAS: no despliegues. Crea la rama develop y trabaja en ella; main solo tendr�
 Al terminar: árbol de carpetas, archivos clave y capturas. Espera mi visto bueno.
 ```
 
-### D3. Página temporal "Próximamente" (solo si D-A = a)
+### D3. Página temporal "Próximamente" — ⏭️ OMITIDA (decisión del 30/09, ver 0.4)
 
 ```
 Rama develop.
@@ -518,6 +551,13 @@ curl.exe -sI https://[HOST_VAKDEVI]   # 200 (Vak Devi intacto)
 
 > Ventana estimada: 20–30 min. Nadie visita la web, así que unos minutos sin servicio no importan.
 
+**F0. Requisitos previos al corte (no empieces el Bloque F sin estos tres):**
+- [ ] **Webhook del 999 249 8890 en YCloud** apuntando al workflow del agente de ERVIA (o desconectado si ese workflow aún no existe y vas a contestar tú desde la app). Nunca al workflow de Full Motor. Compruébalo escribiendo tú al número desde otro teléfono: la respuesta debe ser de ERVIA, no del taller.
+- [ ] **Correo de prueba a `info@ervia.tech`** desde otra cuenta: debe llegar a tu buzón de Google Workspace. Si no llega, crea `info@` como alias de `admin@ervia.tech` en la consola de Workspace.
+- [ ] **Staging validado** (Bloque E completo) y PR de `develop` a `main` fusionada (H1–H2).
+
+**Texto del CTA:** si el agente de ERVIA ya responde automáticamente en el número, puedes pedir a Claude Code que el CTA del hero pase de "Escríbenos por WhatsApp" a "Pruébalo en WhatsApp ahora" (sección 3.4 de la auditoría). Si contestas tú a mano, se queda como está.
+
 **F1. App de producción sin dominio.** En el proyecto `ERVIA Web`, crea la Application `ervia-web`: mismo repo, rama **`main`**, Railpack, `NEXT_PUBLIC_SITE_ENV=production`, **Auto Deploy desactivado** (producción se despliega a mano). Despliega y verifica en los logs que arranca.
 
 **F2. Quitar los dominios de la app vieja.** Dokploy → `ervia-landing` → Domains → elimina `www.ervia.tech` y también `ervia.tech` si existe ahí.
@@ -548,7 +588,7 @@ curl -svk --resolve www.ervia.tech:443:127.0.0.1 https://www.ervia.tech/api/heal
 
 **F9. Verificación final:**
 ```powershell
-curl.exe -sI https://www.ervia.tech                          # 200, noindex visible en el HTML mientras sea "Próximamente"
+curl.exe -sI https://www.ervia.tech                          # 200 (y en el HTML NO debe aparecer noindex)
 curl.exe -sI https://ervia.tech                              # 301 → https://www.ervia.tech/
 curl.exe -sI http://www.ervia.tech                           # 301/308 → https
 curl.exe -sI https://www.ervia.tech/politica-de-privacidad   # 200
@@ -559,7 +599,7 @@ Abre www.ervia.tech en el celular con datos móviles y prueba el botón de Whats
 
 **Plan de vuelta atrás** (si algo falla y no se resuelve en 20 min): elimina el dominio de `ervia-web` → verifica con `grep` → añádelo de nuevo a `ervia-landing` → **Start** en `ervia-landing` → DNS de vuelta a naranja. El certificado sigue en `acme.json`, así que la vuelta es inmediata.
 
-✅ **Criterio:** www.ervia.tech sirve la página "Próximamente" desde `ervia-web`, el dominio raíz redirige, las páginas legales responden y Vak Devi está intacto.
+✅ **Criterio:** www.ervia.tech sirve la landing nueva desde `ervia-web`, el dominio raíz redirige, las páginas legales responden y Vak Devi está intacto.
 
 > **Si elegiste D-A = b** (mantener la landing vieja hasta el lanzamiento): salta este bloque ahora y ejecútalo tal cual en la Fase H, con la landing completa en `main`.
 
@@ -572,28 +612,34 @@ Abre www.ervia.tech en el celular con datos móviles y prueba el botón de Whats
 Rama develop. Sigue CLAUDE.md. Fuentes: docs/design-base.md (estilo) y docs/auditoria-landing-ervia-v2.md (contenido). No toques main, no despliegues a mano (el push a develop despliega staging solo). Al terminar: archivos tocados, capturas a 1440 y 390 px con Playwright, build sin errores. Espera mi visto bueno.
 ```
 
-La estructura final de la página es la sección 7 de la auditoría v2. Cada fase construye una parte. La home "Próximamente" se sustituye por la landing real en G1; `main` no se toca hasta H.
+La estructura final de la página es la sección 7 de la auditoría v2. Cada fase construye una parte. El marcador temporal de la D2 se sustituye por la landing real en G1; `main` no se toca hasta H. **Alcance de hoy: v1** (ver 0.4).
+
+### G0. Conectar GitHub y subir el trabajo
+```
+Añade el remoto origin = https://github.com/EliasRuiz69/ervia-web.git y haz push de main y de develop (con upstream). Si Git pide iniciar sesión en GitHub, avísame. Confirma que ambas ramas están en GitHub y que no se subió ningún archivo .env.
+```
 
 ### G1. Estructura de la home, nav y franja de confianza
 ```
 [Reglas comunes]
-1. Sustituye en develop la home "Próximamente" por la estructura completa de la sección 7 de la auditoría v2, con cada sección como componente propio en src/components/sections/ (Hero, TrustBar, Mirror, Gains, Method, Audience, CaseStudy, Founder, Pricing, Faq, FinalCta) y anclas: #inicio, #ganancias, #metodo, #caso-real, #precios, #faq, #contacto. Por ahora, las secciones aún no construidas llevan solo su H2 definitivo.
-2. Nav definitivo (sección 7.1 de la auditoría): logo · Lo que ganas · Método · Caso real · Precios · FAQ · [WhatsApp] [Diagnóstico gratis]; hamburguesa accesible en móvil.
+1. Sustituye en develop el marcador temporal de la home por la estructura completa de la sección 7 de la auditoría v2, con cada sección como componente propio en src/components/sections/ (Hero, TrustBar, Mirror, Gains, Method, Audience, CaseStudy, Founder, Pricing, Faq, FinalCta) y anclas: #inicio, #ganancias, #metodo, #caso-real, #precios, #faq, #contacto. Por ahora, las secciones aún no construidas llevan solo su H2 definitivo.
+2. Nav definitivo (sección 7.1 de la auditoría): logo · Lo que ganas · Método · Precios · FAQ · [WhatsApp, solo si WHATSAPP_ENABLED] [Diagnóstico gratis] ("Caso real" se añadirá en la v2); hamburguesa accesible en móvil.
 3. Franja de confianza (sección 4.2 de la auditoría): 4 ítems con ícono SVG.
 4. Botón flotante de WhatsApp en móvil (56×56 px), oculto mientras #contacto está en pantalla. Enlace: https://wa.me/529992498890 con texto precargado por ubicación (hero, nav, flotante, precios, contacto) para poder medir después.
-5. Centraliza el número de WhatsApp y los textos precargados en src/config/site.ts.
+5. Centraliza el número de WhatsApp y los textos precargados en src/config/site.ts, con un interruptor WHATSAPP_ENABLED = true. Si es false, no se muestra ningún botón ni enlace de WhatsApp y el CTA principal pasa a ser "Agenda tu diagnóstico gratis" → #contacto.
+6. En esta v1, las secciones CaseStudy y Founder NO se renderizan (quedan preparadas como componentes vacíos para la v2) y el nav no enlaza a #caso-real.
 ```
 
 ### G2. Hero con mockup de WhatsApp
 ```
 [Reglas comunes]
 Implementa el hero según las secciones 3.4 y 4.1 de la auditoría v2:
-- Textos: eyebrow, H1 [opción elegida: A/B/C de 4.1], subtítulo con el Método ERVIA, CTA primario "Escríbenos por WhatsApp" (NO "Pruébalo en WhatsApp ahora" mientras no haya un agente de ERVIA conectado a ese número; ver sección 0.2) y secundario "Detecta tus fugas gratis (15 min)", microcopy.
-- Columna derecha: mockup de teléfono con conversaciones de WhatsApp rotativas por giro [giros confirmados en D3], con el texto exacto de 3.4, indicador "escribiendo…", hora visible y chips de resultado al final ("✅ Cita agendada · ✅ Cliente registrado · ✅ 0 mensajes pendientes"). Sin ninguna otra cifra.
+- Textos: eyebrow, H1 [opción A de 4.1, recomendada: "Tu WhatsApp atiende, cotiza y agenda citas solo. Tú te dedicas a tu negocio." — cámbiala si prefieres B o C], subtítulo con el Método ERVIA, CTA primario "Escríbenos por WhatsApp" (NO "Pruébalo en WhatsApp ahora" mientras no haya un agente de ERVIA conectado a ese número; ver sección 0.2) y secundario "Detecta tus fugas gratis (15 min)", microcopy.
+- Columna derecha: mockup de teléfono con conversaciones de WhatsApp (v1: SOLO la conversación del taller, sin pestañas de giro; el componente debe admitir más conversaciones para la v2), con el texto exacto de 3.4 (en "$[PRECIO]" usa [PRECIO_AFINACIÓN]), una etiqueta discreta "Conversación de ejemplo" bajo el teléfono, indicador "escribiendo…", hora visible y chips de resultado al final ("✅ Cita agendada · ✅ Cliente registrado · ✅ 0 mensajes pendientes"). Sin ninguna otra cifra.
 - Solo transform/opacity; pausa al pasar el cursor; prefers-reduced-motion = conversación completa estática; aria-label con el resumen.
 - Móvil: el mockup va debajo de los CTAs, compacto (máx. 420 px de alto), y el CTA primario debe verse sin scroll en 390×844.
 - H1 a 60–68 px en escritorio.
-- El canvas de fondo de la landing anterior: pórtalo solo si design-base.md indica que es ligero; si no, propón una alternativa CSS con el mismo efecto visual. Debe pausarse fuera de pantalla y con prefers-reduced-motion.
+- Fondo: usa el HeroBackground existente (variante nodes). No hay canvas ni vídeo.
 - Puedes buscar en 21st (MCP) componentes de chat o mockup de teléfono como punto de partida, pero re-estilízalos con los tokens de ERVIA.
 Verifica el LCP en móvil con Lighthouse por línea de comandos (npx lighthouse http://localhost:3000 --only-categories=performance) sobre el build de producción servido en local, y dime el valor.
 ```
@@ -604,18 +650,18 @@ Verifica el LCP en móvil con Lighthouse por línea de comandos (npx lighthouse 
 Implementa, con el texto exacto de la auditoría v2:
 - Espejo del problema (4.3): 4 tarjetas con ícono, remate y enlace "Ahora imagina lo contrario ↓" → #ganancias.
 - Lo que ganas cuando automatizas (4.4): 4 tarjetas con el patrón ganancia (H3, 28–32 px) → antes/después (16–17 px) → "Cómo lo logramos" (15 px, cursiva, color secundario, separado por una línea fina). Tarjeta 1 destacada. CTA "Quiero ver qué ganaría mi negocio →".
-- Para quién es (4.6): solo los giros [confirmados en D3].
+- Para quién es (4.6): los cuatro giros de 4.6 (son sectores a los que nos dirigimos, no casos de éxito; no afirmes que ya tenemos clientes en ellos).
 Revisa el copy con las skills copywriting y copy-editing SIN cambiar el mensaje: solo señálame mejoras concretas y espera mi decisión antes de aplicarlas.
 ```
 
 ### G4. Método ERVIA y precios
 ```
 [Reglas comunes]
-- Sección Método ERVIA (3.3 y 4.5 de la auditoría): diagrama de 3 nodos conectados derivado del isotipo (docs/design-base/assets/). Propónme 2 variantes del diagrama antes de decidir. Horizontal en escritorio y vertical en móvil; la línea se dibuja al entrar en pantalla (estática con reduced-motion). Contenido de la tabla de 3.3: promesa · qué hacemos · te llevas · tiempo. [Nombres de entregables según D11.] CTA "Empieza por el paso 1: Detectar. Es gratis →".
-- Precios (4.9): 3 planes = 3 pasos del método (Detectar gratis · Automatizar desde $[X] MXN · Escalar desde $[Y] MXN/mes), badge "Recomendado" en Automatizar, CTAs a WhatsApp con texto precargado por plan. [Nota de IVA y plazos según D12.] En móvil: carrusel con scroll-snap e indicador, con Automatizar visible primero.
+- Sección Método ERVIA (3.3 y 4.5 de la auditoría): diagrama de 3 nodos conectados derivado del isotipo (docs/design-base/assets/). Propónme 2 variantes del diagrama antes de decidir. Horizontal en escritorio y vertical en móvil; la línea se dibuja al entrar en pantalla (estática con reduced-motion). Contenido de la tabla de 3.3: promesa · qué hacemos · te llevas · tiempo. v1 SIN entregables con nombre propio: en "Te llevas" usa "Un diagnóstico claro: qué te cuesta tiempo y ventas, y por dónde empezar" (paso 1), "Tu agente funcionando, tu panel de control y la capacitación" (paso 2) y "Un resumen mensual de mensajes atendidos y citas agendadas" (paso 3). No menciones "Mapa de Fugas". CTA "Empieza por el paso 1: Detectar. Es gratis →".
+- Precios (4.9): 3 planes = 3 pasos del método (v1 sin cifras: Detectar "Gratis" · Automatizar "Cotización tras el diagnóstico" · Escalar "Cotización tras el diagnóstico"), badge "Recomendado" en Automatizar, CTAs a WhatsApp con texto precargado por plan. Sin nota de IVA ni de plazos en la v1. Si WHATSAPP_ENABLED es false, los CTAs de los planes llevan a #contacto. En móvil: carrusel con scroll-snap e indicador, con Automatizar visible primero.
 ```
 
-### G5. Caso real Full Motor y "Quién está detrás" (requiere D3 y materiales)
+### G5. Caso real Full Motor y "Quién está detrás" — ⏭️ FUERA DE LA V1 (requiere D3 y materiales)
 ```
 [Reglas comunes]
 Implementa 4.7 y 4.8 de la auditoría v2:
@@ -628,8 +674,8 @@ Implementa 4.7 y 4.8 de la auditoría v2:
 ### G6. FAQ, CTA final, formulario y endpoint de leads
 ```
 [Reglas comunes]
-1. FAQ (4.10): 8 preguntas con el texto final [pega las respuestas definitivas]. Acordeón accesible (button type="button", aria-expanded, aria-controls).
-2. CTA final (4.11): H2, subtítulo [con o sin la promesa del Mapa de Fugas según D11], dos columnas: WhatsApp grande | formulario (Nombre · Correo o WhatsApp · Giro del negocio [select] · "¿Qué te quita más tiempo hoy?"). [Si D8: enlace "Prefiero agendar yo mismo" → URL.]
+1. FAQ (4.10): 7 preguntas: las 7 primeras de 4.10 con sus respuestas; la n.º 1 SIN mencionar "Mapa de Fugas" y la n.º 2 ("¿Cuánto cuesta?") coherente con precios sin cifras ("Depende de lo que automaticemos; te damos una cotización clara tras el diagnóstico gratuito"). La n.º 8 (plazos y factura) queda para la v2. Acordeón accesible (button type="button", aria-expanded, aria-controls).
+2. CTA final (4.11): H2, subtítulo "15 minutos. Gratis. Sin compromiso." (sin promesa del Mapa de Fugas en la v1), dos columnas: WhatsApp grande | formulario (Nombre · Correo o WhatsApp · Giro del negocio [select] · "¿Qué te quita más tiempo hoy?"). (Sin enlace de agenda en la v1. Si WHATSAPP_ENABLED es false, la columna de WhatsApp no se muestra y el formulario ocupa el centro.)
 3. Formulario: <form> real, labels visibles, validación en cliente y servidor con zod, errores junto al campo, estado "Enviando…", mensajes de éxito ("Listo, {nombre}. Te escribimos hoy mismo para agendar tu diagnóstico.") y de error con alternativa de WhatsApp. Campo honeypot oculto contra bots.
 4. Route Handler POST /api/lead (única ruta dinámica): valida con zod, descarta si el honeypot viene lleno, limita a 5 envíos por IP cada 10 minutos (en memoria es suficiente: una sola instancia) y reenvía al webhook de n8n leyendo LEAD_WEBHOOK_URL y LEAD_WEBHOOK_SECRET del entorno, con la cabecera "X-ERVIA-Secret". La URL del webhook NUNCA llega al navegador. Responde {ok:true} o un error genérico, sin filtrar detalles internos.
 5. Documenta LEAD_WEBHOOK_URL y LEAD_WEBHOOK_SECRET en .env.example (sin valores).
@@ -659,7 +705,7 @@ Implementa la sección 6 y la 4.12 de la auditoría v2 con la API de metadatos d
 - JSON-LD: ProfessionalService (ERVIA, Mérida, Yucatán, MX, areaServed MX, email, teléfono +529992498890), FAQPage y HowTo "Método ERVIA", con textos idénticos a los visibles. Usa la skill schema.
 - src/app/sitemap.ts (home + páginas legales) y src/app/robots.ts: en staging Disallow total; en producción Allow para todos, incluidos GPTBot, ClaudeBot, PerplexityBot y Google-Extended, más el enlace al sitemap.
 - GEO (skill ai-seo): frase autocontenida que defina el Método ERVIA, visible en la sección del método; y un /llms.txt con resumen de ERVIA, servicios, método, zona y contacto.
-- Analítica [D6: GA4 / Umami]: eventos click_whatsapp (con ubicación), click_cta_diagnostico (con ubicación), form_submit_success, form_submit_error, scroll_75 y hero_visual_view. Sin cookies de seguimiento antes del consentimiento: banner de consentimiento accesible y coherente con /politica-de-cookies (dime qué texto de la política hay que actualizar). Usa la skill analytics.
+- Analítica v1: SOLO Cloudflare Web Analytics (sin cookies, sin banner). No añadas GA4, Umami, Meta Pixel ni eventos personalizados; dime si hace falta algún cambio en el código para que funcione (normalmente se activa desde el panel de Cloudflare). Los eventos (click_whatsapp, form_submit_success, etc.) quedan para la v2.
 Muéstrame el <head> generado en producción (build local con NEXT_PUBLIC_SITE_ENV=production) y valida el JSON-LD.
 ```
 
