@@ -172,6 +172,7 @@
     var(--font-baloo-2), "Baloo 2", var(--font-dm-sans), "DM Sans", system-ui,
     sans-serif;
   --font-body: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  --font-body-italic: var(--font-dm-sans-italic), "DM Sans", system-ui, sans-serif;
 }
 
 /* ============================================================
@@ -209,6 +210,13 @@
     margin: 0;
   }
 
+  /* Cursiva de DM Sans: familia aparte (next/font, sin precarga). */
+  em,
+  i,
+  .italic {
+    font-family: var(--font-body-italic);
+  }
+
   ::selection {
     background: color-mix(in srgb, var(--blue-500) 45%, transparent);
     color: var(--text-strong);
@@ -232,5 +240,81 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* ============================================================
+   5) Mockup de WhatsApp del hero (src/components/sections/whatsapp-*.tsx)
+   Solo opacity y transform. Sin JS: se reproduce una vez y se queda en el estado final.
+   - Pausa al pasar el cursor o con el foco dentro.
+   - prefers-reduced-motion: conversación completa y estática.
+   ============================================================ */
+@keyframes wa-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes wa-window {
+  0% {
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes wa-window-inverse {
+  0% {
+    opacity: 1;
+  }
+  8%,
+  92% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes wa-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.wa-step {
+  animation: wa-rise 380ms var(--ease-out) var(--wa-d, 0s) both;
+}
+
+.wa-phone:hover *,
+.wa-phone:focus-within * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-step,
+  .wa-status-idle,
+  .wa-dot {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .wa-typing,
+  .wa-status-typing {
+    display: none !important;
   }
 }

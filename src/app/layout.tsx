@@ -17,10 +17,19 @@ const baloo = Baloo_2({
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   axes: ["opsz"],
   display: "swap",
   variable: "--font-dm-sans",
+});
+
+// La cursiva (texto "Cómo lo logramos", G3) NO se precarga: así no compite con el H1 por el ancho de banda (LCP).
+const dmSansItalic = DM_Sans({
+  subsets: ["latin"],
+  style: "italic",
+  axes: ["opsz"],
+  display: "swap",
+  preload: false,
+  variable: "--font-dm-sans-italic",
 });
 
 export const metadata: Metadata = {
@@ -46,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es-MX"
-      className={`${baloo.variable} ${dmSans.variable} bg-surface-page`}
+      className={`${baloo.variable} ${dmSans.variable} ${dmSansItalic.variable} bg-surface-page`}
     >
       <body className="flex min-h-dvh flex-col bg-surface-page">
         <a
