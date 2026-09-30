@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 
 type Item = { href: string; label: string };
 
@@ -15,7 +16,16 @@ type Item = { href: string; label: string };
  * al pulsar un enlace, al hacer clic fuera, al cambiar de ruta y al ensanchar la ventana.
  * Objetivos táctiles de 44 px.
  */
-export function MobileMenu({ links, cta }: { links: readonly Item[]; cta: Item }) {
+export function MobileMenu({
+  links,
+  cta,
+  whatsappHref,
+}: {
+  links: readonly Item[];
+  cta: Item;
+  /** Si no hay URL (WHATSAPP_ENABLED = false) no se muestra ningún enlace de WhatsApp. */
+  whatsappHref?: string;
+}) {
   // El menú se considera abierto solo en la ruta donde se abrió: al navegar se cierra solo.
   const [openPath, setOpenPath] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -89,11 +99,28 @@ export function MobileMenu({ links, cta }: { links: readonly Item[]; cta: Item }
             </li>
           ))}
         </ul>
-        <Button asChild size="lg" className="mt-4 w-full">
-          <Link href={cta.href} onClick={() => close()}>
-            {cta.label}
-          </Link>
-        </Button>
+        <div className="mt-4 flex flex-col gap-3">
+          {whatsappHref && (
+            <Button asChild size="lg" className="w-full">
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => close()}
+                data-cta="whatsapp"
+                data-location="nav"
+              >
+                <WhatsAppIcon className="size-5" />
+                WhatsApp
+              </a>
+            </Button>
+          )}
+          <Button asChild size="lg" variant={whatsappHref ? "outline" : "primary"} className="w-full">
+            <Link href={cta.href} onClick={() => close()} data-cta="diagnostico" data-location="nav">
+              {cta.label}
+            </Link>
+          </Button>
+        </div>
       </nav>
     </div>
   );

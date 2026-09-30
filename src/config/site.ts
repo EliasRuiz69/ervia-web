@@ -10,7 +10,10 @@ export const SITE = {
   tagline: "Automatización con IA para pymes",
 } as const;
 
-/** Enlaces de ancla de la cabecera (definitivos en G1; "Caso real" se añade con G5). */
+/**
+ * Enlaces de ancla de la cabecera (auditoría 7.1).
+ * "Caso real" (#caso-real) NO está: se añadirá en la v2 junto con la sección CaseStudy.
+ */
 export const NAV_LINKS = [
   { href: "/#ganancias", label: "Lo que ganas" },
   { href: "/#metodo", label: "Método" },
@@ -19,6 +22,40 @@ export const NAV_LINKS = [
 ] as const;
 
 export const HEADER_CTA = { href: "/#contacto", label: "Diagnóstico gratis" } as const;
+
+/* ------------------------------------------------------------------ *
+ * WhatsApp
+ * ------------------------------------------------------------------ */
+
+/**
+ * Interruptor general. Si es `false` no se muestra NINGÚN botón ni enlace de WhatsApp
+ * (cabecera, hero, botón flotante…) y el CTA principal pasa a ser "Agenda tu diagnóstico gratis" → #contacto.
+ */
+export const WHATSAPP_ENABLED = true;
+
+/** Formato internacional sin "+" (wa.me). Número de ERVIA = 999 249 8890 (D4). JSON-LD: +529992498890. */
+export const WHATSAPP_NUMBER = "529992498890";
+
+/** Ubicaciones desde donde se abre WhatsApp; cada una lleva un texto distinto para poder medir el origen. */
+export type WhatsAppLocation = "hero" | "nav" | "floating" | "pricing" | "contact";
+
+/**
+ * Texto precargado por ubicación. Deben seguir siendo DISTINTOS entre sí: así, al llegar el primer
+ * mensaje, se sabe desde qué botón escribió el cliente. Se usan hoy: hero, nav y floating;
+ * pricing (G4) y contact (G6) quedan listos.
+ */
+export const WHATSAPP_MESSAGES: Record<WhatsAppLocation, string> = {
+  hero: "Hola, vi su página y quiero que mi WhatsApp atienda solo. ¿Me pueden ayudar?",
+  nav: "Hola, quiero información sobre ERVIA.",
+  floating: "Hola, me gustaría platicar con ustedes sobre ERVIA.",
+  pricing: "Hola, quiero saber más sobre los planes de ERVIA.",
+  contact: "Hola, quiero agendar mi diagnóstico gratis con ERVIA.",
+};
+
+/** https://wa.me/<número>?text=<texto precargado> para la ubicación indicada. */
+export function whatsappUrl(location: WhatsAppLocation): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGES[location])}`;
+}
 
 /** Decisión D-E: se conservan las dos URLs de siempre; sin "Aviso Legal" ni "Términos". */
 export const LEGAL_LINKS = [
