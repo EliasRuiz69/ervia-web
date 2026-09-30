@@ -107,7 +107,7 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 
 **Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
 
-**Estado a esta fecha:** G1 ✅ (`7a14de5`, `7eb3420`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+**Estado a esta fecha:** G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
 
 **Decisión WhatsApp (30/09):** `WHATSAPP_ENABLED = true` desde la G1. El número 999 249 8890 sigue hoy con su webhook actual en YCloud; Elias creará el workflow del agente de ERVIA y cambiará el webhook antes de publicar. La comprobación de la sección 0.2 pasa a ser un **requisito previo del Bloque F** (ver F0).
 
@@ -117,7 +117,7 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 | 2 | ~~Sección 0.2~~ | — | Decidido: `WHATSAPP_ENABLED = true`; las comprobaciones pasan a F0 |
 | 3 | **G1**: estructura, nav, franja de confianza y WhatsApp | CC | |
 | 4 | **G2**: hero con mockup (solo la conversación del **taller**) | CC | |
-| 5 | **G3**: espejo, "Lo que ganas", "Para quién es" | CC | Solo giros con demo real |
+| 5 | **G3**: espejo, "Lo que ganas", "Para quién es" | CC | Los cuatro sectores objetivo de 4.6, presentados como sectores, no como casos de éxito |
 | 6 | **G4**: Método ERVIA y precios **sin cifras** ("Detectar: gratis" · "Cotización tras el diagnóstico") | CC | |
 | 7 | **G6**: FAQ, CTA final, formulario y `/api/lead` + **G6-bis** workflow de leads en n8n | CC + Tú | |
 | 8 | **G7**: SEO, GEO y metadatos; analítica solo Cloudflare Web Analytics | CC | |
