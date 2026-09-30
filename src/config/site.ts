@@ -37,25 +37,39 @@ export const WHATSAPP_ENABLED = true;
 export const WHATSAPP_NUMBER = "529992498890";
 
 /** Ubicaciones desde donde se abre WhatsApp; cada una lleva un texto distinto para poder medir el origen. */
-export type WhatsAppLocation = "hero" | "nav" | "floating" | "audience" | "pricing" | "contact";
+export type WhatsAppLocation = "hero" | "nav" | "floating" | "audience" | "contact";
 
 /**
  * Texto precargado por ubicación. Deben seguir siendo DISTINTOS entre sí: así, al llegar el primer
  * mensaje, se sabe desde qué botón escribió el cliente. Se usan hoy: hero, nav, floating y audience;
- * pricing (G4) y contact (G6) quedan listos.
+ * contact (G6) queda listo. Los planes de precios tienen sus propios textos (WHATSAPP_PLAN_MESSAGES).
  */
 export const WHATSAPP_MESSAGES: Record<WhatsAppLocation, string> = {
   hero: "Hola, vi su página y quiero que mi WhatsApp atienda solo. ¿Me pueden ayudar?",
   nav: "Hola, quiero información sobre ERVIA.",
   floating: "Hola, me gustaría platicar con ustedes sobre ERVIA.",
   audience: "Hola, mi giro no aparece en su página. Quiero contarles mi caso.",
-  pricing: "Hola, quiero saber más sobre los planes de ERVIA.",
   contact: "Hola, quiero agendar mi diagnóstico gratis con ERVIA.",
 };
 
 /** https://wa.me/<número>?text=<texto precargado> para la ubicación indicada. */
 export function whatsappUrl(location: WhatsAppLocation): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGES[location])}`;
+}
+
+/** Planes de precios = pasos del Método ERVIA (auditoría 4.9). */
+export type PlanId = "detectar" | "automatizar" | "escalar";
+
+/** Texto precargado por plan: distintos entre sí y de WHATSAPP_MESSAGES, para medir el origen. */
+export const WHATSAPP_PLAN_MESSAGES: Record<PlanId, string> = {
+  detectar: "Hola, quiero mi diagnóstico gratis (paso 1: Detectar) con ERVIA.",
+  automatizar: "Hola, quiero mi agente de WhatsApp (paso 2: Automatizar) con ERVIA.",
+  escalar: "Hola, quiero crecer sin contratar más personal (paso 3: Escalar) con ERVIA.",
+};
+
+/** https://wa.me/<número>?text=<texto del plan>. */
+export function whatsappPlanUrl(plan: PlanId): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_PLAN_MESSAGES[plan])}`;
 }
 
 /** Decisión D-E: se conservan las dos URLs de siempre; sin "Aviso Legal" ni "Términos". */
