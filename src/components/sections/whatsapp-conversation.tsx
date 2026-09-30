@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import type { CSSProperties } from "react";
 
 import type { Conversation } from "@/content/hero-conversations";
@@ -152,7 +153,7 @@ export function ConversationView({ conversation: c }: { conversation: Conversati
             className="wa-step inline-flex items-center gap-1 rounded-pill border border-border-green bg-surface-green-tint px-2.5 py-1 text-[13px] leading-tight font-semibold text-green-400"
             style={d(tl.chips[i])}
           >
-            <span aria-hidden="true">✅</span>
+            <Check aria-hidden="true" className="size-3.5 shrink-0 text-green-500" strokeWidth={3} />
             {r}
           </li>
         ))}
