@@ -305,6 +305,52 @@
   animation-play-state: paused !important;
 }
 
+/* ============================================================
+   6) Diagrama del Método ERVIA (src/components/sections/method-*.tsx)
+   Solo transform y opacity. La línea se "dibuja" con scale desde su origen y cada nodo aparece
+   en orden (--i = índice del paso). Sin JavaScript (scripting: none) o con prefers-reduced-motion
+   no se oculta nada: el diagrama se ve completo y estático.
+   ============================================================ */
+.m-line-x {
+  transform-origin: left center;
+  transform-box: fill-box;
+}
+.m-line-y {
+  transform-origin: center top;
+}
+.m-node {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .m-reveal .m-line-x {
+    transform: scaleX(0);
+  }
+  .m-reveal .m-line-y {
+    transform: scaleY(0);
+  }
+  .m-reveal .m-node {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  .m-reveal[data-inview="true"] .m-line-x {
+    transform: scaleX(1);
+    transition: transform 650ms var(--ease-out) calc(var(--i, 0) * 450ms + 250ms);
+  }
+  .m-reveal[data-inview="true"] .m-line-y {
+    transform: scaleY(1);
+    transition: transform 650ms var(--ease-out) calc(var(--i, 0) * 450ms + 250ms);
+  }
+  .m-reveal[data-inview="true"] .m-node {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 400ms var(--ease-out) calc(var(--i, 0) * 450ms),
+      transform 400ms var(--ease-out) calc(var(--i, 0) * 450ms);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wa-step,
   .wa-status-idle,
