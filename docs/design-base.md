@@ -338,12 +338,11 @@ Decisión **D-J** (29/09/2026). **Sustituye a la regla "el verde es solo para ac
 | Recursos permitidos | Solo los de la marca: fondo navy, glows, degradado dúo (`--gradient-duotone`) y, como máximo, una textura sutil de puntos o nodos inspirada en el isotipo |
 | Cómo se dibuja | CSS y SVG en línea. **Sin imágenes, sin vídeo y sin JavaScript** (`src/components/sections/hero-background.tsx`) |
 | Movimiento | Ninguno: el fondo es estático, así que `prefers-reduced-motion` se cumple por diseño. El movimiento del hero lo aporta el mockup de WhatsApp |
-| Contraste del texto | Velo diagonal navy (`rgb(15 23 42)` al 92 % → 35 %) y fundido inferior a `--navy-900`. Medido en el peor píxel de fondo: titular y cuerpo ≥ 9,8:1; gris atenuado (`--text-muted`) ≥ 4,6:1 |
+| Contraste del texto | Velo diagonal navy (`rgb(15 23 42)` al 92 % → 35 %) y fundido inferior a `--navy-900`. Medido en el peor píxel de fondo: titular y cuerpo ≥ 10:1; gris atenuado (`--text-muted`) ≥ 5,5:1 |
 | Coste | 0 bytes de imagen; el peso anterior (vídeo de 2880 × 1248 + `hls.js`, 216 kB gzip) desaparece |
 
-**Variantes propuestas** (componente `<HeroBackground variant="…" />`, capturas en `docs/design-base/capturas/d2-hero-*`):
+**Variante elegida (30/09/2026): `nodes`.** Glow azul contenido, malla de puntos muy sutil (CSS) que se desvanece hacia la izquierda con una máscara radial, e isotipo fantasma a gran tamaño con el degradado dúo al 17 % de opacidad. Componente `<HeroBackground />` (una sola variante). La alternativa descartada, `aurora` (glows azules y mancha con el degradado dúo, sin trazos), queda documentada solo en las capturas `docs/design-base/capturas/d2-hero-aurora-*`. Capturas de la elegida: `d2-hero-nodes-1440.png` y `d2-hero-nodes-390.png`.
 
-- **`aurora`** (por defecto): glow azul, mancha difuminada con el degradado dúo abajo a la derecha y un segundo destello azul. Sin trazos.
-- **`nodes`**: glow azul contenido, malla de puntos muy sutil (CSS) que se desvanece hacia la izquierda con una máscara radial, e isotipo fantasma a gran tamaño con el degradado dúo al 17 % de opacidad.
+Contraste medido en el peor píxel de fondo bajo el texto: titular y cuerpo ≥ 10:1; gris atenuado (`--text-muted`) ≥ 5,5:1.
 
-La elección final se anota aquí cuando esté decidida. El verde del degradado dúo es decorativo y muy tenue; conviene revisar en G2 si compite con el mockup del hero (regla de color de la sección 7).
+El verde del degradado dúo es decorativo y muy tenue; conviene revisar en G2 si compite con el mockup del hero (regla de color de la sección 7).

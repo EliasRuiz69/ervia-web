@@ -1,66 +1,25 @@
 /**
  * Fondo del hero (decisión D-I, revisada por derechos de uso): solo recursos de la marca.
- * Sin imágenes, sin vídeo y sin JavaScript: navy + glows + degradado dúo de los tokens (CSS/SVG en línea).
+ * Sin imágenes, sin vídeo y sin JavaScript: navy + glow azul + malla de puntos + isotipo fantasma
+ * con el degradado dúo de los tokens (CSS y SVG en línea).
  *
- * Variantes (a elegir):
- *  - "aurora": glows difusos azul y degradado dúo verde→azul, sin ningún trazo.
- *  - "nodes":  glow azul + malla de puntos muy sutil + isotipo fantasma a gran tamaño (degradado dúo).
- *
- * Contraste del texto: ambas comparten el mismo velo diagonal navy (izquierda 92 %) y el mismo
- * fundido inferior a --navy-900, así que la zona del texto se mantiene igual de oscura.
+ * Contraste del texto: velo diagonal navy (izquierda 92 %) y fundido inferior a --navy-900, así que la
+ * zona del texto se mantiene casi igual de oscura que el navy plano (medido: titular y cuerpo >= 10:1,
+ * gris atenuado >= 5,5:1 en el peor píxel).
  *
  * Posicionamiento: llenar el padre (`relative` + `overflow-hidden`). No captura eventos.
  */
-export type HeroBackgroundVariant = "aurora" | "nodes";
-
 const VEIL =
   "linear-gradient(105deg, rgb(15 23 42 / 0.92) 0%, rgb(15 23 42 / 0.55) 55%, rgb(15 23 42 / 0.35) 100%)";
 const FADE = "linear-gradient(to top, var(--navy-900) 0%, transparent 38%)";
 
-export function HeroBackground({ variant = "aurora" }: { variant?: HeroBackgroundVariant }) {
+export function HeroBackground() {
   return (
     <div
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 -z-10 overflow-hidden bg-navy-900"
     >
-      {variant === "aurora" ? <Aurora /> : <Nodes />}
-
-      {/* Velo diagonal para el contraste del texto y fundido inferior hacia el fondo de página. */}
-      <div className="absolute inset-0" style={{ background: VEIL }} />
-      <div className="absolute inset-0" style={{ background: FADE }} />
-    </div>
-  );
-}
-
-function Aurora() {
-  return (
-    <>
-      {/* Glow azul (--blue-500) arriba a la derecha. */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(55% 60% at 82% 16%, color-mix(in srgb, var(--blue-500) 30%, transparent), transparent 70%)",
-        }}
-      />
-      {/* Mancha con el degradado dúo (--gradient-duotone), difuminada, abajo a la derecha. */}
-      <div
-        className="absolute -right-[10%] -bottom-[24%] h-[90%] w-[75%] rounded-full opacity-[0.3]"
-        style={{ background: "var(--gradient-duotone)", filter: "blur(100px)" }}
-      />
-      {/* Segundo destello azul, más pequeño, para dar profundidad al centro-derecha. */}
-      <div
-        className="absolute top-[30%] right-[18%] h-[40%] w-[28%] rounded-full opacity-[0.16]"
-        style={{ background: "var(--blue-500)", filter: "blur(90px)" }}
-      />
-    </>
-  );
-}
-
-function Nodes() {
-  return (
-    <>
-      {/* Glow azul, más contenido que en "aurora". */}
+      {/* Glow azul (token --blue-500), arriba a la derecha. */}
       <div
         className="absolute inset-0"
         style={{
@@ -103,6 +62,10 @@ function Nodes() {
           <path d="M40 108.9Q118 114 165.6 176.8" strokeWidth="7.5" fill="none" />
         </g>
       </svg>
-    </>
+
+      {/* Velo diagonal para el contraste del texto y fundido inferior hacia el fondo de página. */}
+      <div className="absolute inset-0" style={{ background: VEIL }} />
+      <div className="absolute inset-0" style={{ background: FADE }} />
+    </div>
   );
 }
