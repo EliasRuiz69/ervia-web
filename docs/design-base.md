@@ -289,3 +289,38 @@ Verificado con la landing corriendo a 390 px (Playwright). Ver `capturas/full-39
 9. **Contenido de relleno**: casos con cifras inventadas (con la nota "pendientes de sustituir…"), precios "de ejemplo", 5 iconos sociales con `href="#"`, "Aviso Legal" y "Condiciones de Contratación" con `href="#"`. Contradice la regla de copy de no fabricar cifras.
 10. **Código**: estilos duplicados en inline (el mismo bloque de estilos del `h2` copiado en 6 componentes), tokens `--space-*` sin usar, regla `.cases-grid` muerta, `JetBrains Mono` cargada sin uso, `hls.js` como dependencia grande.
 11. **Legales**: las páginas estáticas usan otra paleta (azul claro sobre blanco, `Segoe UI`) y no siguen el sistema de diseño; la fecha es "junio de 2025".
+
+---
+
+## 7. Reglas de color de la nueva landing
+
+Decisión **D-J** (29/09/2026). **Sustituye a la regla "el verde es solo para acciones" de la sección 1**, que se queda como diagnóstico de la landing anterior. Los valores no cambian: todos siguen saliendo de `tokens.css`.
+
+| Color | Se usa para | Nunca para |
+|---|---|---|
+| **Verde** (`--green-*`) | **CTAs** (botón primario y su hover/active/glow) · **chips de resultado** (✅ "Cita agendada"…) · **una sola palabra destacada por titular** (la firma visual de la marca) | Eyebrows, guiones de listas, "+/−" del FAQ, enlaces, íconos decorativos, bordes, cifras |
+| **Azul** (`--blue-*`) | **Eyebrows / overlines** · **guiones de listas** · **"+/−" del FAQ** · **enlaces** (texto y subrayado) · **nodos del Método ERVIA** · etiqueta **"Recomendado"** · anillo de foco | Botones primarios (son verdes) |
+| **Blanco / texto fuerte** (`--text-strong`) | Titulares, **cifras** (precios, métricas, números) | Cifras en verde o en azul |
+| **Texto cuerpo / apagado** (`--text-body`, `--text-muted`) | Párrafos y microcopy; el gris `--text-muted` solo a 15 px o más | `--text-faint` para texto (no cumple contraste AA) |
+| **Navy** | Fondos y superficies (`--surface-page`, `--surface-deep`, `--surface-card`) | Texto |
+
+**Consecuencias de implementación**
+
+- **Máximo una palabra en verde por titular.** El énfasis no se reparte: si un H1 y un H2 conviven en pantalla, cada uno tiene la suya. Los titulares de tarjetas (H3) no llevan palabra verde.
+- **El verde es siempre "toca esto" o "esto salió bien".** Un elemento verde que no sea CTA ni chip de resultado es un error.
+- **Foco visible** en azul (`--blue-400`) en todo lo interactivo, incluidos los botones verdes.
+- **Los glows decorativos son azules** (`--glow-blue` / `--blue-500`). El `--glow-green` solo aparece como hover del botón primario.
+- Los degradados `--gradient-duotone` (verde→azul) no se usan en la landing nueva: los números del método son blancos y los nodos, azules.
+- `::selection` usa azul, no verde.
+
+**Cómo se aplica en el código**
+
+| Necesidad | Clase Tailwind (mapeada en `src/app/globals.css`) |
+|---|---|
+| Botón primario | `<Button variant="primary">` → `bg-green-500 text-text-on-green shadow-cta` |
+| Palabra destacada | `<span className="text-green-500">…</span>` (una por titular) |
+| Eyebrow | `<Eyebrow>` → `text-blue-400` |
+| Guión de lista / "+/−" | `text-blue-400` |
+| Enlace | `text-blue-400 underline underline-offset-4 hover:text-blue-300` |
+| Etiqueta "Recomendado" | `bg-surface-blue-tint border-border-blue text-blue-300` |
+| Cifra | `text-text-strong` |
