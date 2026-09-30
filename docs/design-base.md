@@ -261,7 +261,9 @@ Solo hay **transiciones de estado (hover/foco)**, sin animaciones de entrada, si
 
 `--ease-out`: `cubic-bezier(0.22, 1, 0.36, 1)`. `--duration-slow` (350 ms) está definido y no se usa. `html { scroll-behavior: smooth }` para los anclas.
 
-### Fondo del hero: un vídeo, no un canvas
+### Fondo del hero de la landing anterior: un vídeo, no un canvas
+
+> **Solo diagnóstico.** La nueva landing **no** usa este vídeo ni ningún fotograma suyo (ver sección 8).
 
 - Verificado en el DOM renderizado: **0 elementos `<canvas>`, 1 elemento `<video>`**.
 - `<video muted loop playsInline autoPlay>` a pantalla completa (`position: absolute; inset: 0; object-fit: cover; opacity: 0.4`), con `hls.js` (`enableWorker: false`) sobre un stream HLS de Mux: `https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8`. Safari lo reproduce de forma nativa.
@@ -270,7 +272,7 @@ Solo hay **transiciones de estado (hover/foco)**, sin animaciones de entrada, si
 - **Coste**: vídeo de **2880 × 1248**, reproducido en bucle sin parar; el bundle JS pasa a **696 kB (216 kB gzip)**, de los cuales la mayor parte es `hls.js` (CSS: 8 kB). Depende de un CDN de terceros: sin él, el hero queda vacío (no hay `poster` ni fallback).
 - **`prefers-reduced-motion`: no se respeta.** No hay ninguna referencia en el código. Tampoco pausa cuando la pestaña está oculta ni cuando el hero sale de pantalla.
 
-Si se quiere conservar el efecto en la nueva landing, el equivalente ligero es un `<canvas>` o CSS/SVG propio, con `prefers-reduced-motion`, pausa fuera de pantalla y sin dependencia externa.
+En la nueva landing este efecto **no se conserva**: el fondo del hero se resuelve con recursos propios de la marca (sección 8).
 
 ---
 
@@ -324,3 +326,24 @@ Decisión **D-J** (29/09/2026). **Sustituye a la regla "el verde es solo para ac
 | Enlace | `text-blue-400 underline underline-offset-4 hover:text-blue-300` |
 | Etiqueta "Recomendado" | `bg-surface-blue-tint border-border-blue text-blue-300` |
 | Cifra | `text-text-strong` |
+
+---
+
+## 8. Fondo del hero de la nueva landing
+
+**Decisión D-I, revisada por derechos de uso (30/09/2026).** La versión original de D-I preveía un fotograma del vídeo de la landing anterior en WebP/AVIF. Ese vídeo no es propiedad de ERVIA, así que **el hero no usa vídeo ni ningún fotograma suyo**, y no hay imágenes de fondo.
+
+| Regla | Detalle |
+|---|---|
+| Recursos permitidos | Solo los de la marca: fondo navy, glows, degradado dúo (`--gradient-duotone`) y, como máximo, una textura sutil de puntos o nodos inspirada en el isotipo |
+| Cómo se dibuja | CSS y SVG en línea. **Sin imágenes, sin vídeo y sin JavaScript** (`src/components/sections/hero-background.tsx`) |
+| Movimiento | Ninguno: el fondo es estático, así que `prefers-reduced-motion` se cumple por diseño. El movimiento del hero lo aporta el mockup de WhatsApp |
+| Contraste del texto | Velo diagonal navy (`rgb(15 23 42)` al 92 % → 35 %) y fundido inferior a `--navy-900`. Medido en el peor píxel de fondo: titular y cuerpo ≥ 9,8:1; gris atenuado (`--text-muted`) ≥ 4,6:1 |
+| Coste | 0 bytes de imagen; el peso anterior (vídeo de 2880 × 1248 + `hls.js`, 216 kB gzip) desaparece |
+
+**Variantes propuestas** (componente `<HeroBackground variant="…" />`, capturas en `docs/design-base/capturas/d2-hero-*`):
+
+- **`aurora`** (por defecto): glow azul, mancha difuminada con el degradado dúo abajo a la derecha y un segundo destello azul. Sin trazos.
+- **`nodes`**: glow azul contenido, malla de puntos muy sutil (CSS) que se desvanece hacia la izquierda con una máscara radial, e isotipo fantasma a gran tamaño con el degradado dúo al 17 % de opacidad.
+
+La elección final se anota aquí cuando esté decidida. El verde del degradado dúo es decorativo y muy tenue; conviene revisar en G2 si compite con el mockup del hero (regla de color de la sección 7).
