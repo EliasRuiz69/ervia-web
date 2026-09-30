@@ -4,7 +4,8 @@ import { MapPin } from "lucide-react";
 import { Logo } from "@/components/brand/logo";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Container } from "./container";
-import { LEGAL_LINKS, SITE, SOCIAL_LINKS } from "@/config/site";
+import { LEGAL_LINKS, SITE, SOCIAL_LINKS, WHATSAPP_ENABLED } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 const footerLink =
   "inline-flex min-h-11 items-center text-[15px] text-text-body transition-colors duration-(--duration-fast) ease-out hover:text-text-strong";
@@ -62,7 +63,14 @@ export function Footer() {
         )}
       </Container>
 
-      <Container className="mt-14 border-t border-border-subtle py-6">
+      {/* En móvil, con WhatsApp activo, deja sitio bajo la última línea para que el botón flotante
+          (56 px + 16 px de margen) nunca tape los enlaces legales ni el © */}
+      <Container
+        className={cn(
+          "mt-14 border-t border-border-subtle py-6",
+          WHATSAPP_ENABLED && "pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-6",
+        )}
+      >
         <p className="text-[14px] text-text-muted">
           © {year} {SITE.name}. Todos los derechos reservados.
         </p>
