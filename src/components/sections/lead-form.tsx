@@ -7,14 +7,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { SITE, WHATSAPP_ENABLED, whatsappUrl } from "@/config/site";
-import {
-  GIROS,
-  HONEYPOT_FIELD,
-  LIMITS,
-  fieldErrors,
-  leadSchema,
-  type LeadField,
-} from "@/lib/lead";
+import { GIROS, HONEYPOT_FIELD, LIMITS } from "@/lib/lead-shared";
+import type { LeadField } from "@/lib/lead";
 import { cn } from "@/lib/utils";
 
 /** Orden de los campos en pantalla (para enfocar el primero con error). */
@@ -22,6 +16,11 @@ const FIELD_ORDER: ReadonlyArray<LeadField> = ["nombre", "contacto", "giro", "me
 
 type Values = Record<LeadField, string> & { [HONEYPOT_FIELD]: string };
 type Status = "idle" | "sending" | "success" | "error";
+
+/** Carga diferida del esquema (y de zod): se precarga al enfocar el formulario y se reutiliza al enviar. */
+type LeadModule = typeof import("@/lib/lead");
+let leadModule: Promise<LeadModule> | undefined;
+const loadLead = () => (leadModule ??= import("@/lib/lead"));
 
 const EMPTY: Values = { nombre: "", contacto: "", giro: "", mensaje: "", [HONEYPOT_FIELD]: "" };
 
@@ -63,6 +62,18 @@ export function LeadForm() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "sending") return;
+
+    // zod (≈100 kB comprimidos) no va en la carga inicial: se importa aquí, o antes al enfocar el formulario.
+    let lead: LeadModule;
+    try {
+      lead = await loadLead();
+    } catch {
+      leadModule = undefined; // permite reintentar la carga en el siguiente envío
+      setErrorKind("generic");
+      setStatus("error");
+      return;
+    }
+    const { leadSchema, fieldErrors } = lead;
 
     const result = leadSchema.safeParse(values);
     if (!result.success) {
@@ -129,6 +140,7 @@ export function LeadForm() {
   return (
     <form
       onSubmit={onSubmit}
+      onFocusCapture={() => void loadLead().catch(() => (leadModule = undefined))}
       noValidate
       aria-busy={sending}
       className="relative flex flex-col gap-5 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card md:p-9"

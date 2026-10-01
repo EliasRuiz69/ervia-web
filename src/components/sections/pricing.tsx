@@ -81,7 +81,8 @@ function PlanCard({ plan }: { plan: Plan }) {
       className={cn(
         "relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8",
         recommended
-          ? "border-border-blue bg-surface-deep shadow-glow-blue"
+          ? // scroll-initial-target: el carrusel arranca en esta tarjeta (el script de respaldo cubre Safari/Firefox)
+            "border-border-blue bg-surface-deep shadow-glow-blue [scroll-initial-target:nearest]"
           : "border-border-subtle bg-surface-card",
       )}
     >

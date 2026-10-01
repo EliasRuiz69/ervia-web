@@ -22,11 +22,13 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-// La cursiva (texto "Cómo lo logramos", G3) NO se precarga: así no compite con el H1 por el ancho de banda (LCP).
+// La cursiva (texto "Cómo lo logramos", G3, y las cursivas de los textos legales) NO se precarga: así no compite con el
+// H1 por el ancho de banda (LCP). Va como instancia estática 400 SIN el eje opsz (78 kB → ≈20 kB): solo se usa a 15–16 px,
+// donde el tamaño óptico automático coincide con el valor por defecto, así que el aspecto es el mismo.
 const dmSansItalic = DM_Sans({
   subsets: ["latin"],
   style: "italic",
-  axes: ["opsz"],
+  weight: "400",
   display: "swap",
   preload: false,
   variable: "--font-dm-sans-italic",

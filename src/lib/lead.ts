@@ -1,6 +1,10 @@
 import { z } from "zod";
 
 import { IS_STAGING } from "@/lib/env";
+import { GIROS, HONEYPOT_FIELD, LIMITS } from "@/lib/lead-shared";
+
+// Se reexportan para que el servidor (y el código existente) sigan importando todo desde "@/lib/lead".
+export { GIROS, HONEYPOT_FIELD, LIMITS };
 
 // Sin JIT: zod comprueba si puede usar `new Function`, y con una CSP sin 'unsafe-eval' el navegador registra
 // esa prueba como violación aunque zod la capture. Con jitless no hay prueba ni violación (y a este volumen
@@ -12,19 +16,6 @@ z.config({ jitless: true });
  * (/api/lead). Así los dos aplican exactamente las mismas reglas y mensajes.
  */
 
-/** Opciones del select "Giro del negocio". El valor enviado a n8n es el propio texto. */
-export const GIROS = [
-  "Taller o refaccionaria",
-  "Consultorio o clínica",
-  "Restaurante",
-  "Negocio de servicios",
-  "Otro",
-] as const;
-
-/** Nombre del campo señuelo (honeypot). Oculto para personas; los bots suelen rellenarlo. */
-export const HONEYPOT_FIELD = "sitio_web";
-
-export const LIMITS = { nombre: 80, contacto: 120, mensaje: 1000 } as const;
 
 export type ContactoParseado =
   | { tipoContacto: "email"; whatsapp10: null }
