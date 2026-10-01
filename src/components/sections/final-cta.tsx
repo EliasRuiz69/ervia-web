@@ -1,6 +1,7 @@
 import { Section } from "@/components/layout/section";
 import { LeadForm } from "@/components/sections/lead-form";
 import { Button } from "@/components/ui/button";
+import { Brand } from "@/components/ui/brand";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { WHATSAPP_ENABLED, whatsappUrl } from "@/config/site";
@@ -14,7 +15,8 @@ export function FinalCta() {
   return (
     <Section id="contacto" deep aria-labelledby="contacto-titulo">
       <SectionHeading id="contacto-titulo">
-        Empieza por el paso&nbsp;1: <Accent>descubre</Accent> dónde estás perdiendo tiempo y clientes.
+        Empieza por el paso&nbsp;1 del Método&nbsp;<Brand />: <Accent>descubre</Accent> dónde estás perdiendo tiempo y
+        clientes.
       </SectionHeading>
       <p className="mt-5 max-w-[600px] text-[19px] leading-[1.6]">15 minutos. Gratis. Sin compromiso.</p>
 

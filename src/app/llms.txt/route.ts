@@ -1,6 +1,7 @@
 import { SEO, SITE, WHATSAPP_ENABLED, WHATSAPP_NUMBER } from "@/config/site";
 import { FAQ_ITEMS } from "@/content/faq";
 import { METHOD_STEPS } from "@/content/method-steps";
+import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
 
 /**
  * /llms.txt (llmstxt.org, GEO): resumen de ERVIA para asistentes de IA. Se genera en el build con las mismas
@@ -30,6 +31,7 @@ function build(): string {
     ),
     "",
     "Precios: Detectar es gratis. Automatizar y Escalar se cotizan tras el diagnóstico gratuito.",
+    `Escalar: ${ESCALAR_ALL_INCLUDED}`,
     "",
     "## Preguntas frecuentes",
     "",

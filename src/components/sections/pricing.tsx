@@ -5,6 +5,7 @@ import { PricingCarousel } from "@/components/sections/pricing-carousel";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
+import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { WHATSAPP_ENABLED, whatsappPlanUrl, type PlanId } from "@/config/site";
 import { carouselStartScript } from "@/lib/carousel-start-script";
@@ -60,6 +61,7 @@ const PLANS: ReadonlyArray<Plan> = [
     step: 3,
     name: "Escalar",
     includes: [
+      ESCALAR_ALL_INCLUDED,
       "Servidor propio y mantenimiento",
       "Ajustes continuos",
       "Un resumen mensual de mensajes atendidos y citas agendadas",
