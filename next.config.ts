@@ -47,6 +47,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Build con poca memoria: por defecto Next usa un worker por núcleo y genera varias páginas a la vez. Con ~6 GB de RAM
+  // (y en un VPS pequeño de Dokploy) eso provocó cierres intermitentes durante "Generating static pages" (heap OOM,
+  // worker caído). Son solo 13 rutas: 2 workers y 2 páginas a la vez cuestan segundos y reducen el pico de memoria.
+  experimental: { cpus: 2, staticGenerationMaxConcurrency: 2 },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

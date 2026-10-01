@@ -70,3 +70,12 @@ fs.writeFileSync(path.join(ROOT, "src/app/apple-icon.png"), apple);
 console.log("icon.svg", fs.statSync(path.join(ROOT, "src/app/icon.svg")).size, "B");
 console.log("favicon.ico", fs.statSync(path.join(ROOT, "src/app/favicon.ico")).size, "B", sizes.join("/"));
 console.log("apple-icon.png", apple.length, "B 180x180");
+
+// --- Logo horizontal en PNG para la imagen de Open Graph (src/app/opengraph-image.tsx).
+// Se rasteriza AQUÍ, una vez, y se versiona: así el build no tiene que rasterizar SVG (una vez falló con
+// "svgload_buffer: SVG rendering failed" al hacerlo dentro de `next build`). Alto 208 px = 4x el de 52 px del OG.
+const logoSvg = fs.readFileSync(path.join(ROOT, "public/brand/ervia-logo-horizontal-on-dark.svg"));
+const logoPng = await sharp(logoSvg, { density: 384 }).resize({ height: 208 }).png().toBuffer();
+fs.mkdirSync(path.join(ROOT, "src/assets"), { recursive: true });
+fs.writeFileSync(path.join(ROOT, "src/assets/ervia-logo-og.png"), logoPng);
+console.log("src/assets/ervia-logo-og.png", logoPng.length, "B");

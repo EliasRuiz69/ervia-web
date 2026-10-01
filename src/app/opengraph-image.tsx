@@ -37,14 +37,16 @@ const fontFile = (pkg: string, file: string) =>
   readFile(path.join(process.cwd(), "node_modules", "@fontsource", pkg, "files", file));
 
 export default async function Image() {
-  const [baloo, dmSans, logoSvg] = await Promise.all([
+  // El logo va como PNG (src/assets/ervia-logo-og.png, generado con `pnpm brand:icons` a partir del SVG): así el
+  // build no rasteriza SVG, que una vez falló de forma intermitente ("svgload_buffer: SVG rendering failed").
+  const [baloo, dmSans, logoPng] = await Promise.all([
     fontFile("baloo-2", "baloo-2-latin-700-normal.woff"),
     fontFile("dm-sans", "dm-sans-latin-600-normal.woff"),
-    readFile(path.join(process.cwd(), "public", "brand", "ervia-logo-horizontal-on-dark.svg")),
+    readFile(path.join(process.cwd(), "src", "assets", "ervia-logo-og.png")),
   ]);
-  const logoSrc = `data:image/svg+xml;base64,${logoSvg.toString("base64")}`;
+  const logoSrc = `data:image/png;base64,${logoPng.toString("base64")}`;
   const logoHeight = 52;
-  const logoWidth = Math.round((logoHeight * 849.75) / 217.12);
+  const logoWidth = Math.round((logoHeight * 814) / 208); // proporción del PNG (814×208)
 
   return new ImageResponse(
     (
