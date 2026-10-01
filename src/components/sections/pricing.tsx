@@ -62,8 +62,6 @@ const PLANS: ReadonlyArray<Plan> = [
     name: "Escalar",
     includes: [
       ESCALAR_ALL_INCLUDED,
-      "Servidor propio y mantenimiento",
-      "Ajustes continuos",
       "Un resumen mensual de mensajes atendidos y citas agendadas",
       "Nuevas automatizaciones cuando tenga sentido",
     ],
