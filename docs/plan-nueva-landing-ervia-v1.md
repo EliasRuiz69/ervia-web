@@ -107,7 +107,7 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 
 **Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
 
-**Estado a esta fecha:** G7 🟡 (construida; pendiente commit) · G6 ✅ (`72ddf20`, `19c24f2`, `6c9503c`, `e6ef267`, `3ff64f4` + legales) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+**Estado a esta fecha:** G8 🟡 (QA hecha; pendientes ajustes y commits) · G7 ✅ (`d111b00`…`4918eda`) · G6 ✅ (`72ddf20`, `19c24f2`, `6c9503c`, `e6ef267`, `3ff64f4` + legales) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
 
 **Decisión leads (D-H, 30/09):** aviso por **Telegram** + registro en Google Sheet "Leads ERVIA". El workflow de n8n se crea con Claude Code **en el proyecto de Antigravity que tiene el MCP de n8n**, tomando como base un workflow de Telegram que Elias ya tiene (ver G6-bis).
 
@@ -518,6 +518,8 @@ Sube el trabajo: crea el repo en GitHub [ervia-tech/ervia-web] (privado), haz pu
 - Cloudflare → **Speed → Optimization → Rocket Loader: desactivado** (reescribe los scripts y rompería la CSP por hashes).
 - Tras el primer despliegue, comprueba la cabecera: `curl.exe -sI https://test.ervia.tech | findstr /i "content-security-policy"` debe mostrar varios `sha256-` y ningún marcador sin sustituir.
 
+- **Memoria del VPS para compilar (G8):** el build de Next necesita ~1,5–2 GB libres. Antes del primer despliegue, en el VPS: `free -h`. Si la columna "available" baja de 2 GB, añade en Dokploy → Environment de la app `NODE_OPTIONS=--max-old-space-size=1536` y despliega fuera de horas de uso de n8n/Chatwoot. Vigila los logs del build: un "heap out of memory" significa que hay que liberar memoria antes de reintentar.
+
 **E2. Primer despliegue sin dominio.** Pulsa Deploy y revisa los logs hasta ver el arranque de Next.js en el puerto 3000. Sin dominio todavía.
 
 **E3. DNS en gris durante la emisión del certificado.** Cloudflare → DNS → registro `test` → confirma que apunta a `[IP_VPS_LANDING]` y cámbialo a **DNS only (nube gris)**. Espera 1–2 minutos y verifica desde PowerShell:
@@ -549,6 +551,8 @@ curl.exe -sI https://[HOST_VAKDEVI]   # 200 (Vak Devi intacto)
 2. Revisa los logs de Traefik (comando de E5) y comprueba que el DNS está en gris y apunta al VPS.
 3. Elimina el dominio en Dokploy, verifica con `grep` que desapareció y vuelve a añadirlo **una sola vez**.
 4. Solo como último recurso: Dokploy → Settings → Traefik → **Reload**. Afecta unos segundos a todas las webs del VPS: hazlo en horario de poco tráfico y verifica Vak Devi después.
+
+**E7. Rendimiento real en móvil (pendiente de la G8):** con staging en marcha, mide `https://test.ervia.tech` en https://pagespeed.web.dev (pestaña Móvil), 2–3 veces. Si Performance ≥ 85 y LCP ≤ 2,5 s, se da por bueno. Si no, se decide entre quitar el eje `opsz` de DM Sans o hidratar más tarde el mockup y el formulario, como mejora posterior al lanzamiento (no bloquea el corte).
 
 ✅ **Criterio:** `test.ervia.tech` sirve la nueva app con certificado válido, un único `.yml` la declara y Vak Devi responde 200. **Anota cualquier desviación:** el Bloque F repite exactamente estos pasos con el dominio principal.
 
