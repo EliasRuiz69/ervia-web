@@ -134,7 +134,7 @@ export function ConversationView({ conversation: c }: { conversation: Conversati
                 <span
                   className={cn(
                     "ml-2 inline-block translate-y-[3px] text-[13px] leading-none whitespace-nowrap",
-                    agent ? "text-text-muted" : "text-white/75",
+                    agent ? "text-text-muted" : "text-white/90",
                   )}
                 >
                   {m.time}

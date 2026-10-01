@@ -93,7 +93,7 @@ const components: Components = {
     );
   },
   blockquote: ({ children }) => (
-    <blockquote className="my-6 rounded-lg border border-border-blue bg-surface-blue-tint px-5 py-4 [&>p]:mb-0 [&>p+p]:mt-3">
+    <blockquote className="my-6 rounded-lg border border-border-blue bg-surface-blue-tint px-5 py-4 [&>p]:mb-0 [&>p+p]:mt-3 [&_a]:text-blue-300">
       {children}
     </blockquote>
   ),
@@ -126,7 +126,7 @@ export function LegalDocument({ doc }: { doc: LegalDoc }) {
           <h1 className="mt-4 text-[clamp(34px,5vw,52px)] leading-[1.1] tracking-tight">{doc.title}</h1>
           <p className="mt-4 text-[16px] text-text-muted">{doc.updated}</p>
 
-          <div className="mt-8 rounded-lg border border-border-blue bg-surface-blue-tint px-5 py-4 text-[17px] leading-[1.7] text-text-body md:text-[18px] [&_p]:m-0">
+          <div className="mt-8 rounded-lg border border-border-blue bg-surface-blue-tint px-5 py-4 text-[17px] leading-[1.7] text-text-body md:text-[18px] [&_p]:m-0 [&_a]:text-blue-300">
             <Markdown remarkPlugins={[remarkGfm]} components={components}>
               {doc.intro}
             </Markdown>
