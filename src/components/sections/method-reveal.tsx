@@ -23,7 +23,8 @@ export function MethodReveal({ className, children }: React.ComponentProps<"div"
           observer.disconnect();
         }
       },
-      { threshold: 0.25 },
+      // 10 %: en móvil el diagrama es muy alto (≈2.400 px) y con 25 % no empezaba a dibujarse hasta bien entrado.
+      { threshold: 0.1 },
     );
     observer.observe(el);
     return () => observer.disconnect();
