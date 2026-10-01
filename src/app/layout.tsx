@@ -3,7 +3,7 @@ import { Baloo_2, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { SITE } from "@/config/site";
+import { SEO, SITE } from "@/config/site";
 import { IS_STAGING } from "@/lib/env";
 
 // next/font descarga y aloja las fuentes en el build: sin peticiones a Google en el navegador.
@@ -32,16 +32,39 @@ const dmSansItalic = DM_Sans({
   variable: "--font-dm-sans-italic",
 });
 
+/**
+ * Metadatos base (auditoría 4.12 y 6). El canonical y la URL de Open Graph NO van aquí: se heredarían a
+ * todas las páginas; cada página define los suyos (home en page.tsx, legales en su propio archivo).
+ * La imagen de Open Graph y la de Twitter salen de src/app/opengraph-image.tsx y twitter-image.tsx.
+ */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — ${SITE.tagline} | Mérida`,
+    default: SEO.title,
     template: `%s | ${SITE.name}`,
   },
-  description:
-    "ERVIA automatiza con IA los procesos y la atención al cliente de pymes en México. Hecho en Mérida.",
-  // Staging: <meta name="robots" content="noindex,nofollow"> en todas las páginas.
-  other: IS_STAGING ? { robots: "noindex,nofollow" } : undefined,
+  description: SEO.description,
+  applicationName: SITE.name,
+  openGraph: {
+    type: "website",
+    locale: "es_MX",
+    siteName: SITE.name,
+    title: SEO.title,
+    description: SEO.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SEO.title,
+    description: SEO.description,
+  },
+  // Staging: noindex,nofollow en todas las páginas. Producción: indexable, con vistas previas amplias.
+  robots: IS_STAGING
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
+      },
 };
 
 export const viewport: Viewport = {

@@ -10,6 +10,21 @@ export const SITE = {
   tagline: "Automatización con IA para pymes",
 } as const;
 
+/** Textos de SEO (auditoría 4.12): título y descripción de la home y de las vistas previas al compartir. */
+export const SEO = {
+  title: "Automatiza tu WhatsApp y tu agenda con IA | Método ERVIA · Mérida",
+  description:
+    "Tu WhatsApp atiende, cotiza y agenda citas solo, las 24 horas. Con el Método ERVIA detectamos, automatizamos y escalamos tu negocio en menos de 4 semanas. Diagnóstico gratis.",
+  /** Teléfono en formato internacional para datos estructurados (es el mismo número de WhatsApp, D4). */
+  telephone: "+529992498890",
+  /**
+   * Frase autocontenida que define el Método ERVIA (auditoría 6, GEO). Se muestra en la sección del método
+   * y alimenta la descripción del HowTo y el llms.txt: debe ser idéntica en los tres sitios.
+   */
+  methodDefinition:
+    "El Método ERVIA es un proceso de tres pasos (Detectar, Automatizar y Escalar) para que las pymes automaticen su atención por WhatsApp y su agenda en menos de 4 semanas.",
+} as const;
+
 /**
  * Enlaces de ancla de la cabecera (auditoría 7.1).
  * "Caso real" (#caso-real) NO está: se añadirá en la v2 junto con la sección CaseStudy.
