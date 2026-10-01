@@ -107,7 +107,7 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 
 **Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
 
-**Estado a esta fecha:** G6 🟡 (construida y probada; pendiente commit y Política de Privacidad) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+**Estado a esta fecha:** G7 🟡 (construida; pendiente commit) · G6 ✅ (`72ddf20`, `19c24f2`, `6c9503c`, `e6ef267`, `3ff64f4` + legales) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
 
 **Decisión leads (D-H, 30/09):** aviso por **Telegram** + registro en Google Sheet "Leads ERVIA". El workflow de n8n se crea con Claude Code **en el proyecto de Antigravity que tiene el MCP de n8n**, tomando como base un workflow de Telegram que Elias ya tiene (ver G6-bis).
 
@@ -512,6 +512,11 @@ Sube el trabajo: crea el repo en GitHub [ervia-tech/ervia-web] (privado), haz pu
 - Build Type: **Railpack** (el mismo que usas en Full Motor).
 - Environment: `NEXT_PUBLIC_SITE_ENV=staging` (y más adelante las del formulario).
 - Auto Deploy: **activado** (cada push a develop actualiza staging).
+
+**E1-bis. Comprobaciones previas por la CSP (G7):**
+- En Dokploy, el build debe ejecutar el script `build` de `package.json` (`next build && node scripts/csp-hashes.mjs`). Railpack lo hace por defecto; no pongas un comando de build personalizado con `next build` a secas.
+- Cloudflare → **Speed → Optimization → Rocket Loader: desactivado** (reescribe los scripts y rompería la CSP por hashes).
+- Tras el primer despliegue, comprueba la cabecera: `curl.exe -sI https://test.ervia.tech | findstr /i "content-security-policy"` debe mostrar varios `sha256-` y ningún marcador sin sustituir.
 
 **E2. Primer despliegue sin dominio.** Pulsa Deploy y revisa los logs hasta ver el arranque de Next.js en el puerto 3000. Sin dominio todavía.
 
