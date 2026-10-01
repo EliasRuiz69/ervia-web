@@ -2,6 +2,11 @@ import { z } from "zod";
 
 import { IS_STAGING } from "@/lib/env";
 
+// Sin JIT: zod comprueba si puede usar `new Function`, y con una CSP sin 'unsafe-eval' el navegador registra
+// esa prueba como violación aunque zod la capture. Con jitless no hay prueba ni violación (y a este volumen
+// de datos —un formulario— el JIT no aporta nada).
+z.config({ jitless: true });
+
 /**
  * Esquema ÚNICO del formulario de contacto: lo usan el navegador (validación al enviar) y el servidor
  * (/api/lead). Así los dos aplican exactamente las mismas reglas y mensajes.
