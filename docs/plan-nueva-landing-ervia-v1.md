@@ -107,7 +107,9 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 
 **Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
 
-**Estado a esta fecha:** G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+**Estado a esta fecha:** G6 🟡 (construida y probada; pendiente commit y Política de Privacidad) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+
+**Decisión leads (D-H, 30/09):** aviso por **Telegram** + registro en Google Sheet "Leads ERVIA". El workflow de n8n se crea con Claude Code **en el proyecto de Antigravity que tiene el MCP de n8n**, tomando como base un workflow de Telegram que Elias ya tiene (ver G6-bis).
 
 **Decisión WhatsApp (30/09):** `WHATSAPP_ENABLED = true` desde la G1. El número 999 249 8890 sigue hoy con su webhook actual en YCloud; Elias creará el workflow del agente de ERVIA y cambiará el webhook antes de publicar. La comprobación de la sección 0.2 pasa a ser un **requisito previo del Bloque F** (ver F0).
 
@@ -556,6 +558,8 @@ curl.exe -sI https://[HOST_VAKDEVI]   # 200 (Vak Devi intacto)
 - [ ] **Correo de prueba a `info@ervia.tech`** desde otra cuenta: debe llegar a tu buzón de Google Workspace. Si no llega, crea `info@` como alias de `admin@ervia.tech` en la consola de Workspace.
 - [ ] **Staging validado** (Bloque E completo) y PR de `develop` a `main` fusionada (H1–H2).
 
+**Microcopy del CTA final:** "Respuesta inmediata, incluso fuera de horario" solo es cierto si el agente de ERVIA responde automáticamente. Si al publicar contestas tú a mano, pide a Claude Code cambiarlo por "Te respondemos lo antes posible".
+
 **Texto del CTA:** si el agente de ERVIA ya responde automáticamente en el número, puedes pedir a Claude Code que el CTA del hero pase de "Escríbenos por WhatsApp" a "Pruébalo en WhatsApp ahora" (sección 3.4 de la auditoría). Si contestas tú a mano, se queda como está.
 
 **F1. App de producción sin dominio.** En el proyecto `ERVIA Web`, crea la Application `ervia-web`: mismo repo, rama **`main`**, Railpack, `NEXT_PUBLIC_SITE_ENV=production`, **Auto Deploy desactivado** (producción se despliega a mano). Despliega y verifica en los logs que arranca.
@@ -677,24 +681,67 @@ Implementa 4.7 y 4.8 de la auditoría v2:
 1. FAQ (4.10): 7 preguntas: las 7 primeras de 4.10 con sus respuestas; la n.º 1 SIN mencionar "Mapa de Fugas" y la n.º 2 ("¿Cuánto cuesta?") coherente con precios sin cifras ("Depende de lo que automaticemos; te damos una cotización clara tras el diagnóstico gratuito"). La n.º 8 (plazos y factura) queda para la v2. Acordeón accesible (button type="button", aria-expanded, aria-controls).
 2. CTA final (4.11): H2, subtítulo "15 minutos. Gratis. Sin compromiso." (sin promesa del Mapa de Fugas en la v1), dos columnas: WhatsApp grande | formulario (Nombre · Correo o WhatsApp · Giro del negocio [select] · "¿Qué te quita más tiempo hoy?"). (Sin enlace de agenda en la v1. Si WHATSAPP_ENABLED es false, la columna de WhatsApp no se muestra y el formulario ocupa el centro.)
 3. Formulario: <form> real, labels visibles, validación en cliente y servidor con zod, errores junto al campo, estado "Enviando…", mensajes de éxito ("Listo, {nombre}. Te escribimos hoy mismo para agendar tu diagnóstico.") y de error con alternativa de WhatsApp. Campo honeypot oculto contra bots.
-4. Route Handler POST /api/lead (única ruta dinámica): valida con zod, descarta si el honeypot viene lleno, limita a 5 envíos por IP cada 10 minutos (en memoria es suficiente: una sola instancia) y reenvía al webhook de n8n leyendo LEAD_WEBHOOK_URL y LEAD_WEBHOOK_SECRET del entorno, con la cabecera "X-ERVIA-Secret". La URL del webhook NUNCA llega al navegador. Responde {ok:true} o un error genérico, sin filtrar detalles internos.
+4. Route Handler POST /api/lead (única ruta dinámica): valida con zod, descarta si el honeypot viene lleno, limita a 5 envíos por IP cada 10 minutos (en memoria es suficiente: una sola instancia) y reenvía al webhook de n8n leyendo LEAD_WEBHOOK_URL y LEAD_WEBHOOK_SECRET del entorno, con la cabecera "X-ERVIA-Secret". La URL del webhook NUNCA llega al navegador. Cuerpo JSON que se envía a n8n (CONTRATO: no lo cambies sin avisarme, el workflow de n8n depende de él):
+   {"nombre": string, "contacto": string (tal como lo escribió el usuario), "tipoContacto": "email" | "whatsapp", "whatsapp10": string | null (10 dígitos si es WhatsApp, sin +52), "giro": string, "mensaje": string, "origen": "web-contacto", "enviadoEn": ISO 8601 UTC}
+   Timeout de 8 s al llamar a n8n. Si n8n no responde 2xx, el usuario ve el mensaje de error con la alternativa de WhatsApp. Responde {ok:true} o un error genérico, sin filtrar detalles internos.
 5. Documenta LEAD_WEBHOOK_URL y LEAD_WEBHOOK_SECRET en .env.example (sin valores).
 6. Ejecuta la revisión de security-guidance sobre el formulario y /api/lead y dime qué encontró.
 7. Prueba E2E con Playwright contra un webhook simulado en local (sin llamar a n8n real).
+8. Política de Privacidad: propón (sin aplicar) los cambios mínimos para que refleje el formulario nuevo: qué datos se recogen (nombre, correo o WhatsApp, giro, mensaje), para qué (contactar y agendar el diagnóstico), y quién los trata como encargado (servidor propio de ERVIA con n8n, Google Workspace/Google Sheets y Telegram (aviso interno)). Muéstrame el diff y espera mi aprobación.
+9. Con #contacto ya construido, comprueba en móvil que el botón flotante de WhatsApp se oculta sobre el formulario y reaparece al salir.
 ```
 
-**G6-bis. Workflow de leads en n8n [CC, con el MCP de n8n]** (según D-H):
+**G6-bis. Workflow de leads en n8n [CC en el proyecto de Antigravity con el MCP de n8n]**
+
+> Se ejecuta en **otra sesión de Claude Code**: la del proyecto de Antigravity que tiene conectado el MCP de n8n, no en `ervia-web`. Toma como base tu workflow de Telegram existente, sin modificarlo.
+
+**Preparación [TÚ] (10 min):**
+1. **Hoja de cálculo:** en Google Drive (cuenta de la credencial de Google Sheets de ese n8n), crea la hoja **"Leads ERVIA"** con una pestaña **"Leads"** y esta fila 1 de encabezados, en este orden:
+   `fecha_local | nombre | contacto | tipo_contacto | whatsapp10 | giro | mensaje | origen | estado`
+2. **Secreto del webhook:** genéralo en PowerShell y guárdalo en tu gestor de contraseñas (no lo pegues en ningún chat):
+   ```powershell
+   $b = New-Object byte[] 32; [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b); ($b | ForEach-Object { $_.ToString("x2") }) -join ""
+   ```
+3. Ten a mano el **nombre exacto de tu workflow de Telegram base** y la **instancia de n8n** donde está (n8n.ervia.tech o n8nlab.ervia.tech).
+
+**Prompt [CC] (en la sesión del proyecto de Antigravity con MCP de n8n):**
 ```
-Usa el MCP de n8n (instancia ERVIA LAB). REGLAS: crea un workflow NUEVO; no modifiques ningún workflow existente; déjalo INACTIVO hasta que yo lo active.
-Workflow "ERVIA Web - Leads":
-1. Webhook POST con autenticación Header Auth (cabecera X-ERVIA-Secret; crea la credencial "ERVIA Web Leads" y dime dónde pego el secreto: yo lo genero y lo introduzco en n8n y en Dokploy).
-2. Normaliza los campos (nombre, contacto, tipo de contacto: email o whatsapp, giro, mensaje, página de origen, fecha America/Mexico_City).
-3. Añade una fila a la Google Sheet "[Leads ERVIA]" con la credencial "Google Sheets ERVIA LAB".
-4. Aviso inmediato a [Telegram / correo vía la credencial Resend existente] con el resumen del lead.
-5. Responde 200 {ok:true}.
-Dame la URL de producción del webhook para configurarla en Dokploy (LEAD_WEBHOOK_URL) y confirma que el workflow sigue inactivo.
+Usa el MCP de n8n (instancia [n8n.ervia.tech / n8nlab.ervia.tech]).
+REGLAS: crea un workflow NUEVO; NO modifiques el workflow base ni ningún otro; déjalo INACTIVO hasta que yo lo active; no envíes datos de prueba a la hoja real sin avisarme.
+
+Base: lee el workflow "[NOMBRE DEL WORKFLOW DE TELEGRAM BASE]" y reutiliza SOLO su credencial de Telegram y su chat_id de destino. Dime cuáles son antes de usarlos.
+
+Crea el workflow "ERVIA Web - Leads" con estos nodos:
+1. Webhook — POST, path "ervia-web-leads", Authentication: Header Auth con una credencial NUEVA "ERVIA Web Leads" (Name: X-ERVIA-Secret; el Value lo pego yo en n8n). Respond: "Using 'Respond to Webhook' node".
+2. Code "Validar y normalizar" — entrada con este contrato:
+   {"nombre","contacto","tipoContacto":"email"|"whatsapp","whatsapp10": string|null,"giro","mensaje","origen","enviadoEn" (ISO UTC)}
+   Valida que nombre, contacto, tipoContacto y giro existan y no estén vacíos, y recorta cada texto a 1.000 caracteres. Salida: fecha_local (enviadoEn convertida a America/Merida, formato "YYYY-MM-DD HH:mm"), nombre, contacto, tipo_contacto, whatsapp10, giro, mensaje, origen, estado = "nuevo", y un campo valido (true/false).
+3. IF "¿Válido?" — valido = true.
+   - Rama falsa → Respond to Webhook 400 {"ok": false}.
+4. Google Sheets "Guardar lead" — Append Row en la hoja "Leads ERVIA", pestaña "Leads", mapeando cada columna por su nombre. Options: "Value Input Mode" = RAW (para que un texto como "=SUMA(1)" se guarde como texto y no como fórmula). Settings: "On Error: Continue (using error output)" para que un fallo de la hoja no impida el aviso.
+5. Telegram "Aviso lead" — Send Message al chat_id del workflow base, con parse_mode HTML y TODO el texto del usuario escapado (&, <, >). Contenido:
+   🟢 <b>Nuevo lead — ervia.tech</b>  (si origen termina en "-staging", empieza el mensaje con "🧪 [STAGING]" y NO guardes en la hoja: solo avisa)
+   👤 {nombre}
+   🏪 {giro}
+   📞 {contacto}  → si tipo_contacto = whatsapp, añade el enlace https://wa.me/52{whatsapp10}; si es email, el enlace mailto:
+   💬 {mensaje}
+   🕒 {fecha_local}
+   ⚠️ Si el nodo de Google Sheets falló, añade la línea "No se pudo guardar en la hoja".
+6. Respond to Webhook "OK" — 200 {"ok": true}.
+
+Después:
+- Prueba con la URL de TEST del webhook: envía con curl un lead de prueba con nombre "PRUEBA — borrar" (cabecera X-ERVIA-Secret con un valor que yo te pase en ese momento, o pídemelo), y otro inválido (sin nombre) que debe devolver 400. Confirma la fila en la hoja y el mensaje en Telegram; luego dime que borre yo la fila de prueba.
+- Dame la URL de PRODUCCIÓN del webhook (para LEAD_WEBHOOK_URL) y confirma que el workflow sigue INACTIVO.
 ```
-**[TÚ]:** genera el secreto (por ejemplo, `openssl rand -hex 32` en el VPS) y pégalo en la credencial de n8n y en Dokploy (`ervia-web-staging` y `ervia-web` → Environment → `LEAD_WEBHOOK_SECRET`), junto con `LEAD_WEBHOOK_URL`. Activa el workflow, redespliega staging y prueba el formulario en test.ervia.tech con tus datos reales.
+
+**Cierre [TÚ]:**
+1. Pega el secreto en la credencial "ERVIA Web Leads" de n8n (campo Value).
+2. Borra la fila de prueba de la hoja.
+3. **Activa** el workflow en n8n.
+4. En Dokploy (cuando existan las apps, Bloques E y F) → `ervia-web-staging` y `ervia-web` → Environment: `LEAD_WEBHOOK_URL` = URL de producción del webhook y `LEAD_WEBHOOK_SECRET` = el secreto. Antes del primer despliegue.
+5. Prueba real: en staging (Bloque E), envía el formulario con tus datos → fila en la hoja + aviso en Telegram.
+
+> **No reutilices para esto la URL ni la credencial del workflow base.** Cada formulario con su webhook y su secreto: si algún día hay que revocar uno, no afecta a los demás.
 
 ### G7. SEO, GEO y analítica
 ```
@@ -705,6 +752,7 @@ Implementa la sección 6 y la 4.12 de la auditoría v2 con la API de metadatos d
 - JSON-LD: ProfessionalService (ERVIA, Mérida, Yucatán, MX, areaServed MX, email, teléfono +529992498890), FAQPage y HowTo "Método ERVIA", con textos idénticos a los visibles. Usa la skill schema.
 - src/app/sitemap.ts (home + páginas legales) y src/app/robots.ts: en staging Disallow total; en producción Allow para todos, incluidos GPTBot, ClaudeBot, PerplexityBot y Google-Extended, más el enlace al sitemap.
 - GEO (skill ai-seo): frase autocontenida que defina el Método ERVIA, visible en la sección del método; y un /llms.txt con resumen de ERVIA, servicios, método, zona y contacto.
+- Cabeceras de seguridad en next.config.ts: Content-Security-Policy (default-src 'self'; sin orígenes externos salvo los que realmente use la página, p. ej. el beacon de Cloudflare Web Analytics si se inyecta), X-Content-Type-Options: nosniff, Referrer-Policy: strict-origin-when-cross-origin, X-Frame-Options: DENY (o frame-ancestors 'none'), Permissions-Policy restrictiva. Compruébalas con curl -I sobre el build local y verifica que la página, el formulario y el script del carrusel siguen funcionando (si la CSP bloquea el script en línea, usa nonce o hash, nunca 'unsafe-inline' sin decírmelo).
 - Analítica v1: SOLO Cloudflare Web Analytics (sin cookies, sin banner). No añadas GA4, Umami, Meta Pixel ni eventos personalizados; dime si hace falta algún cambio en el código para que funcione (normalmente se activa desde el panel de Cloudflare). Los eventos (click_whatsapp, form_submit_success, etc.) quedan para la v2.
 Muéstrame el <head> generado en producción (build local con NEXT_PUBLIC_SITE_ENV=production) y valida el JSON-LD.
 ```
