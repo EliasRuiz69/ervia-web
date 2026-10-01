@@ -1,8 +1,8 @@
 # Política de Privacidad
 
-_Última actualización: junio de 2026 · ervia.tech_
+_Última actualización: 30 de septiembre de 2026 · ervia.tech_
 
-> **Aviso de Privacidad** — En cumplimiento de la **Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)** y de los lineamientos del **INAI**, ERVIA pone a su disposición la presente Política de Privacidad. Al utilizar este sitio o contratar nuestros servicios, usted acepta los términos aquí descritos.
+> **Aviso de Privacidad** — En cumplimiento de la **Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)** y de los lineamientos de la **Secretaría Anticorrupción y Buen Gobierno**, ERVIA pone a su disposición la presente Política de Privacidad. Al utilizar este sitio o contratar nuestros servicios, usted acepta los términos aquí descritos.
 
 ## Contenido
 
@@ -19,7 +19,7 @@ _Última actualización: junio de 2026 · ervia.tech_
 11.  [11 Menores de Edad](#s11)
 12.  [12 Cambios a esta Política](#s12)
 13.  [13 Legislación y Jurisdicción](#s13)
-14.  [14 Contacto e INAI](#s14)
+14.  [14 Contacto y Quejas](#s14)
 
 ## 1. Introducción
 
@@ -63,11 +63,23 @@ Cuando usted interactúa con agentes conversacionales de WhatsApp u otros canale
 
 > **Datos sensibles:** ERVIA no recopila datos personales sensibles (salud, creencias religiosas, orientación sexual, origen racial o étnico) salvo que el servicio específico así lo requiera, en cuyo caso se obtendrá su consentimiento expreso.
 
+### 3.4 Datos del formulario de contacto
+
+Cuando usted completa el formulario de contacto de este Sitio, recopilamos únicamente:
+
+-   Nombre
+-   Correo electrónico o número de WhatsApp (el que usted decida indicar)
+-   Giro de su negocio
+-   El mensaje que decida escribir sobre qué le quita más tiempo (opcional)
+
+Para evitar el envío masivo de formularios por programas automáticos, el servidor también trata de forma temporal la dirección IP desde la que se envía el formulario. Esa dirección se conserva únicamente en la memoria del servidor durante unos minutos y no se almacena.
+
 ## 4. Finalidades del Tratamiento
 
 ### 4.1 Finalidades primarias — necesarias para la prestación del servicio
 
 -   Atender solicitudes de información, cotizaciones y demostraciones
+-   Contactarle y agendar su diagnóstico gratuito cuando usted lo solicita mediante el formulario de contacto
 -   Gestionar y ejecutar los contratos de servicios de automatización e IA
 -   Proporcionar soporte técnico y seguimiento a proyectos
 -   Emitir facturas y gestionar cobros
@@ -95,6 +107,8 @@ ERVIA puede compartir sus datos con las siguientes categorías de terceros, siem
 -   **Proveedores de infraestructura tecnológica:** Plataformas de nube para el funcionamiento de los agentes de IA
 -   **Proveedores de IA:** Anthropic (API de Claude) para el procesamiento de conversaciones. Las políticas de Anthropic se rigen por sus propios términos
 -   **Plataformas de mensajería:** YCloud u otros proveedores de WhatsApp Business API para la entrega de mensajes
+-   **Encargados que tratan los datos del formulario de contacto por cuenta de ERVIA:** el servidor propio de ERVIA con n8n (recepción y automatización del formulario), Google Workspace y Google Sheets (correo y registro de solicitudes) y Telegram (aviso interno al equipo de ERVIA cuando llega una solicitud)
+-   **Tratamiento fuera de México:** Google y Telegram pueden tratar los datos del formulario en servidores ubicados fuera de México. Sus políticas se rigen por sus propios términos
 -   **Contadores y asesores legales:** Únicamente para cumplir obligaciones fiscales o legales
 -   **Autoridades competentes:** Cuando así lo exija la ley mexicana
 
@@ -140,6 +154,7 @@ ERVIA implementa medidas técnicas, administrativas y físicas para proteger sus
 ## 10. Plazos de Conservación de los Datos
 
 -   **Datos de contacto y clientes activos:** Durante la vigencia de la relación comercial y hasta 3 años después de su término
+-   **Solicitudes del formulario de contacto que no deriven en una relación comercial:** 12 meses desde el último contacto; transcurrido ese plazo se eliminan
 -   **Datos fiscales y contables:** 5 años, conforme al Código Fiscal de la Federación
 -   **Conversaciones de agentes IA:** El período que establezca el contrato con el cliente; por defecto, 90 días
 -   **Datos de navegación:** Hasta 26 meses
@@ -158,18 +173,18 @@ Esta Política de Privacidad se rige por la legislación mexicana aplicable, en 
 
 -   Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)
 -   Reglamento de la LFPDPPP
--   Lineamientos del Aviso de Privacidad publicados por el INAI
+-   Lineamientos del Aviso de Privacidad aplicables
 
 Para cualquier controversia derivada de esta Política, las partes se someten a la jurisdicción de los tribunales competentes de **Mérida, Yucatán, México**, renunciando a cualquier otro fuero que pudiera corresponderles.
 
-## 14. Contacto y Quejas ante el INAI
+## 14. Contacto y Quejas ante la Secretaría Anticorrupción y Buen Gobierno
 
 Para cualquier duda, solicitud o queja relacionada con el tratamiento de sus datos personales, contáctenos en:
 
 - **Correo:** [info@ervia.tech](mailto:info@ervia.tech)
 - **Sitio web:** [https://ervia.tech](https://ervia.tech)
 
-> Si considera que su solicitud no fue atendida satisfactoriamente, puede acudir ante el **Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)**: [https://home.inai.org.mx](https://home.inai.org.mx)
+> Si considera que su solicitud no fue atendida satisfactoriamente, puede acudir ante la **Secretaría Anticorrupción y Buen Gobierno**, autoridad competente en materia de protección de datos personales en posesión de los particulares: [https://www.gob.mx/buengobierno](https://www.gob.mx/buengobierno)
 
 [↑ Volver al inicio](#top)
 

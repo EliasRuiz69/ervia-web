@@ -2,7 +2,7 @@
 
 _Última actualización: 30 de septiembre de 2026 · ervia.tech_
 
-> Esta Política explica qué son las cookies, cuáles utilizamos en **ervia.tech**, para qué sirven y cómo puede gestionarlas o desactivarlas. Su uso se rige por la **Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)** y los lineamientos del **INAI**.
+> Esta Política explica qué son las cookies, cuáles utilizamos en **ervia.tech**, para qué sirven y cómo puede gestionarlas o desactivarlas. Su uso se rige por la **Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)** y los lineamientos de la **Secretaría Anticorrupción y Buen Gobierno**.
 
 ## Contenido
 
@@ -123,7 +123,7 @@ Si tiene preguntas sobre esta Política de Cookies o sobre el tratamiento de sus
 - **Correo electrónico:** [info@ervia.tech](mailto:info@ervia.tech)
 - **Sitio web:** [https://ervia.tech](https://ervia.tech)
 
-> Para consultas sobre protección de datos personales también puede acudir ante el **Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales (INAI)**: [https://home.inai.org.mx](https://home.inai.org.mx)
+> Para consultas sobre protección de datos personales también puede acudir ante la **Secretaría Anticorrupción y Buen Gobierno**, autoridad competente en materia de protección de datos personales en posesión de los particulares: [https://www.gob.mx/buengobierno](https://www.gob.mx/buengobierno)
 
 [↑ Volver al inicio](#top)
 
