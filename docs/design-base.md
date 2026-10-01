@@ -261,7 +261,9 @@ Solo hay **transiciones de estado (hover/foco)**, sin animaciones de entrada, si
 
 `--ease-out`: `cubic-bezier(0.22, 1, 0.36, 1)`. `--duration-slow` (350 ms) está definido y no se usa. `html { scroll-behavior: smooth }` para los anclas.
 
-### Fondo del hero: un vídeo, no un canvas
+### Fondo del hero de la landing anterior: un vídeo, no un canvas
+
+> **Solo diagnóstico.** La nueva landing **no** usa este vídeo ni ningún fotograma suyo (ver sección 8).
 
 - Verificado en el DOM renderizado: **0 elementos `<canvas>`, 1 elemento `<video>`**.
 - `<video muted loop playsInline autoPlay>` a pantalla completa (`position: absolute; inset: 0; object-fit: cover; opacity: 0.4`), con `hls.js` (`enableWorker: false`) sobre un stream HLS de Mux: `https://stream.mux.com/tLkHO1qZoaaQOUeVWo8hEBeGQfySP02EPS02BmnNFyXys.m3u8`. Safari lo reproduce de forma nativa.
@@ -270,7 +272,7 @@ Solo hay **transiciones de estado (hover/foco)**, sin animaciones de entrada, si
 - **Coste**: vídeo de **2880 × 1248**, reproducido en bucle sin parar; el bundle JS pasa a **696 kB (216 kB gzip)**, de los cuales la mayor parte es `hls.js` (CSS: 8 kB). Depende de un CDN de terceros: sin él, el hero queda vacío (no hay `poster` ni fallback).
 - **`prefers-reduced-motion`: no se respeta.** No hay ninguna referencia en el código. Tampoco pausa cuando la pestaña está oculta ni cuando el hero sale de pantalla.
 
-Si se quiere conservar el efecto en la nueva landing, el equivalente ligero es un `<canvas>` o CSS/SVG propio, con `prefers-reduced-motion`, pausa fuera de pantalla y sin dependencia externa.
+En la nueva landing este efecto **no se conserva**: el fondo del hero se resuelve con recursos propios de la marca (sección 8).
 
 ---
 
@@ -289,3 +291,58 @@ Verificado con la landing corriendo a 390 px (Playwright). Ver `capturas/full-39
 9. **Contenido de relleno**: casos con cifras inventadas (con la nota "pendientes de sustituir…"), precios "de ejemplo", 5 iconos sociales con `href="#"`, "Aviso Legal" y "Condiciones de Contratación" con `href="#"`. Contradice la regla de copy de no fabricar cifras.
 10. **Código**: estilos duplicados en inline (el mismo bloque de estilos del `h2` copiado en 6 componentes), tokens `--space-*` sin usar, regla `.cases-grid` muerta, `JetBrains Mono` cargada sin uso, `hls.js` como dependencia grande.
 11. **Legales**: las páginas estáticas usan otra paleta (azul claro sobre blanco, `Segoe UI`) y no siguen el sistema de diseño; la fecha es "junio de 2025".
+
+---
+
+## 7. Reglas de color de la nueva landing
+
+Decisión **D-J** (29/09/2026). **Sustituye a la regla "el verde es solo para acciones" de la sección 1**, que se queda como diagnóstico de la landing anterior. Los valores no cambian: todos siguen saliendo de `tokens.css`.
+
+| Color | Se usa para | Nunca para |
+|---|---|---|
+| **Verde** (`--green-*`) | **CTAs** (botón primario y su hover/active/glow) · **chips de resultado** (✅ "Cita agendada"…) · **una sola palabra destacada por titular** (la firma visual de la marca) | Eyebrows, guiones de listas, "+/−" del FAQ, enlaces, íconos decorativos, bordes, cifras |
+| **Azul** (`--blue-*`) | **Eyebrows / overlines** · **guiones de listas** · **"+/−" del FAQ** · **enlaces** (texto y subrayado) · **nodos del Método ERVIA** · etiqueta **"Recomendado"** · anillo de foco | Botones primarios (son verdes) |
+| **Blanco / texto fuerte** (`--text-strong`) | Titulares, **cifras** (precios, métricas, números) | Cifras en verde o en azul |
+| **Texto cuerpo / apagado** (`--text-body`, `--text-muted`) | Párrafos y microcopy; el gris `--text-muted` solo a 15 px o más | `--text-faint` para texto (no cumple contraste AA) |
+| **Navy** | Fondos y superficies (`--surface-page`, `--surface-deep`, `--surface-card`) | Texto |
+
+**Consecuencias de implementación**
+
+- **Máximo una palabra en verde por titular.** El énfasis no se reparte: si un H1 y un H2 conviven en pantalla, cada uno tiene la suya. Los titulares de tarjetas (H3) no llevan palabra verde.
+- **El verde es siempre "toca esto" o "esto salió bien".** Un elemento verde que no sea CTA ni chip de resultado es un error.
+- **Foco visible** en azul (`--blue-400`) en todo lo interactivo, incluidos los botones verdes.
+- **Los glows decorativos son azules** (`--glow-blue` / `--blue-500`). El `--glow-green` solo aparece como hover del botón primario.
+- Los degradados `--gradient-duotone` (verde→azul) no se usan en la landing nueva: los números del método son blancos y los nodos, azules.
+- `::selection` usa azul, no verde.
+
+**Cómo se aplica en el código**
+
+| Necesidad | Clase Tailwind (mapeada en `src/app/globals.css`) |
+|---|---|
+| Botón primario | `<Button variant="primary">` → `bg-green-500 text-text-on-green shadow-cta` |
+| Palabra destacada | `<span className="text-green-500">…</span>` (una por titular) |
+| Eyebrow | `<Eyebrow>` → `text-blue-400` |
+| Guión de lista / "+/−" | `text-blue-400` |
+| Enlace | `text-blue-400 underline underline-offset-4 hover:text-blue-300` |
+| Etiqueta "Recomendado" | `bg-surface-blue-tint border-border-blue text-blue-300` |
+| Cifra | `text-text-strong` |
+
+---
+
+## 8. Fondo del hero de la nueva landing
+
+**Decisión D-I, revisada por derechos de uso (30/09/2026).** La versión original de D-I preveía un fotograma del vídeo de la landing anterior en WebP/AVIF. Ese vídeo no es propiedad de ERVIA, así que **el hero no usa vídeo ni ningún fotograma suyo**, y no hay imágenes de fondo.
+
+| Regla | Detalle |
+|---|---|
+| Recursos permitidos | Solo los de la marca: fondo navy, glows, degradado dúo (`--gradient-duotone`) y, como máximo, una textura sutil de puntos o nodos inspirada en el isotipo |
+| Cómo se dibuja | CSS y SVG en línea. **Sin imágenes, sin vídeo y sin JavaScript** (`src/components/sections/hero-background.tsx`) |
+| Movimiento | Ninguno: el fondo es estático, así que `prefers-reduced-motion` se cumple por diseño. El movimiento del hero lo aporta el mockup de WhatsApp |
+| Contraste del texto | Velo diagonal navy (`rgb(15 23 42)` al 92 % → 35 %) y fundido inferior a `--navy-900`. Medido en el peor píxel de fondo: titular y cuerpo ≥ 10:1; gris atenuado (`--text-muted`) ≥ 5,5:1 |
+| Coste | 0 bytes de imagen; el peso anterior (vídeo de 2880 × 1248 + `hls.js`, 216 kB gzip) desaparece |
+
+**Variante elegida (30/09/2026): `nodes`.** Glow azul contenido, malla de puntos muy sutil (CSS) que se desvanece hacia la izquierda con una máscara radial, e isotipo fantasma a gran tamaño con el degradado dúo al 17 % de opacidad. Componente `<HeroBackground />` (una sola variante). La alternativa descartada, `aurora` (glows azules y mancha con el degradado dúo, sin trazos), queda documentada solo en las capturas `docs/design-base/capturas/d2-hero-aurora-*`. Capturas de la elegida: `d2-hero-nodes-1440.png` y `d2-hero-nodes-390.png`.
+
+Contraste medido en el peor píxel de fondo bajo el texto: titular y cuerpo ≥ 10:1; gris atenuado (`--text-muted`) ≥ 5,5:1.
+
+El verde del degradado dúo es decorativo y muy tenue; conviene revisar en G2 si compite con el mockup del hero (regla de color de la sección 7).

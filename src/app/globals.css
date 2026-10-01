@@ -1,0 +1,379 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Tokens ERVIA (copia literal de docs/design-base/tokens.css). No editar valores aquí. */
+@import "../styles/tokens.css";
+
+/* ============================================================
+   1) Tailwind solo conoce la paleta ERVIA: se elimina la paleta por defecto.
+   ============================================================ */
+@theme {
+  --color-*: initial;
+}
+
+/* ============================================================
+   2) Mapa token → utilidad de Tailwind, conservando los NOMBRES del diseño.
+      `inline` hace que la utilidad lea directamente var(--token) de tokens.css.
+        bg-navy-900 · text-green-500 · border-border-subtle · text-text-muted
+        bg-surface-card · rounded-lg · shadow-card · shadow-glow-green · font-display
+
+   Nota: para radius/shadow/font/tracking/ease los nombres del token y del tema COINCIDEN
+   (p. ej. --radius-lg). Tailwind emite `--radius-lg: var(--radius-lg)` dentro de @layer theme,
+   pero el valor real lo aporta tokens.css, que va SIN capa y por eso siempre gana en la cascada.
+   Mientras tokens.css no se meta en un @layer, no hay ciclo. Comprobado en el CSS compilado.
+   ============================================================ */
+@theme inline {
+  /* Navy */
+  --color-navy-950: var(--navy-950);
+  --color-navy-900: var(--navy-900);
+  --color-navy-850: var(--navy-850);
+  --color-navy-800: var(--navy-800);
+  --color-navy-700: var(--navy-700);
+  --color-navy-600: var(--navy-600);
+  --color-navy-500: var(--navy-500);
+  --color-navy-400: var(--navy-400);
+  --color-navy-300: var(--navy-300);
+  --color-navy-200: var(--navy-200);
+  --color-navy-100: var(--navy-100);
+  --color-navy-50: var(--navy-50);
+
+  /* Verde de marca */
+  --color-green-300: var(--green-300);
+  --color-green-400: var(--green-400);
+  --color-green-500: var(--green-500);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+
+  /* Azul de marca */
+  --color-blue-300: var(--blue-300);
+  --color-blue-400: var(--blue-400);
+  --color-blue-500: var(--blue-500);
+  --color-blue-600: var(--blue-600);
+  --color-blue-700: var(--blue-700);
+
+  /* Texto */
+  --color-text-strong: var(--text-strong);
+  --color-text-body: var(--text-body);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-on-green: var(--text-on-green);
+  --color-text-on-blue: var(--text-on-blue);
+
+  /* Superficies */
+  --color-surface-page: var(--surface-page);
+  --color-surface-deep: var(--surface-deep);
+  --color-surface-card: var(--surface-card);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-input: var(--surface-input);
+  --color-surface-green-tint: var(--surface-green-tint);
+  --color-surface-blue-tint: var(--surface-blue-tint);
+
+  /* Bordes */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-green: var(--border-green);
+  --color-border-blue: var(--border-blue);
+
+  /* Acciones y estados */
+  --color-action-primary: var(--action-primary);
+  --color-action-primary-hover: var(--action-primary-hover);
+  --color-action-primary-press: var(--action-primary-press);
+  --color-action-secondary: var(--action-secondary);
+  --color-action-secondary-hover: var(--action-secondary-hover);
+  --color-action-secondary-press: var(--action-secondary-press);
+  --color-status-danger: var(--status-danger);
+  --color-status-danger-tint: var(--status-danger-tint);
+
+  /* Radios (rounded-sm/md/lg/xl/pill) */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: var(--radius-pill);
+
+  /* Sombras y glows */
+  --shadow-card: var(--shadow-card);
+  --shadow-raised: var(--shadow-raised);
+  --shadow-cta: var(--shadow-cta);
+  --shadow-glow-green: var(--glow-green);
+  --shadow-glow-blue: var(--glow-blue);
+
+  /* Tipografía */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --tracking-tight: var(--tracking-tight);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-overline: var(--tracking-overline);
+
+  /* Movimiento (ease-out, y duration-(--duration-fast|base|slow) en las clases) */
+  --ease-out: var(--ease-out);
+
+  /* ---- Tema de shadcn/ui: semántica → tokens ERVIA (sin la paleta por defecto) ---- */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+/* Blanco y negro puros, por si algún componente de terceros los pide. */
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+}
+
+/* ============================================================
+   3) Semántica de shadcn → tokens (el sitio es solo oscuro).
+   ============================================================ */
+:root {
+  color-scheme: dark;
+
+  --background: var(--surface-page);
+  --foreground: var(--text-body);
+  --card: var(--surface-card);
+  --card-foreground: var(--text-body);
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--text-body);
+  --primary: var(--green-500);
+  --primary-foreground: var(--text-on-green);
+  --secondary: var(--blue-500);
+  --secondary-foreground: var(--text-on-blue);
+  --muted: var(--surface-raised);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--surface-raised);
+  --accent-foreground: var(--text-strong);
+  --destructive: var(--status-danger);
+  --border: var(--border-subtle);
+  --input: var(--border-default);
+  --ring: var(--blue-400);
+  --radius: var(--radius-lg);
+
+  /* Las fuentes las carga next/font (ver src/app/layout.tsx). Se conectan a los tokens
+     --font-display / --font-body sin tocar tokens.css; --font-mono queda como en el diseño
+     (JetBrains Mono no se usa en ningún componente, por eso no se carga). */
+  --font-display:
+    var(--font-baloo-2), "Baloo 2", var(--font-dm-sans), "DM Sans", system-ui,
+    sans-serif;
+  --font-body: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  --font-body-italic: var(--font-dm-sans-italic), "DM Sans", system-ui, sans-serif;
+}
+
+/* ============================================================
+   4) Base
+   ============================================================ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* la cabecera es sticky */
+    background: var(--surface-page);
+  }
+
+  body {
+    margin: 0;
+    background: var(--surface-page);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-strong);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  /* Titulares sin palabras sueltas al final de línea (viudas). */
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  /* Táctil: sin el retardo del doble toque para hacer zoom y sin el resaltado gris del navegador al pulsar. */
+  a,
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Cursiva de DM Sans: familia aparte (next/font, sin precarga). */
+  em,
+  i,
+  .italic {
+    font-family: var(--font-body-italic);
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--blue-500) 45%, transparent);
+    color: var(--text-strong);
+  }
+
+  /* Foco visible en TODO lo interactivo (la landing anterior no lo tenía). */
+  :focus-visible {
+    outline: 2px solid var(--blue-400);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================
+   5) Mockup de WhatsApp del hero (src/components/sections/whatsapp-*.tsx)
+   Solo opacity y transform. Sin JS: se reproduce una vez y se queda en el estado final.
+   - Pausa al pasar el cursor o con el foco dentro.
+   - prefers-reduced-motion: conversación completa y estática.
+   ============================================================ */
+@keyframes wa-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes wa-window {
+  0% {
+    opacity: 0;
+  }
+  8%,
+  92% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes wa-window-inverse {
+  0% {
+    opacity: 1;
+  }
+  8%,
+  92% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes wa-dot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.wa-step {
+  animation: wa-rise 380ms var(--ease-out) var(--wa-d, 0s) both;
+}
+
+.wa-phone:hover *,
+.wa-phone:focus-within * {
+  animation-play-state: paused !important;
+}
+
+/* ============================================================
+   6) Diagrama del Método ERVIA (src/components/sections/method-*.tsx)
+   Solo transform y opacity. La línea se "dibuja" con scale desde su origen y cada nodo aparece
+   en orden (--i = índice del paso). Sin JavaScript (scripting: none) o con prefers-reduced-motion
+   no se oculta nada: el diagrama se ve completo y estático.
+   ============================================================ */
+.m-line-x {
+  transform-origin: left center;
+  transform-box: fill-box;
+}
+.m-line-y {
+  transform-origin: center top;
+}
+.m-node {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .m-reveal .m-line-x {
+    transform: scaleX(0);
+  }
+  .m-reveal .m-line-y {
+    transform: scaleY(0);
+  }
+  .m-reveal .m-node {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  .m-reveal[data-inview="true"] .m-line-x {
+    transform: scaleX(1);
+    transition: transform 650ms var(--ease-out) calc(var(--i, 0) * 450ms + 250ms);
+  }
+  .m-reveal[data-inview="true"] .m-line-y {
+    transform: scaleY(1);
+    transition: transform 650ms var(--ease-out) calc(var(--i, 0) * 450ms + 250ms);
+  }
+  .m-reveal[data-inview="true"] .m-node {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 400ms var(--ease-out) calc(var(--i, 0) * 450ms),
+      transform 400ms var(--ease-out) calc(var(--i, 0) * 450ms);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-step,
+  .wa-status-idle,
+  .wa-dot {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+  .wa-typing,
+  .wa-status-typing {
+    display: none !important;
+  }
+}
