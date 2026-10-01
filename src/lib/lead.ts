@@ -31,9 +31,12 @@ const EMAIL = z.email();
  * Caracteres de control. En nombre y contacto (una sola línea) no se admite ninguno, ni saltos de línea:
  * esos datos acaban en un aviso de Telegram y en una hoja de cálculo, y un salto de línea permitiría
  * "falsificar" líneas. En el mensaje se admiten saltos de línea y tabulaciones, pero ningún otro.
+ * Además de los de ASCII se rechazan los de control C1 (U+0080–U+009F, incluye NEL), los separadores de
+ * línea y párrafo Unicode (U+2028/2029) y los controles de dirección del texto (U+202A–202E, U+2066–2069),
+ * que sirven igual para falsificar líneas o invertir el texto en un aviso.
  */
-const CONTROL_ANY = /[\u0000-\u001F\u007F]/;
-const CONTROL_EXCEPT_NEWLINES = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/;
+const CONTROL_ANY = /[\u{0}-\u{1F}\u{7F}-\u{9F}\u{2028}\u{2029}\u{202A}-\u{202E}\u{2066}-\u{2069}]/u;
+const CONTROL_EXCEPT_NEWLINES = /[\u{0}-\u{8}\u{B}\u{C}\u{E}-\u{1F}\u{7F}-\u{9F}\u{2028}\u{2029}\u{202A}-\u{202E}\u{2066}-\u{2069}]/u;
 
 /**
  * Distingue correo de WhatsApp a partir de lo que escribió la persona.
