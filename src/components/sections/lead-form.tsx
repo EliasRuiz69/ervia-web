@@ -168,7 +168,8 @@ export function LeadForm() {
           type="text"
           required
           maxLength={LIMITS.contacto}
-          placeholder="tu@correo.com o 9991234567"
+          placeholder="tu@correo.com o 999 123 4567"
+          spellCheck={false}
           value={values.contacto}
           onChange={set("contacto")}
           aria-invalid={errors.contacto ? true : undefined}
@@ -189,11 +190,11 @@ export function LeadForm() {
             aria-describedby={errors.giro ? "lead-giro-error" : undefined}
             className={cn(fieldClass(!!errors.giro), "appearance-none pr-10", values.giro === "" && "text-text-muted")}
           >
-            <option value="" disabled>
+            <option value="" disabled className="bg-surface-card text-text-muted">
               Elige tu giro
             </option>
             {GIROS.map((giro) => (
-              <option key={giro} value={giro} className="text-text-strong">
+              <option key={giro} value={giro} className="bg-surface-card text-text-strong">
                 {giro}
               </option>
             ))}

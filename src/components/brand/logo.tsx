@@ -49,6 +49,7 @@ export function Logo({
     <Image
       src={SRC[variant][tone]}
       alt="ERVIA"
+      translate="no"
       width={width}
       height={height}
       priority={priority}

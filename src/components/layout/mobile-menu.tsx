@@ -69,7 +69,7 @@ export function MobileMenu({
         type="button"
         aria-expanded={open}
         aria-controls="menu-movil"
-        aria-label={open ? "Cerrar menú" : "Abrir menú"}
+        aria-label="Menú"
         onClick={() => setOpenPath(open ? null : pathname)}
         className="inline-flex size-11 items-center justify-center rounded-md border border-border-default text-text-strong transition-colors duration-(--duration-fast) ease-out hover:border-border-strong"
       >

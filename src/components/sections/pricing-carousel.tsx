@@ -94,12 +94,21 @@ export function PricingCarousel({ listId, labels, initialIndex, children }: Pric
             aria-current={active === i ? "true" : undefined}
             className="flex size-11 items-center justify-center rounded-full"
           >
-            <span
-              className={cn(
-                "block h-2.5 rounded-full transition-[width,background-color] duration-(--duration-base) ease-out",
-                active === i ? "w-6 bg-blue-400" : "w-2.5 bg-border-strong",
-              )}
-            />
+            {/* Punto: círculo + píldora superpuestos; el activo se muestra con opacity y scaleX (solo compositor). */}
+            <span aria-hidden="true" className="relative block h-2.5 w-6">
+              <span
+                className={cn(
+                  "absolute top-0 left-1/2 block size-2.5 -translate-x-1/2 rounded-full bg-border-strong transition-opacity duration-(--duration-base) ease-out",
+                  active === i ? "opacity-0" : "opacity-100",
+                )}
+              />
+              <span
+                className={cn(
+                  "absolute inset-0 block origin-center rounded-full bg-blue-400 transition-[opacity,transform] duration-(--duration-base) ease-out",
+                  active === i ? "scale-x-100 opacity-100" : "scale-x-[0.42] opacity-0",
+                )}
+              />
+            </span>
           </button>
         ))}
       </div>

@@ -1,3 +1,5 @@
+import { NBSP } from "@/lib/text";
+
 /**
  * Datos del sitio en un solo lugar. Todo lo que aquí no tenga valor real NO se muestra.
  */
@@ -22,7 +24,7 @@ export const SEO = {
    * y alimenta la descripción del HowTo y el llms.txt: debe ser idéntica en los tres sitios.
    */
   methodDefinition:
-    "El Método ERVIA es un proceso de tres pasos (Detectar, Automatizar y Escalar) para que las pymes automaticen su atención por WhatsApp y su agenda en menos de 4 semanas.",
+    `El Método${NBSP}ERVIA es un proceso de tres pasos (Detectar, Automatizar y Escalar) para que las pymes automaticen su atención por WhatsApp y su agenda en menos de 4 semanas.`,
 } as const;
 
 /**

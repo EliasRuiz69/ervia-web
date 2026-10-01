@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Container } from "@/components/layout/container";
 import { HeroBackground } from "@/components/sections/hero-background";
+import { Brand } from "@/components/ui/brand";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Accent } from "@/components/ui/section-heading";
@@ -41,7 +42,7 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 max-w-[620px] text-[clamp(17px,1.6vw,21px)] leading-relaxed">
-              Con el Método ERVIA detectamos dónde pierdes tiempo y clientes, automatizamos lo
+              Con el Método&nbsp;<Brand /> detectamos dónde pierdes tiempo y clientes, automatizamos lo
               repetitivo y te ayudamos a crecer sin contratar más personal. Listo en menos de 4
               semanas y con tu mismo número de WhatsApp.
             </p>
@@ -68,7 +69,7 @@ export function Hero() {
                     className="w-full whitespace-normal text-center sm:w-auto sm:whitespace-nowrap"
                   >
                     <Link href="#contacto" data-cta="diagnostico" data-location="hero">
-                      Detecta tus fugas gratis (15 min)
+                      Detecta tus fugas gratis (15&nbsp;min)
                     </Link>
                   </Button>
                 </>

@@ -2,6 +2,8 @@
  * Pasos del Método ERVIA (auditoría 3.3 y 4.5): promesa · qué hacemos · te llevas · tiempo.
  * v1 SIN entregables con nombre propio (no se menciona el "Mapa de Fugas") y sin cifras de precio.
  */
+import { NBSP } from "@/lib/text";
+
 export type MethodStep = {
   n: 1 | 2 | 3;
   name: string;
@@ -16,7 +18,7 @@ export const METHOD_STEPS: ReadonlyArray<MethodStep> = [
     n: 1,
     name: "Detectar",
     promise: "Dónde pierdes tiempo y clientes",
-    what: "Llamada de 15 min y revisión de cómo atiendes hoy: WhatsApp, agenda, cotizaciones",
+    what: `Llamada de 15${NBSP}min y revisión de cómo atiendes hoy: WhatsApp, agenda, cotizaciones`,
     gets: "Un diagnóstico claro: qué te cuesta tiempo y ventas, y por dónde empezar",
     time: "1 semana",
   },

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 import { Logo } from "@/components/brand/logo";
+import { Brand } from "@/components/ui/brand";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Container } from "./container";
 import { LEGAL_LINKS, SITE, SOCIAL_LINKS, WHATSAPP_ENABLED } from "@/config/site";
@@ -72,7 +73,7 @@ export function Footer() {
         )}
       >
         <p className="text-[14px] text-text-muted">
-          © {year} {SITE.name}. Todos los derechos reservados.
+          © {year} <Brand>{SITE.name}</Brand>. Todos los derechos reservados.
         </p>
       </Container>
     </footer>

@@ -8,6 +8,7 @@ import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { WHATSAPP_ENABLED, whatsappPlanUrl, type PlanId } from "@/config/site";
 import { carouselStartScript } from "@/lib/carousel-start-script";
+import { NBSP } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
 /**
@@ -33,7 +34,7 @@ const PLANS: ReadonlyArray<Plan> = [
     step: 1,
     name: "Detectar",
     includes: [
-      "Llamada de 15 min para revisar cómo atiendes hoy",
+      `Llamada de 15${NBSP}min para revisar cómo atiendes hoy`,
       "Un diagnóstico claro: qué te cuesta tiempo y ventas, y por dónde empezar",
     ],
     price: "Gratis",
@@ -93,7 +94,7 @@ function PlanCard({ plan }: { plan: Plan }) {
       )}
 
       <div>
-        <Eyebrow>Paso {step}</Eyebrow>
+        <Eyebrow>Paso&nbsp;{step}</Eyebrow>
         <h3 className="mt-2 text-[32px] leading-[1.15]">{name}</h3>
       </div>
 

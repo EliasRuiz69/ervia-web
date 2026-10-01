@@ -210,6 +210,19 @@
     margin: 0;
   }
 
+  /* Titulares sin palabras sueltas al final de línea (viudas). */
+  h1,
+  h2 {
+    text-wrap: balance;
+  }
+
+  /* Táctil: sin el retardo del doble toque para hacer zoom y sin el resaltado gris del navegador al pulsar. */
+  a,
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* Cursiva de DM Sans: familia aparte (next/font, sin precarga). */
   em,
   i,

@@ -14,7 +14,7 @@ export function FinalCta() {
   return (
     <Section id="contacto" deep aria-labelledby="contacto-titulo">
       <SectionHeading id="contacto-titulo">
-        Empieza por el paso 1: <Accent>descubre</Accent> dónde estás perdiendo tiempo y clientes.
+        Empieza por el paso&nbsp;1: <Accent>descubre</Accent> dónde estás perdiendo tiempo y clientes.
       </SectionHeading>
       <p className="mt-5 max-w-[600px] text-[19px] leading-[1.6]">15 minutos. Gratis. Sin compromiso.</p>
 
