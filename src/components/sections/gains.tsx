@@ -61,7 +61,7 @@ const GAINS: ReadonlyArray<Gain> = [
       },
       {
         label: "Después",
-        text: "Citas, clientes y ventas en un solo panel y un resumen diario en tu correo.",
+        text: "Citas, clientes y ventas en un solo panel y un resumen mensual en tu correo.",
       },
     ],
     how: "panel de control propio y reportes automáticos.",
