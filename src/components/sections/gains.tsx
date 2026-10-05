@@ -25,7 +25,7 @@ const GAINS: ReadonlyArray<Gain> = [
       { label: "Antes", text: "El cliente pregunta de noche y le contestas al día siguiente." },
       {
         label: "Después",
-        text: "Recibe respuesta al momento, a cualquier hora, con tus precios reales.",
+        text: "Recibe respuesta al momento, a cualquier hora, con tus datos reales.",
       },
     ],
     how: "un agente de IA atiende tu WhatsApp con tu información y te pasa la conversación cuando hace falta una persona.",
