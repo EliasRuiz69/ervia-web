@@ -24,7 +24,7 @@ export function FinalCta() {
         <div className="mt-12 grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col items-start gap-5">
             <p className="font-display text-[clamp(24px,2.4vw,30px)] leading-[1.25] font-bold text-text-strong">
-              Respuesta inmediata, incluso fuera de horario
+              Escríbenos por WhatsApp o rellena el formulario.
             </p>
             <Button asChild size="lg" className="w-full whitespace-normal text-center sm:w-auto sm:px-10 sm:py-5 sm:text-[19px]">
               <a

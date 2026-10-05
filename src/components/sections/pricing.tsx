@@ -8,7 +8,6 @@ import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { WHATSAPP_ENABLED, whatsappPlanUrl, type PlanId } from "@/config/site";
-import { carouselStartScript } from "@/lib/carousel-start-script";
 import { NBSP } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +25,6 @@ type Plan = {
   /** El precio "Gratis" va más grande; las cotizaciones, en una línea de texto. */
   priceIsWord?: boolean;
   cta: string;
-  recommended?: boolean;
 };
 
 const PLANS: ReadonlyArray<Plan> = [
@@ -54,7 +52,6 @@ const PLANS: ReadonlyArray<Plan> = [
     ],
     price: "Cotización tras el diagnóstico",
     cta: "Quiero mi agente de WhatsApp",
-    recommended: true,
   },
   {
     id: "escalar",
@@ -70,29 +67,11 @@ const PLANS: ReadonlyArray<Plan> = [
   },
 ];
 
-const RECOMMENDED_INDEX = PLANS.findIndex((p) => p.recommended);
-const LIST_ID = "planes-lista";
-
 function PlanCard({ plan }: { plan: Plan }) {
-  const { id, step, name, includes, price, priceIsWord, cta, recommended } = plan;
-  const variant = recommended ? "primary" : "outline";
+  const { id, step, name, includes, price, priceIsWord, cta } = plan;
 
   return (
-    <li
-      className={cn(
-        "relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8",
-        recommended
-          ? // scroll-initial-target: el carrusel arranca en esta tarjeta (el script de respaldo cubre Safari/Firefox)
-            "border-border-blue bg-surface-deep shadow-glow-blue [scroll-initial-target:nearest]"
-          : "border-border-subtle bg-surface-card",
-      )}
-    >
-      {recommended && (
-        <span className="absolute -top-3 left-8 rounded-pill border border-border-blue bg-surface-page px-3 py-1 text-[13px] font-semibold tracking-overline text-blue-300 uppercase">
-          Recomendado
-        </span>
-      )}
-
+    <li className="relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8">
       <div>
         <Eyebrow>Paso&nbsp;{step}</Eyebrow>
         <h3 className="mt-2 text-[32px] leading-[1.15]">{name}</h3>
@@ -120,7 +99,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="mt-auto pt-2">
         {WHATSAPP_ENABLED ? (
-          <Button asChild size="lg" variant={variant} className="w-full whitespace-normal text-center">
+          <Button asChild size="lg" className="w-full whitespace-normal text-center">
             <a
               href={whatsappPlanUrl(id)}
               target="_blank"
@@ -133,7 +112,7 @@ function PlanCard({ plan }: { plan: Plan }) {
             </a>
           </Button>
         ) : (
-          <Button asChild size="lg" variant={variant} className="w-full whitespace-normal text-center">
+          <Button asChild size="lg" className="w-full whitespace-normal text-center">
             <Link href="#contacto" data-cta="diagnostico" data-location={`pricing-${id}`}>
               {cta}
             </Link>
@@ -147,21 +126,16 @@ function PlanCard({ plan }: { plan: Plan }) {
 export function Pricing() {
   return (
     <Section id="precios" aria-labelledby="precios-titulo">
-      <SectionHeading id="precios-titulo">
-        Empieza <Accent>gratis</Accent>. Paga solo cuando veas por dónde vas a ganar.
+      <Eyebrow>Cómo empezar</Eyebrow>
+      <SectionHeading id="precios-titulo" className="mt-5">
+        Empieza por lo más urgente y escala conforme veas los <Accent>beneficios</Accent>.
       </SectionHeading>
 
-      <PricingCarousel
-        listId={LIST_ID}
-        labels={PLANS.map((p) => p.name)}
-        initialIndex={RECOMMENDED_INDEX}
-      >
+      <PricingCarousel labels={PLANS.map((p) => p.name)}>
         {PLANS.map((plan) => (
           <PlanCard key={plan.id} plan={plan} />
         ))}
       </PricingCarousel>
-      {/* En móvil, deja el carrusel centrado en Automatizar antes del primer pintado (sin salto). */}
-      <script dangerouslySetInnerHTML={{ __html: carouselStartScript(LIST_ID, RECOMMENDED_INDEX) }} />
     </Section>
   );
 }

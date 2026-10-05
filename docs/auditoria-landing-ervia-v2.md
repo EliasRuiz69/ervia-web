@@ -277,7 +277,7 @@ Solo se incluyen los giros donde tengas demo o caso (D3). Si solo tienes el tall
 - *Cómo lo logramos: automatizamos lo repetitivo (respuestas frecuentes, captura de datos, reportes y documentos).*
 
 **4. Sabes qué pasa en tu negocio aunque no estés**
-- Antes: la información vive en tu cabeza, en libretas y en el Excel. Después: citas, clientes y ventas en un solo panel y un resumen diario en tu correo.
+- Antes: la información vive en tu cabeza, en libretas y en el Excel. Después: citas, clientes y ventas en un solo panel y un resumen mensual en tu correo.
 - *Cómo lo logramos: panel de control propio y reportes automáticos.*
 
 **CTA de sección:** "Quiero ver qué ganaría mi negocio →" (a `#contacto`).

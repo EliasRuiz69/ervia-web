@@ -31,7 +31,7 @@ export function Hero() {
       <Container className="relative py-14 md:py-20 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-10">
           <div>
-            <Eyebrow>Automatización con IA para pymes · Hecho en Mérida</Eyebrow>
+            <Eyebrow>Automatización con IA para pymes</Eyebrow>
 
             <h1
               id="inicio-titulo"
@@ -81,10 +81,6 @@ export function Hero() {
                 </Button>
               )}
             </div>
-
-            <p className="mt-5 text-[15px] text-text-muted">
-              Sin compromiso · Te respondemos el mismo día · Atendemos todo México
-            </p>
           </div>
 
           <WhatsAppMockup conversations={HERO_CONVERSATIONS} />

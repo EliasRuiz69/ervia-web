@@ -30,7 +30,7 @@ export function Header() {
               <li key={href}>
                 <Link
                   href={href}
-                  className="inline-flex min-h-11 items-center rounded-pill px-3 text-[14px] font-medium text-text-body transition-colors duration-(--duration-fast) ease-out hover:text-text-strong"
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-pill px-2 text-[14px] whitespace-nowrap lg:px-3 font-medium text-text-body transition-colors duration-(--duration-fast) ease-out hover:text-text-strong"
                 >
                   {label}
                 </Link>

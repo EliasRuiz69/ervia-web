@@ -25,14 +25,14 @@ const GAINS: ReadonlyArray<Gain> = [
       { label: "Antes", text: "El cliente pregunta de noche y le contestas al día siguiente." },
       {
         label: "Después",
-        text: "Recibe respuesta al momento, a cualquier hora, con tus precios reales.",
+        text: "Recibe respuesta al momento, a cualquier hora, con tus datos reales.",
       },
     ],
     how: "un agente de IA atiende tu WhatsApp con tu información y te pasa la conversación cuando hace falta una persona.",
     featured: true,
   },
   {
-    title: "Tu agenda se llena sola, sin empalmes",
+    title: "Tu agenda se llena sola",
     rows: [
       { label: "Antes", text: "Llamadas y mensajes para cuadrar horarios." },
       {
@@ -61,7 +61,7 @@ const GAINS: ReadonlyArray<Gain> = [
       },
       {
         label: "Después",
-        text: "Citas, clientes y ventas en un solo panel y un resumen diario en tu correo.",
+        text: "Citas, clientes y ventas en un solo panel.",
       },
     ],
     how: "panel de control propio y reportes automáticos.",
