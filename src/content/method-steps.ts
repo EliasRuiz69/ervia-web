@@ -26,7 +26,7 @@ export const METHOD_STEPS: ReadonlyArray<MethodStep> = [
     n: 2,
     name: "Automatizar",
     promise: "Lo repetitivo, para que deje de depender de ti",
-    what: "Construimos e instalamos tu agente y tus automatizaciones en tu propio servidor; tu equipo aprende a usarlo",
+    what: "Construimos e instalamos tu agente y tus automatizaciones. Tu equipo aprende a usarlo",
     gets: "Tu agente funcionando, tu panel de control y la capacitación",
     time: "2–4 semanas",
   },
