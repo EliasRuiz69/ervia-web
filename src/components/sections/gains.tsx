@@ -32,7 +32,7 @@ const GAINS: ReadonlyArray<Gain> = [
     featured: true,
   },
   {
-    title: "Tu agenda se llena sola, sin empalmes",
+    title: "Tu agenda se llena sola",
     rows: [
       { label: "Antes", text: "Llamadas y mensajes para cuadrar horarios." },
       {
@@ -61,7 +61,7 @@ const GAINS: ReadonlyArray<Gain> = [
       },
       {
         label: "Después",
-        text: "Citas, clientes y ventas en un solo panel y un resumen mensual en tu correo.",
+        text: "Citas, clientes y ventas en un solo panel.",
       },
     ],
     how: "panel de control propio y reportes automáticos.",
