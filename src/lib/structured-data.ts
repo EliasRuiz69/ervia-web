@@ -1,6 +1,7 @@
 import { SEO, SITE, WHATSAPP_NUMBER } from "@/config/site";
 import { FAQ_ITEMS } from "@/content/faq";
 import { METHOD_STEPS } from "@/content/method-steps";
+import { endSentence } from "@/lib/text";
 
 /**
  * Datos estructurados de la home (auditoría 6): ProfessionalService + FAQPage + HowTo del Método ERVIA,
@@ -60,7 +61,7 @@ export function homeStructuredData() {
       position: i + 1,
       name: step.name,
       // Mismos textos y rótulos que se ven en la tarjeta del paso.
-      text: `${step.promise}. Qué hacemos: ${step.what}. Te llevas: ${step.gets}. Tiempo: ${step.time}.`,
+      text: `${step.promise}. Qué hacemos: ${endSentence(step.what)} Te llevas: ${step.gets}. Tiempo: ${step.time}.`,
       url: `${SITE.url}/#metodo`,
     })),
   };

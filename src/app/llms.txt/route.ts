@@ -2,6 +2,7 @@ import { SEO, SITE, WHATSAPP_ENABLED, WHATSAPP_NUMBER } from "@/config/site";
 import { FAQ_ITEMS } from "@/content/faq";
 import { METHOD_STEPS } from "@/content/method-steps";
 import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
+import { endSentence } from "@/lib/text";
 
 /**
  * /llms.txt (llmstxt.org, GEO): resumen de ERVIA para asistentes de IA. Se genera en el build con las mismas
@@ -27,7 +28,7 @@ function build(): string {
     SEO.methodDefinition,
     "",
     ...METHOD_STEPS.map(
-      (s) => `${s.n}. **${s.name}** (${s.time}): ${s.promise}. ${s.what}. Te llevas: ${s.gets}.`,
+      (s) => `${s.n}. **${s.name}** (${s.time}): ${s.promise}. ${endSentence(s.what)} Te llevas: ${s.gets}.`,
     ),
     "",
     "Precios: Detectar es gratis. Automatizar y Escalar se cotizan tras el diagnóstico gratuito.",
