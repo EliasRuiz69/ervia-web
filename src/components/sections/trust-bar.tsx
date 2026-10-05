@@ -16,13 +16,18 @@ export function TrustBar() {
       className="border-t border-border-subtle bg-surface-deep"
     >
       <Container className="py-8 md:py-10">
-        <ul className="grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-8">
+        {/* Desde md: columnas 1fr · auto · 1fr, así el ítem del medio queda centrado en el contenedor y los
+            extremos pegados a sus bordes (con columnas iguales o justify-between, el del medio se descentraría). */}
+        <ul className="grid grid-cols-1 gap-5 md:grid-cols-[1fr_auto_1fr] lg:gap-8">
           {ITEMS.map(({ icon: Icon, label }) => (
-            <li key={label} className="flex items-center gap-3.5">
+            <li
+              key={label}
+              className="flex items-center gap-3.5 md:justify-self-start md:nth-2:justify-self-center md:last:justify-self-end"
+            >
               <span className="flex size-11 shrink-0 items-center justify-center rounded-md border border-border-blue bg-surface-blue-tint text-blue-400">
                 <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
               </span>
-              <span className="text-[16px] leading-snug font-medium text-text-strong">{label}</span>
+              <span className="text-[16px] leading-snug font-medium text-text-strong md:text-balance">{label}</span>
             </li>
           ))}
         </ul>
