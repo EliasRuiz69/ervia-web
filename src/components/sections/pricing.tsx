@@ -148,7 +148,8 @@ function PlanCard({ plan }: { plan: Plan }) {
 export function Pricing() {
   return (
     <Section id="precios" aria-labelledby="precios-titulo">
-      <SectionHeading id="precios-titulo">
+      <Eyebrow>Cómo empezar</Eyebrow>
+      <SectionHeading id="precios-titulo" className="mt-5">
         Empieza por lo más urgente y escala conforme veas los <Accent>beneficios</Accent>.
       </SectionHeading>
 
