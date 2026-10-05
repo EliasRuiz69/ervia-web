@@ -71,8 +71,8 @@ export function PricingCarousel({ listId, labels, initialIndex, children }: Pric
         ref={listRef}
         onScroll={onScroll}
         className={cn(
-          // Móvil: carrusel. pt-4 deja sitio a la etiqueta "Recomendado" que sobresale de la tarjeta.
-          "relative -mx-5 mt-12 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pt-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+          // Móvil: carrusel.
+          "relative -mx-5 mt-12 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
           // Escritorio: rejilla de 3 columnas.
           "lg:mx-0 lg:grid lg:snap-none lg:grid-cols-3 lg:gap-6 lg:overflow-visible lg:px-0",
         )}

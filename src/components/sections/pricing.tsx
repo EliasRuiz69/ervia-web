@@ -26,7 +26,6 @@ type Plan = {
   /** El precio "Gratis" va más grande; las cotizaciones, en una línea de texto. */
   priceIsWord?: boolean;
   cta: string;
-  recommended?: boolean;
 };
 
 const PLANS: ReadonlyArray<Plan> = [
@@ -54,7 +53,6 @@ const PLANS: ReadonlyArray<Plan> = [
     ],
     price: "Cotización tras el diagnóstico",
     cta: "Quiero mi agente de WhatsApp",
-    recommended: true,
   },
   {
     id: "escalar",
@@ -70,30 +68,22 @@ const PLANS: ReadonlyArray<Plan> = [
   },
 ];
 
-const RECOMMENDED_INDEX = PLANS.findIndex((p) => p.recommended);
+// Posición inicial del carrusel en móvil (se retira en el siguiente cambio: arrancará en el primer plan).
+const START_INDEX = PLANS.findIndex((p) => p.id === "automatizar");
 const LIST_ID = "planes-lista";
 
-function PlanCard({ plan }: { plan: Plan }) {
-  const { id, step, name, includes, price, priceIsWord, cta, recommended } = plan;
-  const variant = recommended ? "primary" : "outline";
+function PlanCard({ plan, isStart }: { plan: Plan; isStart: boolean }) {
+  const { id, step, name, includes, price, priceIsWord, cta } = plan;
 
   return (
     <li
       className={cn(
-        "relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8",
-        recommended
-          ? // scroll-initial-target: el carrusel arranca en esta tarjeta (el script de respaldo cubre Safari/Firefox).
-            // Solo bajo lg: en escritorio la lista es una rejilla sin scroll propio y la propiedad movería la página.
-            "border-border-blue bg-surface-deep shadow-glow-blue max-lg:[scroll-initial-target:nearest]"
-          : "border-border-subtle bg-surface-card",
+        "relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8",
+        // scroll-initial-target: el carrusel arranca en esta tarjeta (el script de respaldo cubre Safari/Firefox).
+        // Solo bajo lg: en escritorio la lista es una rejilla sin scroll propio y la propiedad movería la página.
+        isStart && "max-lg:[scroll-initial-target:nearest]",
       )}
     >
-      {recommended && (
-        <span className="absolute -top-3 left-8 rounded-pill border border-border-blue bg-surface-page px-3 py-1 text-[13px] font-semibold tracking-overline text-blue-300 uppercase">
-          Recomendado
-        </span>
-      )}
-
       <div>
         <Eyebrow>Paso&nbsp;{step}</Eyebrow>
         <h3 className="mt-2 text-[32px] leading-[1.15]">{name}</h3>
@@ -121,7 +111,7 @@ function PlanCard({ plan }: { plan: Plan }) {
 
       <div className="mt-auto pt-2">
         {WHATSAPP_ENABLED ? (
-          <Button asChild size="lg" variant={variant} className="w-full whitespace-normal text-center">
+          <Button asChild size="lg" className="w-full whitespace-normal text-center">
             <a
               href={whatsappPlanUrl(id)}
               target="_blank"
@@ -134,7 +124,7 @@ function PlanCard({ plan }: { plan: Plan }) {
             </a>
           </Button>
         ) : (
-          <Button asChild size="lg" variant={variant} className="w-full whitespace-normal text-center">
+          <Button asChild size="lg" className="w-full whitespace-normal text-center">
             <Link href="#contacto" data-cta="diagnostico" data-location={`pricing-${id}`}>
               {cta}
             </Link>
@@ -156,14 +146,14 @@ export function Pricing() {
       <PricingCarousel
         listId={LIST_ID}
         labels={PLANS.map((p) => p.name)}
-        initialIndex={RECOMMENDED_INDEX}
+        initialIndex={START_INDEX}
       >
-        {PLANS.map((plan) => (
-          <PlanCard key={plan.id} plan={plan} />
+        {PLANS.map((plan, i) => (
+          <PlanCard key={plan.id} plan={plan} isStart={i === START_INDEX} />
         ))}
       </PricingCarousel>
       {/* En móvil, deja el carrusel centrado en Automatizar antes del primer pintado (sin salto). */}
-      <script dangerouslySetInnerHTML={{ __html: carouselStartScript(LIST_ID, RECOMMENDED_INDEX) }} />
+      <script dangerouslySetInnerHTML={{ __html: carouselStartScript(LIST_ID, START_INDEX) }} />
     </Section>
   );
 }
