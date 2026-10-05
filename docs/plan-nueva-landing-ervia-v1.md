@@ -107,7 +107,7 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 
 **Decisión:** sin página "Próximamente". Se construye hoy la landing completa con el alcance v1 de la tabla de 0.3 y se publica directamente. Se omite la **Fase D3**. Los Bloques E (staging) y F (corte) se hacen **al final, ya con la landing terminada**.
 
-**Estado a esta fecha:** G8 🟡 (QA hecha; pendientes ajustes y commits) · G7 ✅ (`d111b00`…`4918eda`) · G6 ✅ (`72ddf20`, `19c24f2`, `6c9503c`, `e6ef267`, `3ff64f4` + legales) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
+**Estado a esta fecha (01/10/2026):** 🚀 **E ✅ · F ✅ — landing nueva en producción en www.ervia.tech** · I ✅ (salvo el borrado del respaldo del VPS, el 29/10/2026) · H1–H2 ✅ (PR #1 fusionada) · G8 ✅ · G7 ✅ (`d111b00`…`4918eda`) · G6 ✅ (`72ddf20`, `19c24f2`, `6c9503c`, `e6ef267`, `3ff64f4` + legales) · G4 ✅ (`fed1614` precios, `1758e6b` Método variante B) · G3 ✅ (`7bd33f0`, `c1db441`, `5b6e569`) · G1 ✅ (`7a14de5`, `7eb3420`) · G2 ✅ (`198d570`, `0e76d4c`, `c02fa22`) · A ✅ · B ✅ · C ✅ (C3 y C5 dentro de D2) · D1 ✅ · D2 ✅ (cerrada: legales, skills, logos SVG, fondo `nodes`) · D3 ⏭️ omitida · G0 ✅ (remoto `origin` conectado; `main` en `d6d1087`, `develop` en `560b0d7`).
 
 **Decisión leads (D-H, 30/09):** aviso por **Telegram** + registro en Google Sheet "Leads ERVIA". El workflow de n8n se crea con Claude Code **en el proyecto de Antigravity que tiene el MCP de n8n**, tomando como base un workflow de Telegram que Elias ya tiene (ver G6-bis).
 
@@ -137,6 +137,22 @@ En la v1, las secciones de la v2 **no aparecen** (nada de "Próximamente" dentro
 **Variables de entorno (se definen en Dokploy ANTES del primer despliegue, porque `NEXT_PUBLIC_SITE_ENV` se fija al compilar):**
 - Staging: `NEXT_PUBLIC_SITE_ENV=staging`, `LEAD_WEBHOOK_URL`, `LEAD_WEBHOOK_SECRET`.
 - Producción: `NEXT_PUBLIC_SITE_ENV=production`, `LEAD_WEBHOOK_URL`, `LEAD_WEBHOOK_SECRET`.
+
+### 0.5 Pendientes después del lanzamiento (v2 y mantenimiento)
+
+| Prioridad | Pendiente | Origen |
+|---|---|---|
+| Alta | **H4**: checklist de lanzamiento (ver Bloque H) | Plan |
+| Alta | **Bloque I** a partir del 08/10/2026: borrar la app y el proyecto `ervia-landing`, limpiar imágenes, archivar los repos viejos | Plan |
+| Alta | Confirmar que el microcopy "Respuesta inmediata, incluso fuera de horario" es cierto (agente de ERVIA respondiendo solo); si no, cambiarlo | F0 |
+| Media | Mejorar el LCP móvil (3,2 s en PageSpeed): caché del HTML en Cloudflare, quitar `opsz` de DM Sans, hidratación diferida del mockup y el formulario | E7 |
+| Media | **G5**: caso real Full Motor (con permiso por escrito, vídeo y testimonio) y sección "Quién está detrás" (foto) | v2 |
+| Media | Precios en MXN (D2), analítica con eventos (D6), enlace de agenda (D8), Mapa de Fugas (D11), conversaciones de consultorio y restaurante en el hero | v2 |
+| Media | Revisión legal de las políticas (nueva LFPDPPP, URL de la Secretaría Anticorrupción y Buen Gobierno) | G6 |
+| Baja | Restringir el tráfico web del VPS a las IP de Cloudflare (cuidado: afecta a Vak Devi y otros servicios) | G6 |
+| Media | **Dominios huérfanos en Traefik** (errores diarios de renovación por NXDOMAIN): `vakdevi.ervia.tech`, `chatwoot.ervia.tech` y `nocodb.ervia.tech` siguen configurados en Dokploy, pero no tienen registro DNS. Por cada uno: si el servicio se usa, crear el registro A en Cloudflare; si no, quitar el dominio en Dokploy (y detener el servicio si ya no hace falta) | I7 |
+| Baja | Limpiar del DNS los registros de correo de Hostinger que ya no se usan | A0 |
+| Baja | Opcional: mover el repo `ervia-web` a la organización `ervia-tech` (reconectar Dokploy después) | G0 |
 
 ---
 
