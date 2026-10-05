@@ -34,7 +34,7 @@ export const SEO = {
 export const NAV_LINKS = [
   { href: "/#ganancias", label: "Lo que ganas" },
   { href: "/#metodo", label: "Método" },
-  { href: "/#precios", label: "Precios" },
+  { href: "/#precios", label: "Cómo empezar" },
   { href: "/#faq", label: "FAQ" },
 ] as const;
 

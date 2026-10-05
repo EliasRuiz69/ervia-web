@@ -149,7 +149,7 @@ export function Pricing() {
   return (
     <Section id="precios" aria-labelledby="precios-titulo">
       <SectionHeading id="precios-titulo">
-        Empieza <Accent>gratis</Accent>. Paga solo cuando veas por dónde vas a ganar.
+        Empieza por lo más urgente y escala conforme veas los <Accent>beneficios</Accent>.
       </SectionHeading>
 
       <PricingCarousel
