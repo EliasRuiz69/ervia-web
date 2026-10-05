@@ -1,16 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
 type PricingCarouselProps = {
-  /** `id` de la lista: lo usa el script de posición inicial (src/lib/carousel-start-script.ts). */
-  listId: string;
   /** Nombre de cada plan, en el mismo orden que los hijos (para los puntos del indicador). */
   labels: ReadonlyArray<string>;
-  /** Plan que se ve primero en móvil (Automatizar, el recomendado). */
-  initialIndex: number;
   /** Un <li> por plan. */
   children: React.ReactNode;
 };
@@ -38,20 +34,13 @@ function nearestIndex(list: HTMLUListElement) {
 
 /**
  * Planes de precios: carrusel con scroll-snap en móvil (< 1024 px) y rejilla de 3 columnas en escritorio.
- * El orden del DOM sigue el del método (1·2·3); en móvil la lista ya aparece centrada en `initialIndex`
- * gracias al script de src/lib/carousel-start-script.ts, que el servidor inserta tras la lista. Si ese
- * script no corriera, la lista queda en el primer plan y el indicador lo refleja (ver `nearestIndex`).
+ * El orden del DOM sigue el del método (1·2·3) y en móvil la lista arranca en el primer plan (Detectar),
+ * sin posicionamiento inicial: el indicador empieza en el primer punto y sigue al scroll real (`nearestIndex`).
  * El indicador (puntos) solo aparece en móvil; cada punto mide 44×44 px.
  */
-export function PricingCarousel({ listId, labels, initialIndex, children }: PricingCarouselProps) {
+export function PricingCarousel({ labels, children }: PricingCarouselProps) {
   const listRef = useRef<HTMLUListElement>(null);
-  const [active, setActive] = useState(initialIndex);
-
-  // Al hidratar solo se lee la posición real (por si el script de inicio no corrió); nunca se mueve el scroll.
-  useEffect(() => {
-    const list = listRef.current;
-    if (list && list.scrollWidth > list.clientWidth) setActive(nearestIndex(list));
-  }, []);
+  const [active, setActive] = useState(0);
 
   const onScroll = () => {
     if (listRef.current) setActive(nearestIndex(listRef.current));
@@ -67,7 +56,6 @@ export function PricingCarousel({ listId, labels, initialIndex, children }: Pric
   return (
     <>
       <ul
-        id={listId}
         ref={listRef}
         onScroll={onScroll}
         className={cn(

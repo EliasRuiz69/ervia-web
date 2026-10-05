@@ -8,7 +8,6 @@ import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { WHATSAPP_ENABLED, whatsappPlanUrl, type PlanId } from "@/config/site";
-import { carouselStartScript } from "@/lib/carousel-start-script";
 import { NBSP } from "@/lib/text";
 import { cn } from "@/lib/utils";
 
@@ -68,22 +67,11 @@ const PLANS: ReadonlyArray<Plan> = [
   },
 ];
 
-// Posición inicial del carrusel en móvil (se retira en el siguiente cambio: arrancará en el primer plan).
-const START_INDEX = PLANS.findIndex((p) => p.id === "automatizar");
-const LIST_ID = "planes-lista";
-
-function PlanCard({ plan, isStart }: { plan: Plan; isStart: boolean }) {
+function PlanCard({ plan }: { plan: Plan }) {
   const { id, step, name, includes, price, priceIsWord, cta } = plan;
 
   return (
-    <li
-      className={cn(
-        "relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8",
-        // scroll-initial-target: el carrusel arranca en esta tarjeta (el script de respaldo cubre Safari/Firefox).
-        // Solo bajo lg: en escritorio la lista es una rejilla sin scroll propio y la propiedad movería la página.
-        isStart && "max-lg:[scroll-initial-target:nearest]",
-      )}
-    >
+    <li className="relative flex w-[84%] shrink-0 snap-center flex-col gap-6 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card sm:w-[60%] lg:w-auto lg:p-8">
       <div>
         <Eyebrow>Paso&nbsp;{step}</Eyebrow>
         <h3 className="mt-2 text-[32px] leading-[1.15]">{name}</h3>
@@ -143,17 +131,11 @@ export function Pricing() {
         Empieza por lo más urgente y escala conforme veas los <Accent>beneficios</Accent>.
       </SectionHeading>
 
-      <PricingCarousel
-        listId={LIST_ID}
-        labels={PLANS.map((p) => p.name)}
-        initialIndex={START_INDEX}
-      >
-        {PLANS.map((plan, i) => (
-          <PlanCard key={plan.id} plan={plan} isStart={i === START_INDEX} />
+      <PricingCarousel labels={PLANS.map((p) => p.name)}>
+        {PLANS.map((plan) => (
+          <PlanCard key={plan.id} plan={plan} />
         ))}
       </PricingCarousel>
-      {/* En móvil, deja el carrusel centrado en Automatizar antes del primer pintado (sin salto). */}
-      <script dangerouslySetInnerHTML={{ __html: carouselStartScript(LIST_ID, START_INDEX) }} />
     </Section>
   );
 }
