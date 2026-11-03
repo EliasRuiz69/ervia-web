@@ -53,7 +53,7 @@ export function homeStructuredData() {
 
   const howTo = {
     "@type": "HowTo",
-    "@id": `${SITE.url}/#metodo`,
+    "@id": `${SITE.url}/#como-trabajamos`,
     name: "Método ERVIA",
     description: SEO.methodDefinition,
     step: METHOD_STEPS.map((step, i) => ({
@@ -62,7 +62,7 @@ export function homeStructuredData() {
       name: step.name,
       // Mismos textos y rótulos que se ven en la tarjeta del paso.
       text: `${step.promise}. Qué hacemos: ${endSentence(step.what)} Te llevas: ${step.gets}. Tiempo: ${step.time}.`,
-      url: `${SITE.url}/#metodo`,
+      url: `${SITE.url}/#como-trabajamos`,
     })),
   };
 

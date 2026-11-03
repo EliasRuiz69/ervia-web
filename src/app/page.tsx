@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 
 import { FloatingWhatsApp } from "@/components/layout/floating-whatsapp";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Audience } from "@/components/sections/audience";
+import { Connected } from "@/components/sections/connected";
 import { FinalCta } from "@/components/sections/final-cta";
 import { Faq } from "@/components/sections/faq";
-import { Gains } from "@/components/sections/gains";
 import { Hero } from "@/components/sections/hero";
-import { Method } from "@/components/sections/method";
-import { Mirror } from "@/components/sections/mirror";
-import { Pricing } from "@/components/sections/pricing";
+import { HowWeWork } from "@/components/sections/how-we-work";
+import { Services } from "@/components/sections/services";
+import { TesisBand } from "@/components/sections/tesis-band";
 import { TrustBar } from "@/components/sections/trust-bar";
 import { SEO, SITE } from "@/config/site";
 import { homeStructuredData } from "@/lib/structured-data";
@@ -32,21 +31,22 @@ export const metadata: Metadata = {
 };
 
 /**
- * Estructura de la home (auditoría v2, sección 7).
- * v1: CaseStudy (#caso-real) y Founder NO se renderizan; los componentes existen en
- * src/components/sections/ y se añadirán aquí en la v2 (con "Caso real" en el nav).
+ * Estructura de la home (plan multiservicio v2, sección 2):
+ * Hero → TrustBar → Services → Connected → HowWeWork → TesisBand → Faq → FinalCta.
+ * Ya no se renderizan Mirror, Gains, Method, Audience ni Pricing; sus componentes siguen en
+ * src/components/sections/ por si se reutilizan (Method y Pricing, dentro de HowWeWork en la Fase 4).
+ * CaseStudy (#caso-real) y Founder tampoco se renderizan todavía (G5).
+ * Anclas: #inicio, #servicios, #por-que-ervia, #como-trabajamos, #faq, #contacto.
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
       <TrustBar />
-      <Mirror />
-      <Gains />
-      <Method />
-      <Audience />
-      {/* v2: <CaseStudy /> · <Founder /> */}
-      <Pricing />
+      <Services />
+      <Connected />
+      <HowWeWork />
+      <TesisBand />
       <Faq />
       <FinalCta />
       <FloatingWhatsApp />

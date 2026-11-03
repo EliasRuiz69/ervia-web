@@ -28,13 +28,12 @@ export const SEO = {
 } as const;
 
 /**
- * Enlaces de ancla de la cabecera (auditoría 7.1).
- * "Caso real" (#caso-real) NO está: se añadirá en la v2 junto con la sección CaseStudy.
+ * Enlaces de ancla de la cabecera (plan multiservicio v2, sección 2): Servicios · Cómo trabajamos · FAQ.
+ * "Caso real" (#caso-real) NO está: se añadirá cuando exista la sección CaseStudy (G5).
  */
 export const NAV_LINKS = [
-  { href: "/#ganancias", label: "Lo que ganas" },
-  { href: "/#metodo", label: "Método" },
-  { href: "/#precios", label: "Cómo empezar" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#como-trabajamos", label: "Cómo trabajamos" },
   { href: "/#faq", label: "FAQ" },
 ] as const;
 
