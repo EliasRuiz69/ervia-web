@@ -1,9 +1,3 @@
-<!--
-Política de Privacidad v2 de www.ervia.tech (/politica-de-privacidad).
-Versión final del 3 nov 2026, con las decisiones D1–D6 de docs/revision-politica-privacidad-tesis.md.
-Sustituye a la versión del 30 sep 2026.
--->
-
 # Política de Privacidad
 
 Última actualización: 3 de noviembre de 2026 · ervia.tech

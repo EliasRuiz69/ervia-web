@@ -40,6 +40,17 @@ function withChips(children: React.ReactNode): React.ReactNode {
   return children;
 }
 
+/** Enlace a otro dominio: solo estos se abren en pestaña nueva. ervia.tech, www.ervia.tech y los relativos, en la misma. */
+const OWN_HOSTS = new Set(["ervia.tech", "www.ervia.tech"]);
+function isExternal(href: string): boolean {
+  if (!/^https?:/i.test(href)) return false;
+  try {
+    return !OWN_HOSTS.has(new URL(href).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
 const linkClass =
   "text-blue-400 underline underline-offset-4 transition-colors duration-(--duration-fast) ease-out hover:text-blue-300";
 
@@ -93,7 +104,7 @@ const legacyComponents: Components = {
         </Link>
       );
     }
-    const external = /^https?:/.test(href);
+    const external = isExternal(href);
     return (
       <a
         href={href}
@@ -156,7 +167,7 @@ const v2Components: Components = {
         </Link>
       );
     }
-    const external = /^https?:/.test(href);
+    const external = isExternal(href);
     return (
       <a href={href} className={cls} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
         {children}
