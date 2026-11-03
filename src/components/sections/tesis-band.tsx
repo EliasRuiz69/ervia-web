@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BadgeCheck, BookCheck, FolderOpen, type LucideIcon } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
-import { SECTION_PY } from "@/components/layout/section";
+import { SECTION_PY, deferOffscreen } from "@/components/layout/section";
 import { ServiceDemo } from "@/components/demos";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -34,13 +34,19 @@ const ICONS: Record<TesisPunto["icon"], LucideIcon> = {
 export function TesisBand() {
   const [antes, destacada, despues] = TESIS_BANDA.h2;
   const primaryIsPage = TESIS_PAGE_ENABLED;
+  const band = deferOffscreen([578, 554]);
 
   return (
-    <section aria-labelledby="tesis-banda-titulo" className="border-t border-border-blue bg-surface-raised">
+    <section
+      aria-labelledby="tesis-banda-titulo"
+      className={`border-t border-border-blue bg-surface-raised ${band.className}`}
+      style={band.style}
+    >
       <Container className={SECTION_PY}>
         <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-14">
           <div>
-            <Eyebrow>{TESIS_BANDA.eyebrow}</Eyebrow>
+            {/* blue-300: sobre la superficie navy-800 el blue-400 de siempre da 4,2:1 (< 4,5:1 de AA). */}
+            <Eyebrow className="text-blue-300!">{TESIS_BANDA.eyebrow}</Eyebrow>
             <SectionHeading id="tesis-banda-titulo" className="mt-3 text-[clamp(28px,2.7vw,38px)]">
               {antes}
               <Accent>{destacada}</Accent>

@@ -41,7 +41,7 @@ export function Services() {
   ) as Record<BloqueId, React.ReactNode>;
 
   return (
-    <Section id="servicios" aria-labelledby="servicios-titulo">
+    <Section intrinsic={[1030, 992]} id="servicios" aria-labelledby="servicios-titulo">
       <SectionHeading id="servicios-titulo">
         Todo lo que tu negocio necesita para <Accent>trabajar solo</Accent>
       </SectionHeading>

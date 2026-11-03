@@ -4,13 +4,13 @@ import path from "node:path";
 import { ImageResponse } from "next/og";
 
 /**
- * Imagen para compartir (Open Graph y Twitter), 1200×630: fondo navy-900, titular del hero, diagrama del
+ * Imagen para compartir (Open Graph y Twitter), 1200×630: fondo navy-900, titular del hero (H1 de la home), diagrama del
  * Método ERVIA y logo. Se genera UNA vez en el build (no hay APIs dinámicas). Colores = tokens de
  * docs/design-base/tokens.css (Satori no lee variables CSS, por eso van como valores). Una sola palabra
  * en verde (regla D-J); el diagrama, en azul.
  */
 export const alt =
-  "ERVIA: tu WhatsApp atiende, cotiza y agenda citas solo. Método ERVIA: Detectar, Automatizar, Escalar.";
+  "ERVIA: tu negocio trabaja solo y tú te dedicas a crecer. Método ERVIA: Detectar, Automatizar, Escalar.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,8 +21,9 @@ const GREEN_500 = "#07F991";
 const TEXT_STRONG = "#F8FAFC";
 const TEXT_MUTED = "#8294AC";
 
-const HEADLINE = "Tu WhatsApp atiende, cotiza y agenda citas solo. Tú te dedicas a tu negocio.";
-const ACCENT_WORD = "solo.";
+/** H1 de la home (plan multiservicio v2, 3.1, opción A). La palabra destacada en verde es la misma que en la página. */
+const HEADLINE = "Tu negocio trabaja solo. Tú te dedicas a crecer.";
+const ACCENT_WORD = "Tú";
 
 /** Nodos del diagrama: crecen y suben de izquierda a derecha, como en la sección del método. */
 const NODES = [

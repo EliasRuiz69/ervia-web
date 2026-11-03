@@ -6,7 +6,7 @@ import { FAQ_ITEMS, type FaqItem } from "@/content/faq";
 /** FAQ en un acordeón accesible. Home: FAQ_ITEMS (6 preguntas). /tesis pasa las suyas (TESIS_FAQ). */
 export function Faq({ items = FAQ_ITEMS }: { items?: ReadonlyArray<FaqItem> } = {}) {
   return (
-    <Section id="faq" narrow aria-labelledby="faq-titulo">
+    <Section intrinsic={[690, 758]} id="faq" narrow aria-labelledby="faq-titulo">
       <SectionHeading id="faq-titulo">
         Lo que nos preguntan antes de <Accent>empezar</Accent>
       </SectionHeading>

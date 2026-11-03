@@ -9,7 +9,7 @@ import { Accent, SectionHeading } from "@/components/ui/section-heading";
  */
 export function Connected() {
   return (
-    <Section id="por-que-ervia" deep aria-labelledby="por-que-ervia-titulo">
+    <Section intrinsic={[1187, 960]} id="por-que-ervia" deep aria-labelledby="por-que-ervia-titulo">
       <SectionHeading id="por-que-ervia-titulo">
         Un solo equipo. <Accent>Todo conectado.</Accent>
       </SectionHeading>

@@ -12,7 +12,7 @@ import { TESIS_LIMITES } from "@/config/tesis";
 export function TesisLimits() {
   const [antes, destacada, despues] = TESIS_LIMITES.h2;
   return (
-    <Section deep aria-labelledby="limites-titulo">
+    <Section intrinsic={[1244, 872]} deep aria-labelledby="limites-titulo">
       <SectionHeading id="limites-titulo">
         {antes}
         <Accent>{destacada}</Accent>

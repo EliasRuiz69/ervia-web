@@ -44,7 +44,7 @@ export function FinalCta({
   );
 
   return (
-    <Section id="contacto" deep aria-labelledby="contacto-titulo">
+    <Section intrinsic={[1290, 1037]} id="contacto" deep aria-labelledby="contacto-titulo">
       {WHATSAPP_ENABLED ? (
         <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-8 lg:grid-cols-2 lg:gap-16">
           <div>

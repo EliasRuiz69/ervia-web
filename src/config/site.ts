@@ -12,11 +12,11 @@ export const SITE = {
   tagline: "Automatización con IA para pymes",
 } as const;
 
-/** Textos de SEO (auditoría 4.12): título y descripción de la home y de las vistas previas al compartir. */
+/** Textos de SEO (plan multiservicio v2, 3.7): título y descripción de la home y de las vistas previas al compartir. */
 export const SEO = {
-  title: "Automatiza tu WhatsApp y tu agenda con IA | Método ERVIA · Mérida",
+  title: "ERVIA: agencia de IA y automatización para pymes en México | Mérida",
   description:
-    "Tu WhatsApp atiende, cotiza y agenda citas solo, las 24 horas. Con el Método ERVIA detectamos, automatizamos y escalamos tu negocio en menos de 4 semanas. Diagnóstico gratis.",
+    "Página web, correo profesional, asistente de WhatsApp y de llamadas, CRM, captura de facturas y tableros para tu negocio. Diagnóstico gratis de 15 minutos.",
   /** Teléfono en formato internacional para datos estructurados (es el mismo número de WhatsApp, D4). */
   telephone: "+529992498890",
   /**

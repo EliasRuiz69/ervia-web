@@ -11,7 +11,7 @@ import { SERVICES, bloqueHash } from "@/config/services";
  */
 export function HeroServiceChips() {
   return (
-    <nav aria-label="Servicios" className="mt-8">
+    <nav aria-label="Ir a un servicio" className="mt-8">
       <ul className={chipScrollRowClass}>
         {SERVICES.map((s) => (
           <li key={s.id} className="shrink-0">

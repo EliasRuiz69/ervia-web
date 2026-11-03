@@ -5,6 +5,7 @@ import { Logo } from "@/components/brand/logo";
 import { Brand } from "@/components/ui/brand";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Container } from "./container";
+import { deferOffscreen } from "./section";
 import { SERVICES } from "@/config/services";
 import { LEGAL_LINKS, SITE, SOCIAL_LINKS, WHATSAPP_ENABLED } from "@/config/site";
 import { TESIS_PAGE_ENABLED, TESIS_WHATSAPP_URL } from "@/config/tesis";
@@ -22,10 +23,14 @@ const footerLink =
  */
 export function Footer() {
   const hasSocial = SOCIAL_LINKS.length > 0;
+  const deferred = deferOffscreen([737, 456]);
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border-subtle bg-surface-deep">
+    <footer
+      className={`border-t border-border-subtle bg-surface-deep ${deferred.className}`}
+      style={deferred.style}
+    >
       <Container className="grid grid-cols-2 gap-x-6 gap-y-8 pt-12 md:grid-cols-[1fr_1.5fr_1fr] md:gap-14 md:pt-[52px]">
         <div className="order-1 flex flex-col items-start gap-5 md:order-none">
           <Eyebrow>Contacto</Eyebrow>

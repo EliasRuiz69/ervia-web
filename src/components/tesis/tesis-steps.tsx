@@ -13,7 +13,7 @@ import { TESIS_PASOS } from "@/config/tesis";
 export function TesisSteps() {
   const [antes, destacada] = TESIS_PASOS.h2;
   return (
-    <Section id="como-trabajamos" aria-labelledby="como-trabajamos-titulo">
+    <Section intrinsic={[906, 748]} id="como-trabajamos" aria-labelledby="como-trabajamos-titulo">
       <Eyebrow>{TESIS_PASOS.eyebrow}</Eyebrow>
       <SectionHeading id="como-trabajamos-titulo" className="mt-5">
         {antes}

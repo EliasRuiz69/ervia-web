@@ -1,43 +1,71 @@
+import { BLOQUES, serviciosDeBloque } from "@/config/services";
 import { SEO, SITE, WHATSAPP_ENABLED, WHATSAPP_NUMBER } from "@/config/site";
+import { TESIS_CARDS, TESIS_LIMITES, TESIS_PAGE_ENABLED, TESIS_PATH, TESIS_SEO } from "@/config/tesis";
 import { FAQ_ITEMS } from "@/content/faq";
+import { HOW_STEPS } from "@/content/how-we-work";
 import { METHOD_STEPS } from "@/content/method-steps";
-import { ESCALAR_ALL_INCLUDED } from "@/content/pricing";
-import { endSentence } from "@/lib/text";
 
 /**
  * /llms.txt (llmstxt.org, GEO): resumen de ERVIA para asistentes de IA. Se genera en el build con las mismas
- * constantes que la página, así que no diverge de lo visible. Sin cifras de precios ni casos inventados.
+ * constantes que la página (SERVICES, HOW_STEPS, FAQ_ITEMS, TESIS_*), así que no diverge de lo visible. Sin cifras
+ * de precios ni casos inventados.
  */
 export const dynamic = "force-static";
+
+/** Espacio duro → espacio normal (en texto plano no aporta nada). */
+const plain = (text: string) => text.replace(/ /g, " ");
+
+/** Minúscula inicial solo (no toca siglas como "IA"). */
+const lower = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
 
 function build(): string {
   const lines: string[] = [
     `# ${SITE.name}`,
     "",
-    `> ${SITE.name} es una agencia de automatización con IA para pymes de México, con sede en Mérida, Yucatán. ${SEO.description}`,
+    `> ${SITE.name} es una agencia de IA y automatización para pymes de México, con sede en Mérida, Yucatán. ${SEO.description}`,
     "",
-    "## Qué hace ERVIA",
+    "## Servicios",
     "",
-    "- Agente de IA que atiende, cotiza y agenda citas por WhatsApp, con el mismo número del negocio.",
-    "- Agenda conectada al horario real, con confirmaciones y recordatorios automáticos.",
-    "- Panel de control propio y resumen mensual de mensajes atendidos y citas agendadas.",
-    "- Automatización de tareas repetitivas: respuestas frecuentes, captura de datos, reportes y documentos.",
+    "Se organizan por resultado. Ninguno tiene precio publicado: todo se cotiza tras el diagnóstico gratuito de 15 minutos.",
     "",
+    ...BLOQUES.flatMap((b) => [
+      `### ${b.titulo}`,
+      "",
+      ...serviciosDeBloque(b.id).map(
+        (s) => `- **${s.nombre}**${s.nombreTecnico ? ` (${s.nombreTecnico})` : ""}: ${s.promesa}`,
+      ),
+      "",
+    ]),
     "## Método ERVIA",
     "",
-    SEO.methodDefinition,
+    plain(SEO.methodDefinition),
     "",
-    ...METHOD_STEPS.map(
-      (s) => `${s.n}. **${s.name}** (${s.time}): ${s.promise}. ${endSentence(s.what)} Te llevas: ${s.gets}.`,
-    ),
-    "",
-    "Cómo empezar: Detectar es gratis. Automatizar y Escalar se cotizan tras el diagnóstico gratuito.",
-    `Escalar: ${ESCALAR_ALL_INCLUDED}`,
+    ...METHOD_STEPS.map((s) => {
+      const how = HOW_STEPS.find((h) => h.n === s.n)!;
+      return `${s.n}. **${s.name}**: ${plain(how.text)} ${how.price}.`;
+    }),
     "",
     "## Preguntas frecuentes",
     "",
     ...FAQ_ITEMS.map((f) => `- **${f.question}** ${f.answer}`),
     "",
+    ...(TESIS_PAGE_ENABLED
+      ? [
+          "## Acompañamiento de tesis con IA",
+          "",
+          `Servicio para estudiantes e investigadores (licenciatura, maestría y doctorado): ${TESIS_SEO.description}`,
+          "",
+          "Regla del servicio: el autor es siempre el tesista. ERVIA acompaña con herramientas de IA, pero no escribe la tesis por la persona.",
+          "",
+          ...TESIS_CARDS.map((c) => `- **${c.nombre}**: ${c.promesa}`),
+          "",
+          `Lo que hacemos: ${TESIS_LIMITES.si.items.map(lower).join(", ")}.`,
+          `Lo que no hacemos: ${TESIS_LIMITES.no.items.map(lower).join("; ")}.`,
+          "",
+          `Página del servicio: ${SITE.url}${TESIS_PATH}`,
+          "",
+        ]
+      : []),
     "## Zona de servicio",
     "",
     "Sede en Mérida, Yucatán. Atendemos a pymes de todo México.",
@@ -50,7 +78,10 @@ function build(): string {
     "",
     "## Páginas",
     "",
-    `- [Inicio](${SITE.url}/): servicios, método, cómo empezar y preguntas frecuentes`,
+    `- [Inicio](${SITE.url}/): servicios, cómo trabajamos y preguntas frecuentes`,
+    ...(TESIS_PAGE_ENABLED
+      ? [`- [Acompañamiento de tesis](${SITE.url}${TESIS_PATH}): ordenar fuentes, verificar citas y dar formato a la norma; el autor es el tesista`]
+      : []),
     `- [Política de Privacidad](${SITE.url}/politica-de-privacidad)`,
     `- [Política de Cookies](${SITE.url}/politica-de-cookies)`,
     "",

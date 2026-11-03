@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Baloo_2, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { AnchorAlign } from "@/components/layout/anchor-align";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { SEO, SITE } from "@/config/site";
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <AnchorAlign />
       </body>
     </html>
   );

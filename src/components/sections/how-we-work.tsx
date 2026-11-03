@@ -31,7 +31,7 @@ function HowStepBody({ step }: { step: MethodStep }) {
  */
 export function HowWeWork() {
   return (
-    <Section id="como-trabajamos" aria-labelledby="como-trabajamos-titulo">
+    <Section intrinsic={[1129, 939]} id="como-trabajamos" aria-labelledby="como-trabajamos-titulo">
       <Eyebrow>
         El Método&nbsp;<Brand />
       </Eyebrow>

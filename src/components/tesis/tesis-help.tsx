@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 export function TesisHelp() {
   const [antes, destacada, despues] = TESIS_AYUDA.h2;
   return (
-    <Section id="como-te-ayudamos" aria-labelledby="como-te-ayudamos-titulo">
+    <Section intrinsic={[847, 1353]} id="como-te-ayudamos" aria-labelledby="como-te-ayudamos-titulo">
       <Eyebrow>{TESIS_AYUDA.eyebrow}</Eyebrow>
       <SectionHeading id="como-te-ayudamos-titulo" className="mt-5">
         {antes}

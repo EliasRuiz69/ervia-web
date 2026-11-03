@@ -255,14 +255,22 @@ export function LeadForm({
                 <span
                   className={cn(
                     chipLinkClass,
-                    "gap-1.5 px-[7px] text-[14px] select-none sm:px-3 sm:text-[15px]",
+                    "px-[7px] text-[14px] select-none sm:px-3 sm:text-[15px]",
                     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue-400",
                     selected && "border-border-blue bg-surface-blue-tint text-text-strong",
                   )}
                 >
-                  {selected && <Check aria-hidden="true" className="size-4 shrink-0 text-blue-300" strokeWidth={2.5} />}
                   {label}
                 </span>
+                {/* Marca de "elegido" en la esquina: no ensancha el chip, así que al tocarlo la fila no se reacomoda. */}
+                {selected && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-1 -right-1 flex size-[18px] items-center justify-center rounded-full bg-blue-500 text-text-on-blue"
+                  >
+                    <Check className="size-3" strokeWidth={3} />
+                  </span>
+                )}
               </label>
             );
           })}

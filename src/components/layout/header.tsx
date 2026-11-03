@@ -15,7 +15,7 @@ export function Header() {
         <Link
           href="/"
           aria-label="ERVIA, ir al inicio"
-          className="flex shrink-0 items-center rounded-sm"
+          className="flex min-h-11 shrink-0 items-center rounded-sm"
         >
           <Logo variant="horizontal" tone="onDark" height={32} priority />
         </Link>
