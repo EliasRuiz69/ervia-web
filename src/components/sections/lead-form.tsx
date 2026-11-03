@@ -349,17 +349,41 @@ export function LeadForm({
         {sending ? "Enviando…" : "Quiero mi diagnóstico gratis"}
       </Button>
 
-      <p className="text-[15px] leading-[1.5] text-text-muted">
-        Al enviar, aceptas nuestra{" "}
-        <Link
-          href="/politica-de-privacidad"
-          className="text-blue-400 underline underline-offset-4 hover:text-blue-300"
-        >
-          Política de Privacidad
-        </Link>
-        .
-      </p>
+      <PrivacyNotice origen={origen} />
     </form>
+  );
+}
+
+/**
+ * Aviso de privacidad simplificado (LFPDPPP, art. 16) bajo el botón de envío. Texto de docs/revision-politica-privacidad-tesis.md §4:
+ * el de la home ("web-contacto") y el de /tesis ("web-tesis"), que añade una frase sobre los documentos de la tesis.
+ * Si cambia el responsable, el domicilio o el plazo de borrado, hay que cambiarlo también en la Política de Privacidad.
+ */
+function PrivacyNotice({ origen }: { origen: Origen }) {
+  const link = "text-blue-400 underline underline-offset-4 hover:text-blue-300";
+  return (
+    <p className="text-[13px] leading-[1.55] text-text-muted sm:text-[14px]">
+      <strong className="font-semibold text-text-body">Aviso de privacidad.</strong> ELIAS RUIZ VELA (ERVIA), con
+      domicilio en Calle Paseo de Salamanca 38, La Toscana, C.P. 77725, Playa del Carmen, Quintana Roo, usará tu
+      nombre, tu contacto, tu giro, lo que te interesa y tu mensaje para responderte y agendar tu diagnóstico. No
+      pedimos datos sensibles. También podremos enviarte novedades; si no quieres, escríbenos a{" "}
+      <a href={`mailto:${SITE.email}`} className={link}>
+        {SITE.email}
+      </a>
+      .{" "}
+      {origen === "web-tesis" && (
+        <>
+          Si después nos compartes los documentos de tu tesis, se guardan en un servidor privado de ERVIA en EE. UU.,
+          los analizamos con la IA de Claude (Anthropic, también en EE. UU.) y los borramos en un máximo de 30 días al
+          terminar.{" "}
+        </>
+      )}
+      Lee el{" "}
+      <Link href="/politica-de-privacidad" className={link}>
+        aviso completo
+      </Link>
+      .
+    </p>
   );
 }
 

@@ -380,3 +380,26 @@
     display: none !important;
   }
 }
+
+/* Tablas anchas de las páginas legales: desplazamiento horizontal propio. La sombra del borde aparece solo del lado
+   que aún tiene contenido por ver (capas "local" del color del fondo tapan la sombra "scroll" al llegar al extremo). */
+.table-scroll {
+  background-color: var(--surface-card);
+  background-image:
+    linear-gradient(to right, var(--surface-card) 30%, transparent),
+    linear-gradient(to left, var(--surface-card) 30%, transparent),
+    linear-gradient(to right, rgba(148, 163, 184, 0.34), transparent),
+    linear-gradient(to left, rgba(148, 163, 184, 0.34), transparent);
+  background-position: left center, right center, left center, right center;
+  background-size: 36px 100%, 36px 100%, 14px 100%, 14px 100%;
+  background-repeat: no-repeat;
+  background-attachment: local, local, scroll, scroll;
+}
+
+/* Solo las tablas de 3 o más columnas necesitan ancho mínimo (y por tanto scroll en móvil); la de 2 columnas cabe. */
+.table-scroll table {
+  min-width: 640px;
+}
+.table-scroll:not(:has(th:nth-child(3))) table {
+  min-width: 0;
+}

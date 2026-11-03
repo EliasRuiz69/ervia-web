@@ -6,7 +6,7 @@ import { loadLegalDoc } from "@/lib/legal";
 export const metadata: Metadata = {
   title: "Política de Privacidad",
   description:
-    "Política de Privacidad de ERVIA, agencia de automatización e inteligencia artificial con sede en Mérida, Yucatán, México.",
+    "Qué datos tratamos en ERVIA, para qué, con quién los compartimos y cómo ejercer tus derechos ARCO.",
   alternates: { canonical: "/politica-de-privacidad" },
 };
 
