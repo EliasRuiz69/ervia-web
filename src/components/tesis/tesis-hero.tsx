@@ -19,7 +19,7 @@ export function TesisHero() {
   return (
     <section id="inicio" aria-labelledby="inicio-titulo" className="relative isolate overflow-hidden">
       <HeroBackground />
-      <Container className="relative py-14 md:py-20 lg:py-24">
+      <Container className="relative py-10 md:py-14 lg:py-[70px]">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
           <div className="min-w-0">
             <Eyebrow>{TESIS_HERO.eyebrow}</Eyebrow>

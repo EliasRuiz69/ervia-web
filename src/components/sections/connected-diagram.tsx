@@ -41,8 +41,8 @@ const LINKS = NODES.slice(0, -1).map((a, i) => {
 });
 
 /** Tamaño de los nodos del riel móvil: crecen como en escritorio. */
-const RAIL_SIZES = [44, 48, 52, 56] as const;
-const RAIL_GAP = 36; // px entre pasos (gap del <ol>)
+const RAIL_SIZES = [34, 38, 42, 46] as const;
+const RAIL_GAP = 18; // px entre pasos (gap del <ol>); compactado el 3/11/2026
 
 function StepIcon({
   icon,
@@ -105,9 +105,9 @@ export function ConnectedDiagram() {
               <li
                 key={label}
                 style={{ "--i": i } as React.CSSProperties}
-                className="relative flex min-h-[60px] items-center pl-[76px]"
+                className="relative flex min-h-[46px] items-center pl-[64px]"
               >
-                <span className="m-node absolute top-0 left-0 flex w-[60px] justify-center">
+                <span className="m-node absolute top-0 left-0 flex w-[46px] justify-center">
                   <span
                     style={{ width: size, height: size }}
                     className="flex items-center justify-center rounded-full bg-blue-500 text-text-on-blue"
@@ -117,11 +117,11 @@ export function ConnectedDiagram() {
                 </span>
                 {i < STEPS.length - 1 && (
                   <span
-                    style={{ top: size + 8, bottom: -(RAIL_GAP - 8) }}
-                    className="m-line-y absolute left-[28.5px] w-[3px] rounded-full bg-blue-500/70"
+                    style={{ top: size + 4, bottom: -(RAIL_GAP - 4) }}
+                    className="m-line-y absolute left-[21.5px] w-[3px] rounded-full bg-blue-500/70"
                   />
                 )}
-                <span className="font-display text-[20px] leading-[1.25] font-bold text-text-strong">
+                <span className="font-display text-[18px] leading-[1.25] font-bold text-text-strong">
                   {label}
                 </span>
               </li>

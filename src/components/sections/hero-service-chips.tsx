@@ -1,4 +1,4 @@
-import { chipLinkClass } from "@/components/ui/chip";
+import { chipLinkClass, chipScrollRowClass } from "@/components/ui/chip";
 import { SERVICES, bloqueHash } from "@/config/services";
 
 /**
@@ -6,20 +6,13 @@ import { SERVICES, bloqueHash } from "@/config/services";
  * enlaza a la pestaña de su bloque (#servicios-<bloque>) y lleva `data-servicio` con el id de la tarjeta que
  * recibirá el foco (Fase 2, cuando existan las tarjetas).
  *
- * Móvil: una sola fila con scroll horizontal, sin barra visible y con degradado en el borde derecho
- * (máscara, para que funcione sobre cualquier fondo). El padding derecho deja que el último chip salga del
- * degradado. Desde sm: se acomodan en varias filas.
+ * Móvil: una sola fila con scroll horizontal (chipScrollRowClass, compartida con la línea de giros de
+ * "Cómo trabajamos"). Desde sm: se acomodan en varias filas.
  */
 export function HeroServiceChips() {
   return (
     <nav aria-label="Servicios" className="mt-8">
-      <ul
-        className={
-          "-mx-5 flex gap-2.5 overflow-x-auto px-5 pr-14 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden " +
-          "max-sm:[mask-image:linear-gradient(to_right,#000_calc(100%-56px),transparent)] " +
-          "sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pr-0"
-        }
-      >
+      <ul className={chipScrollRowClass}>
         {SERVICES.map((s) => (
           <li key={s.id} className="shrink-0">
             <a

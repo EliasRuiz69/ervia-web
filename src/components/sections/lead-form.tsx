@@ -171,7 +171,7 @@ export function LeadForm({
       onFocusCapture={() => void loadLead().catch(() => (leadModule = undefined))}
       noValidate
       aria-busy={sending}
-      className="relative flex flex-col gap-5 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card md:p-9"
+      className="relative flex flex-col gap-5 rounded-lg border border-border-subtle bg-surface-card p-4 shadow-card sm:p-7 md:p-9"
     >
       <Field id="lead-nombre" label="Nombre" error={errors.nombre}>
         <input
@@ -239,7 +239,7 @@ export function LeadForm({
           ¿Qué te interesa?
           <span className="font-normal whitespace-nowrap text-text-muted"> · Opcional</span>
         </legend>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-2">
           {INTERESES.map(({ id, label }) => {
             const selected = intereses.includes(id);
             return (
@@ -255,7 +255,7 @@ export function LeadForm({
                 <span
                   className={cn(
                     chipLinkClass,
-                    "gap-1.5 select-none",
+                    "gap-1.5 px-[7px] text-[14px] select-none sm:px-3 sm:text-[15px]",
                     "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue-400",
                     selected && "border-border-blue bg-surface-blue-tint text-text-strong",
                   )}
@@ -273,13 +273,13 @@ export function LeadForm({
         <textarea
           id="lead-mensaje"
           name="mensaje"
-          rows={4}
+          rows={3}
           maxLength={LIMITS.mensaje}
           value={values.mensaje}
           onChange={set("mensaje")}
           aria-invalid={errors.mensaje ? true : undefined}
           aria-describedby={errors.mensaje ? "lead-mensaje-error" : undefined}
-          className={cn(fieldClass(!!errors.mensaje), "min-h-24 resize-y")}
+          className={cn(fieldClass(!!errors.mensaje), "min-h-20 resize-y")}
         />
       </Field>
 

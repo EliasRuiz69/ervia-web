@@ -28,7 +28,7 @@ export function Hero() {
       className="relative isolate overflow-hidden"
     >
       <HeroBackground />
-      <Container className="relative py-14 md:py-20 lg:py-24">
+      <Container className="relative py-10 md:py-14 lg:py-[70px]">
         <div className="grid grid-cols-[minmax(0,1fr)] items-center gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,0.65fr)] lg:gap-10">
           <div className="min-w-0">
             <Eyebrow>Agencia de IA y automatización para pymes · Mérida</Eyebrow>

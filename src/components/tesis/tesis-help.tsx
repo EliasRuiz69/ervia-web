@@ -1,6 +1,7 @@
 import { Section } from "@/components/layout/section";
 import { ServiceCard } from "@/components/sections/service-card";
 import { ServicesCarousel } from "@/components/sections/services-carousel";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { TESIS_AYUDA, TESIS_CARDS } from "@/config/tesis";
 import { cn } from "@/lib/utils";
@@ -11,12 +12,14 @@ import { cn } from "@/lib/utils";
  * móvil y tablet: carrusel. Las demos de las tarjetas son fotogramas estáticos (prioridad B).
  */
 export function TesisHelp() {
-  const [antes, destacada] = TESIS_AYUDA.h2;
+  const [antes, destacada, despues] = TESIS_AYUDA.h2;
   return (
     <Section id="como-te-ayudamos" aria-labelledby="como-te-ayudamos-titulo">
-      <SectionHeading id="como-te-ayudamos-titulo">
+      <Eyebrow>{TESIS_AYUDA.eyebrow}</Eyebrow>
+      <SectionHeading id="como-te-ayudamos-titulo" className="mt-5">
         {antes}
         <Accent>{destacada}</Accent>
+        {despues}
       </SectionHeading>
 
       <div className="mt-12">

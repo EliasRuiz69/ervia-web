@@ -26,8 +26,8 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border-subtle bg-surface-deep">
-      <Container className="grid gap-10 pt-16 md:grid-cols-[1fr_1.5fr_1fr] md:gap-14 md:pt-[72px]">
-        <div className="flex flex-col items-start gap-5">
+      <Container className="grid grid-cols-2 gap-x-6 gap-y-8 pt-12 md:grid-cols-[1fr_1.5fr_1fr] md:gap-14 md:pt-[52px]">
+        <div className="order-1 flex flex-col items-start gap-5 md:order-none">
           <Eyebrow>Contacto</Eyebrow>
           <Logo variant="horizontal" tone="onDark" height={30} />
           <a href={`mailto:${SITE.email}`} className={footerLink}>
@@ -39,7 +39,7 @@ export function Footer() {
           </span>
         </div>
 
-        <nav aria-label="Servicios" className="flex flex-col items-start gap-1">
+        <nav aria-label="Servicios" className="order-3 col-span-2 flex flex-col items-start gap-1 md:order-none md:col-span-1">
           <Eyebrow className="mb-2">Servicios</Eyebrow>
           <ul className="grid grid-cols-2 gap-x-6">
             {SERVICES.map((s) => (
@@ -72,7 +72,7 @@ export function Footer() {
           )}
         </nav>
 
-        <nav aria-label="Legal" className="flex flex-col items-start gap-1">
+        <nav aria-label="Legal" className="order-2 flex flex-col items-start gap-1 md:order-none">
           <Eyebrow className="mb-2">Legal</Eyebrow>
           {LEGAL_LINKS.map(({ href, label }) => (
             <Link key={href} href={href} className={footerLink}>
@@ -106,8 +106,8 @@ export function Footer() {
           (56 px + 16 px de margen) nunca tape los enlaces legales ni el © */}
       <Container
         className={cn(
-          "mt-14 border-t border-border-subtle py-6",
-          WHATSAPP_ENABLED && "pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-6",
+          "mt-10 border-t border-border-subtle py-5",
+          WHATSAPP_ENABLED && "pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-5",
         )}
       >
         <p className="text-[14px] text-text-muted">

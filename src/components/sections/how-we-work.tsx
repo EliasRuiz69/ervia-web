@@ -5,7 +5,7 @@ import { MethodDiagram } from "@/components/sections/method-diagram";
 import { StepCardBody } from "@/components/sections/step-card-body";
 import { Brand } from "@/components/ui/brand";
 import { Button } from "@/components/ui/button";
-import { chipClass, chipLinkClass } from "@/components/ui/chip";
+import { chipClass, chipLinkClass, chipScrollRowClass } from "@/components/ui/chip";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Accent, SectionHeading } from "@/components/ui/section-heading";
 import { SEO, WHATSAPP_ENABLED, whatsappUrl } from "@/config/site";
@@ -49,37 +49,38 @@ export function HowWeWork() {
         <MethodDiagram renderStep={(step) => <HowStepBody step={step} />} />
       </div>
 
-      <div className="mt-12 flex flex-col gap-3 md:flex-row md:flex-wrap md:items-center md:gap-x-4 md:gap-y-3">
-        <p className="text-[16px] font-semibold text-text-strong">Trabajamos con:</p>
-        <ul className="flex flex-wrap items-center gap-2.5">
-          {GIROS_LINEA.map((giro) => (
-            <li key={giro}>
-              <span className={chipClass}>{giro}</span>
+      {/* Giros y CTA: en escritorio, chips a la izquierda y CTA a la derecha, en una sola fila. */}
+      <div className="mt-10 flex flex-col gap-6 lg:mt-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+        <div className="flex min-w-0 flex-col gap-3 lg:flex-row lg:items-center lg:gap-4">
+          <p className="shrink-0 text-[16px] font-semibold text-text-strong">Trabajamos con:</p>
+          <ul className={cn(chipScrollRowClass, "lg:items-center lg:gap-2.5")}>
+            {GIROS_LINEA.map((giro) => (
+              <li key={giro} className="shrink-0">
+                <span className={chipClass}>{giro}</span>
+              </li>
+            ))}
+            <li className="shrink-0">
+              {WHATSAPP_ENABLED ? (
+                <a
+                  href={whatsappUrl("audience")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cta="whatsapp"
+                  data-location="how-we-work-giros"
+                  className={cn(chipLinkClass, "italic")}
+                >
+                  ¿Otro giro? Escríbenos
+                </a>
+              ) : (
+                <Link href="#contacto" data-cta="diagnostico" data-location="how-we-work-giros" className={cn(chipLinkClass, "italic")}>
+                  ¿Otro giro? Escríbenos
+                </Link>
+              )}
             </li>
-          ))}
-          <li>
-            {WHATSAPP_ENABLED ? (
-              <a
-                href={whatsappUrl("audience")}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cta="whatsapp"
-                data-location="how-we-work-giros"
-                className={cn(chipLinkClass, "italic")}
-              >
-                ¿Otro giro? Escríbenos
-              </a>
-            ) : (
-              <Link href="#contacto" data-cta="diagnostico" data-location="how-we-work-giros" className={cn(chipLinkClass, "italic")}>
-                ¿Otro giro? Escríbenos
-              </Link>
-            )}
-          </li>
-        </ul>
-      </div>
+          </ul>
+        </div>
 
-      <div className="mt-10">
-        <Button asChild size="lg" className="w-full sm:w-auto">
+        <Button asChild size="lg" className="w-full shrink-0 lg:w-auto">
           <Link href="#contacto" data-cta="diagnostico" data-location="how-we-work">
             Empieza gratis por el paso&nbsp;1 <span aria-hidden="true">→</span>
           </Link>

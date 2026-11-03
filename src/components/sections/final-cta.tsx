@@ -18,10 +18,11 @@ type FinalCtaProps = {
 };
 
 /**
- * CTA final (auditoría 4.11). Dos columnas: WhatsApp grande | formulario. Si WHATSAPP_ENABLED es false,
- * la columna de WhatsApp no se muestra y el formulario ocupa el centro. Sin enlace de agenda en la v1 (D8)
- * y sin promesa del Mapa de Fugas (D11). /tesis lo reutiliza con su propio titular, su WhatsApp de tesis y el
- * formulario preseleccionado.
+ * CTA final (auditoría 4.11), compactado el 3/11/2026. Escritorio: dos columnas desde arriba. Izquierda: H2 +
+ * subtítulo + botón de WhatsApp; derecha: el formulario (sin franja de H2 encima). Móvil: todo en una columna, en
+ * ese mismo orden. Si WHATSAPP_ENABLED es false, no hay botón y el formulario queda centrado bajo el titular.
+ * Sin enlace de agenda en la v1 (D8) y sin promesa del Mapa de Fugas (D11). /tesis lo reutiliza con su propio
+ * titular, su WhatsApp de tesis y el formulario preseleccionado.
  */
 export function FinalCta({
   heading = (
@@ -35,18 +36,24 @@ export function FinalCta({
   whatsappLocation = "contact",
   form,
 }: FinalCtaProps = {}) {
-  return (
-    <Section id="contacto" deep aria-labelledby="contacto-titulo">
+  const intro = (
+    <>
       <SectionHeading id="contacto-titulo">{heading}</SectionHeading>
       <p className="mt-5 max-w-[600px] text-[19px] leading-[1.6]">{subheading}</p>
+    </>
+  );
 
+  return (
+    <Section id="contacto" deep aria-labelledby="contacto-titulo">
       {WHATSAPP_ENABLED ? (
-        <div className="mt-12 grid grid-cols-[minmax(0,1fr)] items-start gap-10 lg:grid-cols-2 lg:gap-16">
-          <div className="flex flex-col items-start gap-5">
-            <p className="font-display text-[clamp(24px,2.4vw,30px)] leading-[1.25] font-bold text-text-strong">
-              Escríbenos por WhatsApp o rellena el formulario.
-            </p>
-            <Button asChild size="lg" className="w-full whitespace-normal text-center sm:w-auto sm:px-10 sm:py-5 sm:text-[19px]">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-8 lg:grid-cols-2 lg:gap-16">
+          <div>
+            {intro}
+            <Button
+              asChild
+              size="lg"
+              className="mt-8 w-full whitespace-normal text-center sm:w-auto sm:px-10 sm:py-5 sm:text-[19px]"
+            >
               <a
                 href={whatsappHref}
                 target="_blank"
@@ -62,9 +69,12 @@ export function FinalCta({
           <LeadForm {...form} />
         </div>
       ) : (
-        <div className="mx-auto mt-12 max-w-[560px]">
-          <LeadForm {...form} />
-        </div>
+        <>
+          {intro}
+          <div className="mx-auto mt-10 max-w-[560px]">
+            <LeadForm {...form} />
+          </div>
+        </>
       )}
     </Section>
   );

@@ -69,7 +69,7 @@
 
 **Se retiran del render** (no se borran: quedan como componentes por si se reutilizan): *Problemas (Mirror)*, *Lo que ganas (Gains)*, *Para quién es (Audience)* y *Precios (Pricing)* como sección propia. Su mensaje vive ahora dentro de las tarjetas de servicio y de "Cómo trabajamos".
 
-**Meta medible:** la página debe medir, como máximo, el **60 %** de la altura actual en escritorio (1440 px) y en móvil (390 px). La Fase 0 toma la medida de partida.
+**Meta medible:** la página debe medir, como máximo, **≤ 6,800 px a 1440 y ≤ 8,400 px a 390** (revisada el 3 nov 2026; la meta original era el 60 % de la altura de partida, que la Fase 0 midió en 8,785 px a 1440 y 12,706 px a 390).
 
 ---
 
@@ -339,7 +339,7 @@ Rama develop. Sigue CLAUDE.md y la sección 3.7 del plan.
 2. JSON-LD: ProfessionalService con hasOfferCatalog (un Offer/Service por cada entrada de services.ts, con nombre y descripción = promesa); FAQPage con las 6 preguntas EXACTAS que se ven en la página; quita o ajusta el HowTo si sus textos ya no coinciden con "Cómo trabajamos". Valídalo.
 3. /llms.txt: añade la lista de servicios con su promesa.
 4. QA en la home Y en /tesis: Lighthouse móvil y escritorio (≥ 90 en las 4 categorías; CLS < 0,1; dime el LCP comparado con el anterior); Playwright a 360, 390, 430, 768, 1024 y 1440 px (sin scroll horizontal, pestañas, chips, carrusel, formulario); axe con 0 errores serios; barrido de texto (sin "€", "coste", "#", jerga en titulares — "workflow", "RAG", "LLM", "agente multiagente" —, cifras sin la etiqueta "Ejemplo" ni, en todo lo de tesis, frases como "te escribimos tu tesis", "tesis lista", "indetectable" o "humanizar").
-5. Mide la altura total de la home a 1440 y 390 px y compárala con la de la Fase 0 (meta: ≤ 60 %).
+5. Mide la altura total de la home a 1440 y 390 px y compárala con la de la Fase 0 (meta: ≤ 6,800 px a 1440 y ≤ 8,400 px a 390, revisada el 3 nov 2026).
 6. Haz commit y push a develop (staging se actualiza solo).
 Entrégame el informe. Espera mi visto bueno para la PR.
 ```

@@ -7,8 +7,8 @@ import { Brand } from "@/components/ui/brand";
  * Solo afirmaciones verificables: no se nombran competidores ni se dan cifras.
  * Columna ERVIA: check en verde (resultado) sobre fondo azul tenue. Apps sueltas: gris, sin rojo ni íconos de error.
  *
- * Escritorio (≥ 768 px): tabla de 3 columnas. Móvil: cada fila es una tarjeta con la pregunta como título y
- * las dos respuestas rotuladas (data-label). Los roles ARIA van explícitos porque, al cambiar el `display`
+ * Escritorio (≥ 768 px): tabla de 3 columnas. Móvil: mini-tabla por fila: la pregunta a lo ancho y debajo las dos
+ * respuestas lado a lado, rotuladas "Apps sueltas" | "Con ERVIA". Los roles ARIA van explícitos porque, al cambiar el `display`
  * de los elementos de la tabla, algunos navegadores pierden su semántica.
  */
 const ROWS: ReadonlyArray<{ question: string; loose: string; ervia: React.ReactNode }> = [
@@ -38,7 +38,7 @@ const ROWS: ReadonlyArray<{ question: string; loose: string; ervia: React.ReactN
   },
 ];
 
-const label = "mb-1 block text-[13px] font-semibold tracking-overline uppercase md:hidden";
+const label = "mb-1 block text-[12px] font-semibold tracking-overline uppercase md:hidden";
 
 export function ComparisonTable() {
   return (
@@ -73,18 +73,18 @@ export function ComparisonTable() {
           <tr
             key={question}
             role="row"
-            className="mb-4 block overflow-hidden rounded-lg border border-border-subtle bg-surface-card shadow-card md:mb-0 md:table-row md:rounded-none md:border-0 md:shadow-none"
+            className="mb-3 grid grid-cols-2 overflow-hidden rounded-lg border border-border-subtle bg-surface-card shadow-card md:mb-0 md:table-row md:rounded-none md:border-0 md:shadow-none"
           >
             <th
               role="rowheader"
               scope="row"
-              className="block px-5 pt-5 pb-3 font-display text-[20px] leading-tight font-bold text-text-strong md:table-cell md:border-t md:border-border-subtle md:p-6 md:align-top"
+              className="col-span-2 px-4 pt-4 pb-2 font-display text-[18px] leading-tight font-bold text-text-strong md:table-cell md:border-t md:border-border-subtle md:p-6 md:text-[20px] md:align-top"
             >
               {question}
             </th>
             <td
               role="cell"
-              className="block px-5 pb-4 text-[17px] leading-[1.5] text-text-muted md:table-cell md:border-t md:border-border-subtle md:p-6 md:align-top"
+              className="px-4 py-3 text-[15px] leading-[1.45] text-text-muted md:table-cell md:border-t md:border-border-subtle md:p-6 md:text-[17px] md:leading-[1.5] md:align-top"
             >
               <span aria-hidden="true" className={`${label} text-text-muted`}>
                 Apps sueltas
@@ -93,13 +93,13 @@ export function ComparisonTable() {
             </td>
             <td
               role="cell"
-              className="block bg-surface-blue-tint px-5 py-4 text-[17px] leading-[1.5] text-text-body md:table-cell md:border-t md:border-border-subtle md:p-6 md:align-top"
+              className="bg-surface-blue-tint px-4 py-3 text-[15px] leading-[1.45] text-text-body md:table-cell md:border-t md:border-border-subtle md:p-6 md:text-[17px] md:leading-[1.5] md:align-top"
             >
               <span aria-hidden="true" className={`${label} text-text-strong`}>
                 Con ERVIA
               </span>
-              <span className="flex items-start gap-2.5">
-                <Check aria-hidden="true" className="mt-[3px] size-5 shrink-0 text-green-500" strokeWidth={3} />
+              <span className="flex items-start gap-2">
+                <Check aria-hidden="true" className="mt-[3px] size-4 shrink-0 text-green-500 md:size-5" strokeWidth={3} />
                 <span>{ervia}</span>
               </span>
             </td>

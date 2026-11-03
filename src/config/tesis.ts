@@ -84,8 +84,9 @@ export const TESIS_HERO = {
 
 /** 2. "Cómo te ayudamos": 5 tarjetas con el mismo tipo que las de services.ts. */
 export const TESIS_AYUDA = {
-  /** [antes, destacada en verde]. */
-  h2: ["Cómo te ", "ayudamos"] as const,
+  eyebrow: "Cómo te ayudamos",
+  /** [antes, destacada en verde, después]: el verde va solo en "pesado". Texto indicado por Elias el 3/11/2026. */
+  h2: ["Te quitamos el trabajo ", "pesado", ". Tú pones las ideas."] as const,
 } as const;
 
 export const TESIS_CARDS: ReadonlyArray<CardData> = [
