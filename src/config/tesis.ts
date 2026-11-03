@@ -204,11 +204,8 @@ export const TESIS_FAQ: ReadonlyArray<FaqItem> = [
   },
   {
     question: "¿Mis documentos están seguros?",
-    // TODO-ELIAS: texto SIN CONFIRMAR. NO publicar en main hasta que Elias lo confirme.
-    //   Confirmar antes: (1) qué proveedor de IA procesa los textos y (2) si sus condiciones permiten decir
-    //   "no se usan para entrenar modelos"; solo entonces añadir esa frase.
     answer:
-      "Tus documentos se guardan en un espacio privado, solo tuyo, y no se publican ni se comparten. Al terminar, los borramos si así lo pides.",
+      "Sí. Tus documentos se guardan en un servidor privado que administra ERVIA y solo los ven las personas que te acompañan. No se publican ni se comparten. Para analizarlos usamos la IA de Claude (Anthropic) con sus condiciones comerciales, que no usan tus documentos para entrenar sus modelos. Al terminar, los borramos de nuestro servidor si así lo pides.",
   },
   {
     question: "¿Sirve para licenciatura, maestría y doctorado?",
