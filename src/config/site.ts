@@ -12,29 +12,29 @@ export const SITE = {
   tagline: "Automatización con IA para pymes",
 } as const;
 
-/** Textos de SEO (auditoría 4.12): título y descripción de la home y de las vistas previas al compartir. */
+/** Textos de SEO (plan multiservicio v2, 3.7): título y descripción de la home y de las vistas previas al compartir. */
 export const SEO = {
-  title: "Automatiza tu WhatsApp y tu agenda con IA | Método ERVIA · Mérida",
+  title: "ERVIA: agencia de IA y automatización para pymes en México | Mérida",
   description:
-    "Tu WhatsApp atiende, cotiza y agenda citas solo, las 24 horas. Con el Método ERVIA detectamos, automatizamos y escalamos tu negocio en menos de 4 semanas. Diagnóstico gratis.",
+    "Página web, correo profesional, asistente de WhatsApp y de llamadas, CRM, captura de facturas y tableros para tu negocio. Diagnóstico gratis de 15 minutos.",
   /** Teléfono en formato internacional para datos estructurados (es el mismo número de WhatsApp, D4). */
   telephone: "+529992498890",
   /**
-   * Frase autocontenida que define el Método ERVIA (auditoría 6, GEO). Se muestra en la sección del método
-   * y alimenta la descripción del HowTo y el llms.txt: debe ser idéntica en los tres sitios.
+   * Frase autocontenida que define el Método ERVIA (auditoría 6, GEO; texto actualizado el 3/11/2026 para la home
+   * multiservicio). Se muestra en "Cómo trabajamos" y alimenta la descripción del HowTo y el llms.txt: debe ser
+   * idéntica en los tres sitios.
    */
   methodDefinition:
-    `El Método${NBSP}ERVIA es un proceso de tres pasos (Detectar, Automatizar y Escalar) para que las pymes automaticen su atención por WhatsApp y su agenda en menos de 4 semanas.`,
+    `El Método${NBSP}ERVIA tiene 3 pasos: detectar dónde pierdes tiempo y clientes, automatizar lo más urgente y escalar mes a mes.`,
 } as const;
 
 /**
- * Enlaces de ancla de la cabecera (auditoría 7.1).
- * "Caso real" (#caso-real) NO está: se añadirá en la v2 junto con la sección CaseStudy.
+ * Enlaces de ancla de la cabecera (plan multiservicio v2, sección 2): Servicios · Cómo trabajamos · FAQ.
+ * "Caso real" (#caso-real) NO está: se añadirá cuando exista la sección CaseStudy (G5).
  */
 export const NAV_LINKS = [
-  { href: "/#ganancias", label: "Lo que ganas" },
-  { href: "/#metodo", label: "Método" },
-  { href: "/#precios", label: "Cómo empezar" },
+  { href: "/#servicios", label: "Servicios" },
+  { href: "/#como-trabajamos", label: "Cómo trabajamos" },
   { href: "/#faq", label: "FAQ" },
 ] as const;
 

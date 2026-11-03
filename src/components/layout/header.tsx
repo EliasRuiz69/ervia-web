@@ -1,16 +1,12 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/brand/logo";
-import { Button } from "@/components/ui/button";
-import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
-import { HEADER_CTA, NAV_LINKS, WHATSAPP_ENABLED, whatsappUrl } from "@/config/site";
-import { MobileMenu } from "./mobile-menu";
+import { HeaderNav } from "./header-nav";
 
 /**
- * Cabecera sticky (docs/design-base.md §3): fondo navy-900 al 78 % con blur de 12 px,
- * borde inferior sutil. Enlaces de ancla en escritorio; hamburguesa por debajo de 768 px.
- * CTAs (auditoría 7.1): [WhatsApp] (solo si WHATSAPP_ENABLED; verde, es el CTA principal) y
- * [Diagnóstico gratis] (outline; pasa a verde si WhatsApp está apagado).
+ * Cabecera sticky (docs/design-base.md §3): fondo navy-900 al 78 % con blur de 12 px, borde inferior sutil.
+ * Logo a la izquierda; los enlaces, los botones y el menú móvil (hamburguesa por debajo de 768 px) están en
+ * HeaderNav, que elige el nav de la home o el de /tesis.
  */
 export function Header() {
   return (
@@ -19,50 +15,12 @@ export function Header() {
         <Link
           href="/"
           aria-label="ERVIA, ir al inicio"
-          className="flex shrink-0 items-center rounded-sm"
+          className="flex min-h-11 shrink-0 items-center rounded-sm"
         >
           <Logo variant="horizontal" tone="onDark" height={32} priority />
         </Link>
 
-        <nav aria-label="Principal" className="hidden items-center gap-1 md:flex">
-          <ul className="flex items-center">
-            {NAV_LINKS.map(({ href, label }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-pill px-2 text-[14px] whitespace-nowrap lg:px-3 font-medium text-text-body transition-colors duration-(--duration-fast) ease-out hover:text-text-strong"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          {WHATSAPP_ENABLED && (
-            <Button asChild size="sm" className="ml-2 px-3 lg:px-[18px]">
-              <a
-                href={whatsappUrl("nav")}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cta="whatsapp"
-                data-location="nav"
-              >
-                <WhatsAppIcon className="size-5" />
-                <span className="sr-only lg:not-sr-only">WhatsApp</span>
-              </a>
-            </Button>
-          )}
-          <Button asChild size="sm" variant={WHATSAPP_ENABLED ? "outline" : "primary"} className="ml-2">
-            <Link href={HEADER_CTA.href} data-cta="diagnostico" data-location="nav">
-              {HEADER_CTA.label}
-            </Link>
-          </Button>
-        </nav>
-
-        <MobileMenu
-          links={NAV_LINKS}
-          cta={HEADER_CTA}
-          whatsappHref={WHATSAPP_ENABLED ? whatsappUrl("nav") : undefined}
-        />
+        <HeaderNav />
       </div>
     </header>
   );

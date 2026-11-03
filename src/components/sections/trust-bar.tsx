@@ -15,7 +15,7 @@ export function TrustBar() {
       aria-label="Por qué ERVIA"
       className="border-t border-border-subtle bg-surface-deep"
     >
-      <Container className="py-8 md:py-10">
+      <Container className="py-6 md:py-7">
         {/* Desde md: columnas 1fr · auto · 1fr, así el ítem del medio queda centrado en el contenedor y los
             extremos pegados a sus bordes (con columnas iguales o justify-between, el del medio se descentraría). */}
         <ul className="grid grid-cols-1 gap-5 md:grid-cols-[1fr_auto_1fr] lg:gap-8">

@@ -5,6 +5,9 @@
 /* Tokens ERVIA (copia literal de docs/design-base/tokens.css). No editar valores aquí. */
 @import "../styles/tokens.css";
 
+/* Motor de las mini-demos animadas (plan multiservicio v2, sección 4). */
+@import "../components/demos/demos.css";
+
 /* ============================================================
    1) Tailwind solo conoce la paleta ERVIA: se elimina la paleta por defecto.
    ============================================================ */

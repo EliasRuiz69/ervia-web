@@ -1,20 +1,29 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { chipLinkClass } from "@/components/ui/chip";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { SITE, WHATSAPP_ENABLED, whatsappUrl } from "@/config/site";
-import { GIROS, HONEYPOT_FIELD, LIMITS } from "@/lib/lead-shared";
+import {
+  GIROS,
+  HONEYPOT_FIELD,
+  INTERESES,
+  INTERES_AUN_NO_SE,
+  LIMITS,
+  type Origen,
+} from "@/lib/lead-shared";
 import type { LeadField } from "@/lib/lead";
 import { cn } from "@/lib/utils";
 
 /** Orden de los campos en pantalla (para enfocar el primero con error). */
-const FIELD_ORDER: ReadonlyArray<LeadField> = ["nombre", "contacto", "giro", "mensaje"];
+type TextField = "nombre" | "contacto" | "giro" | "mensaje";
+const FIELD_ORDER: ReadonlyArray<TextField> = ["nombre", "contacto", "giro", "mensaje"];
 
-type Values = Record<LeadField, string> & { [HONEYPOT_FIELD]: string };
+type Values = Record<TextField, string> & { [HONEYPOT_FIELD]: string };
 type Status = "idle" | "sending" | "success" | "error";
 
 /** Carga diferida del esquema (y de zod): se precarga al enfocar el formulario y se reutiliza al enviar. */
@@ -39,8 +48,20 @@ const fieldClass = (hasError: boolean) =>
  * mensajes de éxito/error (el de error ofrece WhatsApp, o el correo si WhatsApp está desactivado).
  * El envío va a POST /api/lead; el navegador nunca ve la URL del webhook.
  */
-export function LeadForm() {
-  const [values, setValues] = useState<Values>(EMPTY);
+export function LeadForm({
+  defaultGiro,
+  defaultIntereses = [],
+  origen = "web-contacto",
+}: {
+  /** Giro preseleccionado (/tesis: "Soy estudiante o investigador"). */
+  defaultGiro?: (typeof GIROS)[number];
+  /** Ids de "¿Qué te interesa?" marcados al inicio (/tesis: ["tesis"]). */
+  defaultIntereses?: ReadonlyArray<string>;
+  /** "web-contacto" (home) o "web-tesis" (/tesis). */
+  origen?: Origen;
+} = {}) {
+  const [values, setValues] = useState<Values>({ ...EMPTY, giro: defaultGiro ?? "" });
+  const [intereses, setIntereses] = useState<ReadonlyArray<string>>(defaultIntereses);
   const [errors, setErrors] = useState<Partial<Record<LeadField, string>>>({});
   const [status, setStatus] = useState<Status>("idle");
   const [errorKind, setErrorKind] = useState<"generic" | "rate">("generic");
@@ -59,6 +80,13 @@ export function LeadForm() {
       if (field in errors) setErrors((e) => ({ ...e, [field]: undefined }));
     };
 
+  /** Alterna un chip de interés. "Aún no sé" es excluyente: al marcarlo se quitan los demás y viceversa. */
+  const toggleInteres = (id: string) =>
+    setIntereses((current) => {
+      if (current.includes(id)) return current.filter((x) => x !== id);
+      return id === INTERES_AUN_NO_SE ? [id] : [...current.filter((x) => x !== INTERES_AUN_NO_SE), id];
+    });
+
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (status === "sending") return;
@@ -75,7 +103,7 @@ export function LeadForm() {
     }
     const { leadSchema, fieldErrors } = lead;
 
-    const result = leadSchema.safeParse(values);
+    const result = leadSchema.safeParse({ ...values, intereses, origen });
     if (!result.success) {
       const found = fieldErrors(result.error);
       setErrors(found);
@@ -143,7 +171,7 @@ export function LeadForm() {
       onFocusCapture={() => void loadLead().catch(() => (leadModule = undefined))}
       noValidate
       aria-busy={sending}
-      className="relative flex flex-col gap-5 rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card md:p-9"
+      className="relative flex flex-col gap-5 rounded-lg border border-border-subtle bg-surface-card p-4 shadow-card sm:p-7 md:p-9"
     >
       <Field id="lead-nombre" label="Nombre" error={errors.nombre}>
         <input
@@ -206,17 +234,60 @@ export function LeadForm() {
         </div>
       </Field>
 
+      <fieldset className="flex min-w-0 flex-col gap-2.5">
+        <legend className="mb-2.5 text-[15px] font-medium text-text-body">
+          ¿Qué te interesa?
+          <span className="font-normal whitespace-nowrap text-text-muted"> · Opcional</span>
+        </legend>
+        <div className="flex flex-wrap gap-2">
+          {INTERESES.map(({ id, label }) => {
+            const selected = intereses.includes(id);
+            return (
+              <label key={id} className="relative cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="intereses"
+                  value={id}
+                  checked={selected}
+                  onChange={() => toggleInteres(id)}
+                  className="peer sr-only"
+                />
+                <span
+                  className={cn(
+                    chipLinkClass,
+                    "px-[7px] text-[14px] select-none sm:px-3 sm:text-[15px]",
+                    "peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-blue-400",
+                    selected && "border-border-blue bg-surface-blue-tint text-text-strong",
+                  )}
+                >
+                  {label}
+                </span>
+                {/* Marca de "elegido" en la esquina: no ensancha el chip, así que al tocarlo la fila no se reacomoda. */}
+                {selected && (
+                  <span
+                    aria-hidden="true"
+                    className="absolute -top-1 -right-1 flex size-[18px] items-center justify-center rounded-full bg-blue-500 text-text-on-blue"
+                  >
+                    <Check className="size-3" strokeWidth={3} />
+                  </span>
+                )}
+              </label>
+            );
+          })}
+        </div>
+      </fieldset>
+
       <Field id="lead-mensaje" label="¿Qué te quita más tiempo hoy?" hint="Opcional" error={errors.mensaje}>
         <textarea
           id="lead-mensaje"
           name="mensaje"
-          rows={4}
+          rows={3}
           maxLength={LIMITS.mensaje}
           value={values.mensaje}
           onChange={set("mensaje")}
           aria-invalid={errors.mensaje ? true : undefined}
           aria-describedby={errors.mensaje ? "lead-mensaje-error" : undefined}
-          className={cn(fieldClass(!!errors.mensaje), "min-h-24 resize-y")}
+          className={cn(fieldClass(!!errors.mensaje), "min-h-20 resize-y")}
         />
       </Field>
 

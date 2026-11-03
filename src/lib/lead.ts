@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { IS_STAGING } from "@/lib/env";
-import { GIROS, HONEYPOT_FIELD, LIMITS } from "@/lib/lead-shared";
+import { GIROS, HONEYPOT_FIELD, INTERESES, INTERES_IDS, LIMITS, ORIGENES } from "@/lib/lead-shared";
 
 // Se reexportan para que el servidor (y el código existente) sigan importando todo desde "@/lib/lead".
 export { GIROS, HONEYPOT_FIELD, LIMITS };
@@ -80,6 +80,10 @@ export const leadSchema = z
         error: "El mensaje contiene caracteres que no podemos aceptar.",
       })
       .default(""),
+    // Opcionales: la selección de "¿Qué te interesa?" (lista blanca de ids) y el origen (home o /tesis).
+    // No cambian lo que se envía a n8n: el servidor antepone la selección al mensaje y el origen ya existía.
+    intereses: z.array(z.enum(INTERES_IDS)).max(INTERESES.length).default([]),
+    origen: z.enum(ORIGENES).default("web-contacto"),
   });
 
 export type LeadInput = z.input<typeof leadSchema>;
@@ -98,11 +102,24 @@ export type LeadPayload = {
   whatsapp10: string | null;
   giro: string;
   mensaje: string;
-  /** "web-contacto" en producción; "web-contacto-staging" si NEXT_PUBLIC_SITE_ENV no es "production". */
-  origen: "web-contacto" | "web-contacto-staging";
+  /**
+   * "web-contacto" (home) o "web-tesis" (/tesis) en producción; con el sufijo "-staging" si
+   * NEXT_PUBLIC_SITE_ENV no es "production".
+   */
+  origen: "web-contacto" | "web-contacto-staging" | "web-tesis" | "web-tesis-staging";
   /** ISO 8601 en UTC. */
   enviadoEn: string;
 };
+
+/**
+ * Antepone la selección de interés al mensaje: "[Interés: A, B] " + mensaje. Los rótulos salen de INTERESES
+ * (no del navegador), sin repetidos y en el orden de la lista. Sin selección, el mensaje queda igual.
+ */
+export function mensajeConIntereses(intereses: ReadonlyArray<string>, mensaje: string): string {
+  const elegidos = INTERESES.filter((i) => intereses.includes(i.id)).map((i) => i.label);
+  if (elegidos.length === 0) return mensaje;
+  return `[Interés: ${elegidos.join(", ")}]${mensaje ? ` ${mensaje}` : ""}`;
+}
 
 /** Construye el cuerpo que se envía a n8n a partir de datos YA validados con `leadSchema`. */
 export function buildLeadPayload(data: LeadData, now: Date = new Date()): LeadPayload {
@@ -114,8 +131,8 @@ export function buildLeadPayload(data: LeadData, now: Date = new Date()): LeadPa
     tipoContacto: parsed.tipoContacto,
     whatsapp10: parsed.whatsapp10,
     giro: data.giro,
-    mensaje: data.mensaje,
-    origen: IS_STAGING ? "web-contacto-staging" : "web-contacto",
+    mensaje: mensajeConIntereses(data.intereses, data.mensaje),
+    origen: IS_STAGING ? (`${data.origen}-staging` as const) : data.origen,
     enviadoEn: now.toISOString(),
   };
 }
