@@ -1,3 +1,4 @@
+import { chipLinkClass } from "@/components/ui/chip";
 import { SERVICES, bloqueHash } from "@/config/services";
 
 /**
@@ -25,7 +26,7 @@ export function HeroServiceChips() {
               href={bloqueHash(s.bloque)}
               data-servicio={s.id}
               data-location="hero-chip"
-              className="inline-flex min-h-11 items-center rounded-pill border border-border-default px-4 text-[15px] font-medium whitespace-nowrap text-text-body transition-colors duration-(--duration-fast) ease-out hover:border-border-strong hover:text-text-strong"
+              className={chipLinkClass}
             >
               {s.chip}
             </a>

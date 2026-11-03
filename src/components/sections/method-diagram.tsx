@@ -1,6 +1,6 @@
 import { MethodReveal } from "@/components/sections/method-reveal";
 import { MethodStepBody } from "@/components/sections/method-step-body";
-import { METHOD_STEPS } from "@/content/method-steps";
+import { METHOD_STEPS, type MethodStep } from "@/content/method-steps";
 
 /**
  * Diagrama del Método ERVIA, "isotipo desplegado" (variante elegida el 30/09/2026).
@@ -23,7 +23,11 @@ const LINKS = ["M212 89 Q385 104 536 69", "M604 63 Q775 72 918 43"] as const;
 /** Tamaño de los nodos del riel móvil: crecen como en el escritorio. */
 const RAIL_SIZES = [44, 52, 60] as const;
 
-export function MethodDiagram() {
+/**
+ * `renderStep` sustituye el contenido de cada tarjeta (por defecto, el detalle completo del Método: MethodStepBody).
+ * "Cómo trabajamos" lo usa para mostrar la versión compacta con el mismo diagrama, sin duplicar su geometría.
+ */
+export function MethodDiagram({ renderStep }: { renderStep?: (step: MethodStep) => React.ReactNode }) {
   return (
     <MethodReveal>
       {/* Escritorio: banda con el diagrama sobre las tres tarjetas. */}
@@ -92,7 +96,7 @@ export function MethodDiagram() {
               )}
 
               <div className="rounded-lg border border-border-subtle bg-surface-card p-7 shadow-card lg:p-8">
-                <MethodStepBody step={step} />
+                {renderStep ? renderStep(step) : <MethodStepBody step={step} />}
               </div>
             </li>
           );

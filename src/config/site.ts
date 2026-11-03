@@ -20,11 +20,12 @@ export const SEO = {
   /** Teléfono en formato internacional para datos estructurados (es el mismo número de WhatsApp, D4). */
   telephone: "+529992498890",
   /**
-   * Frase autocontenida que define el Método ERVIA (auditoría 6, GEO). Se muestra en la sección del método
-   * y alimenta la descripción del HowTo y el llms.txt: debe ser idéntica en los tres sitios.
+   * Frase autocontenida que define el Método ERVIA (auditoría 6, GEO; texto actualizado el 3/11/2026 para la home
+   * multiservicio). Se muestra en "Cómo trabajamos" y alimenta la descripción del HowTo y el llms.txt: debe ser
+   * idéntica en los tres sitios.
    */
   methodDefinition:
-    `El Método${NBSP}ERVIA es un proceso de tres pasos (Detectar, Automatizar y Escalar) para que las pymes automaticen su atención por WhatsApp y su agenda en menos de 4 semanas.`,
+    `El Método${NBSP}ERVIA tiene 3 pasos: detectar dónde pierdes tiempo y clientes, automatizar lo más urgente y escalar mes a mes.`,
 } as const;
 
 /**

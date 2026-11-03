@@ -5,14 +5,19 @@ import { Logo } from "@/components/brand/logo";
 import { Brand } from "@/components/ui/brand";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Container } from "./container";
+import { SERVICES } from "@/config/services";
 import { LEGAL_LINKS, SITE, SOCIAL_LINKS, WHATSAPP_ENABLED } from "@/config/site";
+import { TESIS_PAGE_ENABLED, TESIS_WHATSAPP_URL } from "@/config/tesis";
 import { cn } from "@/lib/utils";
 
 const footerLink =
   "inline-flex min-h-11 items-center text-[15px] text-text-body transition-colors duration-(--duration-fast) ease-out hover:text-text-strong";
 
 /**
- * Pie (docs/design-base.md §3): fondo navy-950, overlines azules, tres columnas en escritorio.
+ * Pie (docs/design-base.md §3): fondo navy-950, overlines azules, tres columnas en escritorio: contacto,
+ * servicios (enlaces a cada tarjeta, #servicio-<id>; ServicesTabs abre la pestaña y da el foco) y legal.
+ * Al final de "Servicios", "Te ayudamos con tu tesis": → /tesis si TESIS_PAGE_ENABLED; si no, → WhatsApp con el
+ * texto de tesis (o a #contacto si WhatsApp está desactivado).
  * Los íconos sociales solo aparecen si hay URL real en SOCIAL_LINKS (hoy: ninguna).
  */
 export function Footer() {
@@ -21,7 +26,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border-subtle bg-surface-deep">
-      <Container className="grid gap-10 pt-16 md:grid-cols-3 md:gap-14 md:pt-[72px]">
+      <Container className="grid gap-10 pt-16 md:grid-cols-[1fr_1.5fr_1fr] md:gap-14 md:pt-[72px]">
         <div className="flex flex-col items-start gap-5">
           <Eyebrow>Contacto</Eyebrow>
           <Logo variant="horizontal" tone="onDark" height={30} />
@@ -33,6 +38,39 @@ export function Footer() {
             {SITE.location}
           </span>
         </div>
+
+        <nav aria-label="Servicios" className="flex flex-col items-start gap-1">
+          <Eyebrow className="mb-2">Servicios</Eyebrow>
+          <ul className="grid grid-cols-2 gap-x-6">
+            {SERVICES.map((s) => (
+              <li key={s.id}>
+                <Link href={`/#servicio-${s.id}`} data-servicio={s.id} className={footerLink}>
+                  {s.chip}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {TESIS_PAGE_ENABLED ? (
+            <Link href="/tesis" className={cn(footerLink, "font-semibold text-blue-400 hover:text-blue-300")}>
+              Te ayudamos con tu tesis
+            </Link>
+          ) : WHATSAPP_ENABLED ? (
+            <a
+              href={TESIS_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta="whatsapp"
+              data-location="footer-tesis"
+              className={cn(footerLink, "font-semibold text-blue-400 hover:text-blue-300")}
+            >
+              Te ayudamos con tu tesis
+            </a>
+          ) : (
+            <Link href="/#contacto" className={cn(footerLink, "font-semibold text-blue-400 hover:text-blue-300")}>
+              Te ayudamos con tu tesis
+            </Link>
+          )}
+        </nav>
 
         <nav aria-label="Legal" className="flex flex-col items-start gap-1">
           <Eyebrow className="mb-2">Legal</Eyebrow>

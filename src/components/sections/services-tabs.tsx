@@ -26,7 +26,7 @@ function parseHash(hash: string): { bloque: BloqueId; serviceId?: string } | nul
  * derecha, Home y End. La pestaña activa vive en el hash (#servicios-encuentren | -atiende | -ordena);
  * "atiende" va abierta por defecto. Los paneles (tarjetas) llegan ya renderizados desde el servidor.
  *
- * Los chips del hero (<a data-servicio="<id>" href="#servicios-<bloque>">) se interceptan aquí: abren la
+ * Los chips del hero y los enlaces del footer (<a data-servicio="<id>">) se interceptan aquí: abren la
  * pestaña del servicio, hacen scroll hasta su tarjeta (id="servicio-<id>") y le mueven el foco. Sin
  * JavaScript, el chip lleva a la pestaña por el id nativo del botón (#servicios-<bloque>).
  * Los paneles ocultos usan `hidden` (display: none): sus demos no intersectan y quedan en pausa.
@@ -75,7 +75,7 @@ export function ServicesTabs({ panels }: { panels: Record<BloqueId, React.ReactN
     };
     const onClick = (e: MouseEvent) => {
       const chip = (e.target as Element).closest<HTMLAnchorElement>("a[data-servicio]");
-      if (!chip || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      if (!chip || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
       const service = SERVICES.find((s) => s.id === chip.dataset.servicio);
       if (!service) return;
       e.preventDefault();
@@ -85,10 +85,11 @@ export function ServicesTabs({ panels }: { panels: Record<BloqueId, React.ReactN
     // Enlace directo (/#servicios-ordena, /#servicio-facturas): se aplica al cargar y al cambiar el hash.
     queueMicrotask(fromHash);
     window.addEventListener("hashchange", fromHash);
-    document.addEventListener("click", onClick);
+    // En captura: los <Link> de Next (footer) navegan en su propio onClick; así llegamos antes y lo cancelamos.
+    document.addEventListener("click", onClick, true);
     return () => {
       window.removeEventListener("hashchange", fromHash);
-      document.removeEventListener("click", onClick);
+      document.removeEventListener("click", onClick, true);
     };
   }, [open]);
 

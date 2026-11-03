@@ -4,8 +4,8 @@ import { MethodReveal } from "@/components/sections/method-reveal";
 import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 
 /**
- * Diagrama "Todo se conecta" (plan v2, 3.3): Tu cliente escribe por WhatsApp → Tus clientes → Tu tablero →
- * Te llega un aviso. Misma forma que el diagrama del Método (isotipo desplegado): nodos azules que crecen y
+ * Diagrama "Todo se conecta" (plan v2, 3.3): Tu cliente escribe por WhatsApp → queda guardado en tu lista de
+ * clientes → aparece en tu tablero → te llega un aviso (rótulos 2 y 3 en minúsculas, ajuste del 3/11/2026). Misma forma que el diagrama del Método (isotipo desplegado): nodos azules que crecen y
  * suben de izquierda a derecha, unidos por enlaces curvos, y la misma animación de dibujo al entrar en pantalla
  * (MethodReveal + clases .m-* de globals.css; sin JavaScript o con prefers-reduced-motion se ve completo).
  * Nodos y enlaces SIEMPRE en azul (regla D-J). Horizontal desde 1024 px; vertical (riel) en móvil.
@@ -14,13 +14,13 @@ import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
  */
 const STEPS = [
   { label: "Tu cliente escribe por WhatsApp", icon: "whatsapp" },
-  { label: "Queda guardado en Tus clientes", icon: Users },
-  { label: "Aparece en Tu tablero", icon: ChartColumn },
+  { label: "Queda guardado en tu lista de clientes", icon: Users },
+  { label: "Aparece en tu tablero", icon: ChartColumn },
   { label: "Te llega un aviso", icon: Bell },
 ] as const satisfies ReadonlyArray<{ label: string; icon: LucideIcon | "whatsapp" }>;
 
 const ROUTE =
-  "Tu cliente escribe por WhatsApp, queda guardado en Tus clientes, aparece en Tu tablero y te llega un aviso.";
+  "Tu cliente escribe por WhatsApp, queda guardado en tu lista de clientes, aparece en tu tablero y te llega un aviso.";
 
 /** Centros (alineados con el centro de cada una de las 4 columnas de 285 px) y radios crecientes. */
 const NODES = [
