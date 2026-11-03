@@ -5,8 +5,9 @@ Landing de ERVIA (www.ervia.tech): automatización con IA para pymes de México,
 
 ## Fuentes de verdad (en este orden)
 1. docs/design-base.md — ADN visual de la landing anterior (tokens, tipografías, componentes, movimiento). MANDA sobre el estilo.
-2. docs/auditoria-landing-ervia-v2.md — estrategia, estructura, copy, Método ERVIA, hero, SEO. MANDA sobre el contenido. Ignora su sección 9 (plan de modificación antiguo).
-3. docs/plan-nueva-landing-ervia-v1.md — plan de construcción por fases.
+2. docs/plan-landing-multiservicio-v2.md — MANDA sobre contenido y estructura de la home desde nov 2026.
+3. docs/auditoria-landing-ervia-v2.md — estrategia, estructura, copy, Método ERVIA, hero, SEO. MANDA sobre el contenido en lo que el plan multiservicio no cubra. Ignora su sección 9 (plan de modificación antiguo).
+4. docs/plan-nueva-landing-ervia-v1.md — plan de construcción por fases.
 Las skills de diseño aportan calidad de ejecución. NUNCA cambian paleta, tipografías, radios ni estilo general definidos en design-base.md.
 
 ## Stack
