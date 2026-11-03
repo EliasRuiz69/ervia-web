@@ -192,6 +192,14 @@
   30%, 100% { opacity: 0; transform: translateY(var(--d-y)); }
 }
 
+/* Vibración del teléfono (Llamadas): en los primeros instantes del bucle; después queda quieto. */
+@keyframes d-vibrate {
+  0%, 3% { transform: none; }
+  4%, 8%, 12% { transform: rotate(-9deg); }
+  6%, 10%, 14% { transform: rotate(9deg); }
+  16%, 100% { transform: none; }
+}
+
 /* ---- Fotograma final estático ---- */
 .demo[data-still="true"] .d {
   animation-name: none !important;

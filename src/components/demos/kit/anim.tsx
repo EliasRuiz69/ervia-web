@@ -7,11 +7,12 @@ import { cn } from "@/lib/utils";
  *  - kind "in":    aparece en la ranura `at` (0–9). `from` = transform de partida (CSS), p. ej. "scale(0.8)".
  *  - kind "out":   desaparece en la ranura `at` (para cambiar un estado por otro).
  *  - kind "shift": se desplaza a `shift` (transform CSS) en la ranura `at`.
+ *  - kind "vibrate": vibra unos instantes al principio del bucle (teléfono de Llamadas; ver d-vibrate).
  *  - kind "scan":  línea de escáner que baja hasta `--d-y` (sin ranura; ver d-scan en demos.css).
  * Sin `at` el elemento no se anima (siempre visible). Solo opacity y transform.
  * Con prefers-reduced-motion, sin JavaScript o en una demo `still`, se ve el fotograma final.
  */
-export type AnimKind = "in" | "out" | "shift" | "scan";
+export type AnimKind = "in" | "out" | "shift" | "scan" | "vibrate";
 
 type AnimProps = {
   at?: number;
@@ -34,8 +35,9 @@ export function Anim({
   style,
   children,
 }: AnimProps) {
-  const animated = at !== undefined || kind === "scan";
-  const name = kind === "scan" ? "d-scan" : `d-${kind}-${at}`;
+  const standalone = kind === "scan" || kind === "vibrate"; // sin ranura: animación propia
+  const animated = at !== undefined || standalone;
+  const name = standalone ? `d-${kind}` : `d-${kind}-${at}`;
   const vars = {
     ...(from ? { "--d-from": from } : null),
     ...(shift ? { "--d-shift": shift } : null),

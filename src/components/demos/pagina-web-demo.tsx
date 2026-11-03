@@ -3,12 +3,12 @@ import { MessageCircle } from "lucide-react";
 import { Anim, DemoFrame, Notification } from "./kit";
 
 /**
- * Página web a medida (prioridad B). FASE 2: fotograma final estático (`still`). Fase 3: quitar `still`.
+ * Página web a medida (prioridad B).
  * Los bloques de una página caen y se acomodan; al final aparece "Nuevo cliente desde tu web".
  */
 export function PaginaWebDemo({ alt }: { alt: string }) {
   return (
-    <DemoFrame alt={alt} still>
+    <DemoFrame alt={alt}>
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[2cqw] border border-border-default bg-surface-card">
         <div className="flex items-center gap-[1.4cqw] border-b border-border-subtle px-[3cqw] py-[2cqw]">
           {[0, 1, 2].map((n) => (

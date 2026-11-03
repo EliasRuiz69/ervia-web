@@ -14,7 +14,7 @@ import { WhatsAppDemo } from "./whatsapp-demo";
 /**
  * Mini-demos por id (el id sale de `demo` en src/config/services.ts).
  * Prioridad A (animadas): whatsapp, facturas, crm, tablero, correo.
- * Prioridad B (fotograma estático hasta la Fase 3): pagina-web, llamadas, recordatorios, tareas.
+ * Prioridad B (animadas en la Fase 3): pagina-web, llamadas, recordatorios, tareas.
  */
 const DEMOS: Record<DemoId, ComponentType<{ alt: string }>> = {
   whatsapp: WhatsAppDemo,

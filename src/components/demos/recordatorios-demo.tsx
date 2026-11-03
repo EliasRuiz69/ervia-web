@@ -3,15 +3,15 @@ import { Check } from "lucide-react";
 import { Anim, ChatBubble, DemoFrame, ResultChip } from "./kit";
 
 /**
- * Recordatorios y clientes que regresan (prioridad B). FASE 2: fotograma final estático (`still`).
- * Fase 3: quitar `still`. Un calendario con palomitas que aparecen y un mensaje que sale hacia un cliente.
+ * Recordatorios y clientes que regresan (prioridad B): un calendario con palomitas que aparecen y un mensaje
+ * que sale hacia un cliente.
  */
 // Posición (0–11) del día confirmado → ranura de aparición.
 const CONFIRMED: Record<number, number> = { 1: 0, 6: 1, 10: 2 };
 
 export function RecordatoriosDemo({ alt }: { alt: string }) {
   return (
-    <DemoFrame alt={alt} still>
+    <DemoFrame alt={alt}>
       <div className="flex gap-[4cqw]">
         <div className="grid w-[37cqw] shrink-0 grid-cols-4 gap-[1.6cqw]">
           {Array.from({ length: 12 }, (_, i) => (
@@ -31,7 +31,7 @@ export function RecordatoriosDemo({ alt }: { alt: string }) {
             </span>
           ))}
         </div>
-        <ChatBubble from="agent" at={4} className="self-start">
+        <ChatBubble from="agent" at={4} enter="translateX(-6cqw) scale(0.96)" className="self-start">
           Hace 6 meses de tu último servicio. ¿Agendamos?
         </ChatBubble>
       </div>

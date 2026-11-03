@@ -5,11 +5,14 @@ import { Anim } from "./anim";
 export function ChatBubble({
   from,
   at,
+  enter = "translateY(2cqw) scale(0.96)",
   className,
   children,
 }: {
   from: "client" | "agent";
   at?: number;
+  /** transform de partida de la entrada (CSS). */
+  enter?: string;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -17,7 +20,7 @@ export function ChatBubble({
   return (
     <Anim
       at={at}
-      from="translateY(2cqw) scale(0.96)"
+      from={enter}
       className={cn(
         "max-w-[84%] rounded-[2.4cqw] px-[2.8cqw] py-[1.5cqw] text-[4.4cqw] leading-[1.25]",
         agent
