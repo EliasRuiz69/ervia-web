@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { ServiceDemo } from "@/components/demos";
 import { WHATSAPP_ENABLED } from "@/config/site";
-import { serviceWhatsappUrl, type Service } from "@/config/services";
+import { serviceWhatsappUrl, type CardData } from "@/config/services";
 import { cn } from "@/lib/utils";
 
 const cta =
@@ -10,11 +10,11 @@ const cta =
 
 /**
  * Tarjeta de un servicio (plan v2, 3.2): demo arriba, H3, promesa, ejemplo en pequeño y "Lo quiero →".
- * Tiene id="servicio-<id>" y tabIndex={-1}: los chips del hero y los enlaces del footer abren su pestaña,
+ * Sirve también para las tarjetas de /tesis (CardData, sin línea de ejemplo). Tiene id="servicio-<id>" y tabIndex={-1}: los chips del hero y los enlaces del footer abren su pestaña,
  * llegan hasta ella y le mueven el foco (ver ServicesTabs). "Lo quiero →" abre WhatsApp con el waText del
  * servicio; con WHATSAPP_ENABLED en false va a #contacto.
  */
-export function ServiceCard({ service: s }: { service: Service }) {
+export function ServiceCard({ service: s }: { service: CardData }) {
   return (
     <article
       id={`servicio-${s.id}`}
@@ -40,7 +40,7 @@ export function ServiceCard({ service: s }: { service: Service }) {
           )}
         </h3>
         <p className="text-[17px] leading-[1.5] text-text-body">{s.promesa}</p>
-        <p className="text-[14px] leading-snug text-text-muted">{s.ejemplo}</p>
+        {s.ejemplo && <p className="text-[14px] leading-snug text-text-muted">{s.ejemplo}</p>}
 
         <div className="mt-auto pt-2">
           {WHATSAPP_ENABLED ? (

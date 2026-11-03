@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { Section } from "@/components/layout/section";
 import { MethodDiagram } from "@/components/sections/method-diagram";
+import { StepCardBody } from "@/components/sections/step-card-body";
 import { Brand } from "@/components/ui/brand";
 import { Button } from "@/components/ui/button";
 import { chipClass, chipLinkClass } from "@/components/ui/chip";
@@ -16,24 +17,10 @@ import { cn } from "@/lib/utils";
 /** La frase SEO.methodDefinition empieza por este término, que se resalta en negrita (igual que en Method). */
 const DEFINITION_TERM = `El Método${NBSP}ERVIA`;
 
-/** Contenido compacto de un paso (nombre, qué hacemos y precio). Mismo H3 que el detalle del Método. */
+/** Paso de la home: nombre del Método (METHOD_STEPS) + texto y precio de HOW_STEPS. */
 function HowStepBody({ step }: { step: MethodStep }) {
   const how = HOW_STEPS.find((h) => h.n === step.n)!;
-  return (
-    <>
-      <h3 className="text-[clamp(26px,2.4vw,30px)] leading-[1.2]">{step.name}</h3>
-      <p className="mt-3 text-[17px] leading-[1.55] text-text-body">{how.text}</p>
-      <p className="mt-5 border-t border-border-subtle pt-4">
-        {how.free ? (
-          <span className="inline-flex items-center rounded-pill border border-border-green bg-surface-green-tint px-3.5 py-1 text-[16px] leading-tight font-semibold text-green-400">
-            {how.price}
-          </span>
-        ) : (
-          <span className="font-display text-[19px] leading-[1.25] font-bold text-text-strong">{how.price}</span>
-        )}
-      </p>
-    </>
-  );
+  return <StepCardBody name={step.name} text={how.text} price={how.price} free={how.free} />;
 }
 
 /**

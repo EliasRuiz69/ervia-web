@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * #contacto está en pantalla (ya tiene su propio botón de WhatsApp). No renderiza nada si
  * WHATSAPP_ENABLED es false. Al ocultarse queda fuera del orden de tabulación y del árbol de accesibilidad.
  */
-export function FloatingWhatsApp() {
+export function FloatingWhatsApp({ href = whatsappUrl("floating") }: { href?: string } = {}) {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function FloatingWhatsApp() {
 
   return (
     <a
-      href={whatsappUrl("floating")}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Escríbenos por WhatsApp"

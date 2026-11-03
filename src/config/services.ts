@@ -39,7 +39,10 @@ export type ServiceId =
   | "facturas"
   | "tablero";
 
-/** Id del componente de mini-demo (src/components/demos/, Fases 2 y 3). */
+/**
+ * Id del componente de mini-demo (src/components/demos/). Los nueve primeros son los de los servicios de la home
+ * (Fases 2 y 3); "montana" y los cinco "tesis-*" son los de la banda y la página /tesis (Fase 4b).
+ */
 export type DemoId =
   | "pagina-web"
   | "correo"
@@ -49,7 +52,13 @@ export type DemoId =
   | "crm"
   | "tareas"
   | "facturas"
-  | "tablero";
+  | "tablero"
+  | "montana"
+  | "tesis-ordenar"
+  | "tesis-tabla"
+  | "tesis-asistente"
+  | "tesis-esquema"
+  | "tesis-citas";
 
 export type Service = {
   /** Slug estable: id de la tarjeta en el DOM (`servicio-<id>`) y valor de la lista blanca del formulario. */
@@ -68,6 +77,23 @@ export type Service = {
   /** Texto precargado de WhatsApp al pulsar "Lo quiero →". Distinto en cada servicio. */
   waText: string;
   /** Texto alternativo de la mini-demo (la animación va con aria-hidden). */
+  altDemo: string;
+};
+
+/**
+ * Lo que necesita una tarjeta con mini-demo (ServiceCard): lo cumplen los servicios de la home (`Service`) y las
+ * tarjetas de /tesis (src/config/tesis.ts), que comparten promesa, demo, altDemo y waText.
+ */
+export type CardData = {
+  id: string;
+  nombre: string;
+  nombreTecnico?: string;
+  promesa: string;
+  /** Línea pequeña bajo la promesa; las tarjetas de /tesis no la llevan. */
+  ejemplo?: string;
+  demo: DemoId;
+  destacado?: boolean;
+  waText: string;
   altDemo: string;
 };
 
