@@ -205,7 +205,7 @@ export const TESIS_FAQ: ReadonlyArray<FaqItem> = [
   {
     question: "¿Mis documentos están seguros?",
     answer:
-      "Sí. Tus documentos se guardan en un servidor privado que administra ERVIA y solo los ven las personas que te acompañan. No se publican ni se comparten. Para analizarlos usamos la IA de Claude (Anthropic) con sus condiciones comerciales, que no usan tus documentos para entrenar sus modelos. Al terminar, los borramos de nuestro servidor si así lo pides.",
+      "Sí. Tus documentos se guardan en un servidor privado que administra ERVIA y solo los ven las personas que te acompañan. No se publican ni se comparten. Para analizarlos usamos la IA de Claude (Anthropic) con sus condiciones comerciales, que no usan tus documentos para entrenar sus modelos. Al terminar, los borramos de nuestro servidor en un máximo de 30 días, o antes si lo pides.",
   },
   {
     question: "¿Sirve para licenciatura, maestría y doctorado?",

@@ -1,6 +1,6 @@
 # Política de Cookies
 
-_Última actualización: 30 de septiembre de 2026 · ervia.tech_
+_Última actualización: 3 de noviembre de 2026 · ervia.tech_
 
 > Esta Política explica qué son las cookies, cuáles utilizamos en **ervia.tech**, para qué sirven y cómo puede gestionarlas o desactivarlas. Su uso se rige por la **Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP)** y los lineamientos de la **Secretaría Anticorrupción y Buen Gobierno**.
 
@@ -27,9 +27,9 @@ Junto con las cookies, pueden usarse tecnologías similares como **píxeles de s
 
 El responsable del uso de cookies en ervia.tech es:
 
-- **Nombre comercial:** ERVIA
+- **Responsable:** ELIAS RUIZ VELA, que opera con el nombre comercial **ERVIA**
 - **Actividad:** Agencia de automatización e inteligencia artificial para pymes
-- **Domicilio:** Mérida, Yucatán, México
+- **Domicilio:** Calle Paseo de Salamanca 38, La Toscana, C.P. 77725, Playa del Carmen, Quintana Roo, México
 - **Sitio web:** [https://ervia.tech](https://ervia.tech)
 - **Correo:** [info@ervia.tech](mailto:info@ervia.tech)
 
@@ -110,7 +110,7 @@ Le recomendamos revisar la política de privacidad de este proveedor para compre
 
 ## 8. Cookies y Menores de Edad
 
-Nuestro Sitio está dirigido exclusivamente a empresas y profesionales mayores de 18 años. No recopilamos intencionalmente datos de menores mediante cookies. Si tiene conocimiento de que un menor ha aceptado cookies en nuestro Sitio, le rogamos que nos lo comunique a [info@ervia.tech](mailto:info@ervia.tech).
+Nuestro Sitio está dirigido a personas mayores de 18 años. No recopilamos intencionalmente datos de menores mediante cookies. Si tiene conocimiento de que un menor ha aceptado cookies en nuestro Sitio, le rogamos que nos lo comunique a [info@ervia.tech](mailto:info@ervia.tech).
 
 ## 9. Actualizaciones de esta Política
 
