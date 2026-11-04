@@ -14,11 +14,11 @@
 
 ## 1. Quién es responsable de tus datos
 
-- **Responsable:** ELIAS RUIZ VELA, que opera con el nombre comercial **ERVIA**
-- **Domicilio:** Calle Paseo de Salamanca 38, La Toscana, C.P. 77725, Playa del Carmen, Quintana Roo, México
+- **Responsable:** ERVIA
+- **Domicilio:** Playa del Carmen, Quintana Roo, México
 - **Sitio web:** [https://ervia.tech](https://ervia.tech)
 - **Correo:** [info@ervia.tech](mailto:info@ervia.tech)
-- **Persona a cargo de los datos personales:** ELIAS RUIZ VELA. Atiende tus solicitudes en [info@ervia.tech](mailto:info@ervia.tech).
+- **Persona a cargo de los datos personales:** responsable de datos personales de ERVIA. Atiende tus solicitudes en [info@ervia.tech](mailto:info@ervia.tech).
 
 **Si hablas con un asistente que ERVIA instaló para otro negocio** (por ejemplo, el WhatsApp de un consultorio o de un taller), el responsable de tus datos es **ese negocio**, y se aplica su propio aviso de privacidad. ERVIA solo trata esos datos por su cuenta y siguiendo sus instrucciones.
 

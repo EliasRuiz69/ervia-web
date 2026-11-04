@@ -27,9 +27,9 @@ Junto con las cookies, pueden usarse tecnologías similares como **píxeles de s
 
 El responsable del uso de cookies en ervia.tech es:
 
-- **Responsable:** ELIAS RUIZ VELA, que opera con el nombre comercial **ERVIA**
+- **Responsable:** ERVIA
 - **Actividad:** Agencia de automatización e inteligencia artificial para pymes
-- **Domicilio:** Calle Paseo de Salamanca 38, La Toscana, C.P. 77725, Playa del Carmen, Quintana Roo, México
+- **Domicilio:** Playa del Carmen, Quintana Roo, México
 - **Sitio web:** [https://ervia.tech](https://ervia.tech)
 - **Correo:** [info@ervia.tech](mailto:info@ervia.tech)
 
