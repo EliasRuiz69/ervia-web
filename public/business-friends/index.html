@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Llamada gratis para tu WhatsApp</title>
+<meta name="description" content="Te muestro cómo tu WhatsApp contesta a tus clientes por ti. Videollamada gratis de 30 minutos, solo para Business Friends.">
+<meta name="theme-color" content="#0F172A">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_MX">
+<meta property="og:site_name" content="ERVIA">
+<meta property="og:title" content="Videollamada GRATIS de 30 minutos para tu WhatsApp">
+<meta property="og:description" content="Te muestro cómo tu WhatsApp contesta a tus clientes por ti. Solo para Business Friends.">
+<meta property="og:url" content="https://www.ervia.tech/business-friends">
+<meta property="og:image" content="https://www.ervia.tech/business-friends/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="¿Se te van clientes por no contestar a tiempo? Videollamada gratis de 30 minutos">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* Plan: mundo único ERVIA (azul marino + verde + azul), una sola columna, un solo botón grande. */
+:root {
+  --navy: #0F172A;
+  --green: #07F992;
+  --green-deep: #05B86B;
+  --blue: #3165F4;
+  --white: #FFFFFF;
+  --muted: #CBD5E1;
+  --font-display: "Space Grotesk", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--navy); }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--font-body);
+  -webkit-text-size-adjust: 100%;
+}
+.wrap {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 40px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.tag {
+  align-self: flex-start;
+  margin: 0;
+  padding: 10px 16px;
+  background: var(--green);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  border-radius: 999px;
+}
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 11.5vw, 60px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h1 span { color: var(--green); }
+.offer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 22px;
+  background: var(--blue);
+  border-radius: 24px;
+}
+.offer p { margin: 0; }
+.offer-main {
+  font-size: clamp(24px, 6.4vw, 30px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+.free {
+  display: inline-block;
+  padding: 0 10px;
+  background: var(--navy);
+  color: var(--green);
+  border-radius: 8px;
+}
+.offer-sub {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.cta-group { display: flex; flex-direction: column; gap: 14px; }
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 72px;
+  padding: 18px 24px;
+  background: var(--green);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 6vw, 28px);
+  line-height: 1.15;
+  text-decoration: none;
+  border-radius: 999px;
+  box-shadow: 0 7px 0 var(--green-deep);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.cta:hover { transform: translateY(-2px); box-shadow: 0 9px 0 var(--green-deep); }
+.cta:active { transform: translateY(6px); box-shadow: 0 1px 0 var(--green-deep); }
+.cta:focus-visible,
+.contact a:focus-visible { outline: 3px solid var(--white); outline-offset: 4px; }
+.cta svg { flex: none; width: 30px; height: 30px; }
+.hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: center;
+}
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(203, 213, 225, 0.25);
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+.contact strong { color: var(--white); font-weight: 700; }
+.contact a { color: var(--white); text-decoration-color: var(--green); text-underline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  .cta { transition: none; }
+}
+@media (min-width: 640px) {
+  .wrap { padding-top: 72px; gap: 32px; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="tag">Solo para Business Friends · hasta el 30 de noviembre</p>
+
+  <h1>¿Se te van <span>clientes</span> por no contestar a tiempo?</h1>
+
+  <section class="offer" aria-label="La oferta">
+    <p class="offer-main">Hablemos 30 minutos por videollamada. Es <span class="free">GRATIS</span>.</p>
+    <p class="offer-sub">Te muestro cómo tu WhatsApp responde solo.</p>
+  </section>
+
+  <div class="cta-group">
+    <a class="cta" href="https://wa.me/message/H2K5LQSFRL5NB1">
+      Toca aquí y escríbeme
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.6-5.1A8.5 8.5 0 1 1 21 11.5z"/></svg>
+    </a>
+    <p class="hint">Se abre tu WhatsApp para escribirme.</p>
+  </div>
+
+  <footer class="contact">
+    <strong>Elías Ruiz - www.ervia.tech</strong>
+    <span>WhatsApp: <a href="tel:+529992498890">999 249 8890</a></span>
+  </footer>
+</main>
+</body>
+</html>
