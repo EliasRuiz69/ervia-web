@@ -30,6 +30,12 @@ los scripts en línea del HTML prerenderizado y los escribe en la Content-Securi
 para scripts). **El comando de build en Dokploy debe ser `pnpm build`**, no `next build` a secas: sin el segundo paso
 los scripts en línea quedan bloqueados y la página se rompe a la vista. Las cabeceras están en `next.config.ts`.
 
+`/business-friends` es una página estática (`public/business-friends/index.html`, sin React) con su **propia CSP**
+(solo su `<style>` por hash, Google Fonts y nada más) y `X-Robots-Tag: noindex, nofollow`. El hash de su `<style>` lo
+calcula `scripts/csp-hashes.mjs` en cada build: si editas ese `<style>`, basta con volver a construir. El build falla si
+la página gana un script en línea o un atributo `style=""`, porque esa CSP los bloquearía. Next no sirve el `index.html`
+de una carpeta de `public/`, por eso `next.config.ts` reescribe `/business-friends` a ese archivo.
+
 Si se activa Cloudflare Web Analytics (panel de Cloudflare, instalación automática), la CSP ya permite su beacon
 (`static.cloudflareinsights.com` y `cloudflareinsights.com`); no hace falta tocar el código.
 

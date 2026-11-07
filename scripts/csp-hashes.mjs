@@ -21,6 +21,8 @@ const APP_DIR = path.join(NEXT_DIR, "server", "app");
 const MANIFEST = path.join(NEXT_DIR, "routes-manifest.json");
 const SCRIPT_MARKER = "__CSP_SCRIPT_HASHES__";
 const STYLE_MARKER = "__CSP_STYLE_HASHES__";
+const BF_STYLE_MARKER = "__CSP_BF_STYLE_HASHES__";
+const BF_FILE = path.join(process.cwd(), "public", "business-friends", "index.html");
 const HASH_FORMAT = /^'sha256-[A-Za-z0-9+/]{43}='$/;
 
 function fail(message) {
@@ -75,10 +77,34 @@ const manifest = attempt("no se pudo leer o interpretar .next/routes-manifest.js
   JSON.parse(readFileSync(MANIFEST, "utf8")),
 );
 
+// Página estática /business-friends (public/business-friends/index.html): tiene su propia CSP, sin scripts, y el hash
+// de su <style> se calcula aquí del archivo real, en cada build. NO se escribe a mano en next.config.ts.
+// El navegador calcula el hash sobre el texto YA normalizado por el analizador de HTML (CRLF y CR sueltos pasan a LF),
+// así que se normaliza igual: da el mismo hash aunque el archivo se sirva con CRLF o con LF.
+const bfHtml = attempt(`no se pudo leer ${BF_FILE}`, () => readFileSync(BF_FILE, "utf8"));
+const bfStyles = new Set(
+  inlineBlocks(bfHtml, "style", () => false).map((body) => sha256(body.replace(/\r\n?/g, "\n"))),
+);
+if (bfStyles.size === 0) fail(`no se encontró ningún <style> en línea en ${BF_FILE}: su CSP no tendría con qué cargar los estilos.`);
+// La CSP de esa página solo admite 'self': un script en línea o un atributo style="" quedarían bloqueados sin avisar.
+if (inlineBlocks(bfHtml, "script", (attrs) => /\bsrc=/.test(attrs) || /type="application\/(ld\+)?json"/.test(attrs)).length > 0) {
+  fail(`${BF_FILE} tiene un script en línea y su CSP no lo permite (script-src 'self').`);
+}
+if (/<[^>]+\sstyle\s*=/i.test(bfHtml)) {
+  fail(`${BF_FILE} usa atributos style="" y su CSP no los permite (sin 'unsafe-inline').`);
+}
+
 let patched = 0;
+let patchedBf = 0;
 for (const rule of manifest.headers ?? []) {
   for (const header of rule.headers ?? []) {
     if (header.key !== "Content-Security-Policy") continue;
+    if (header.value.includes(BF_STYLE_MARKER)) {
+      header.value = header.value.replace(BF_STYLE_MARKER, [...bfStyles].join(" "));
+      if (header.value.includes("__CSP_")) fail("quedó algún marcador __CSP_ sin sustituir en la CSP de /business-friends.");
+      patchedBf++;
+      continue;
+    }
     if (!header.value.includes(SCRIPT_MARKER) || !header.value.includes(STYLE_MARKER)) {
       fail(
         `la CSP del manifiesto no contiene los marcadores ${SCRIPT_MARKER} y ${STYLE_MARKER}. ` +
@@ -95,6 +121,9 @@ for (const rule of manifest.headers ?? []) {
 if (patched === 0) {
   fail("no hay ninguna cabecera Content-Security-Policy en routes-manifest.json (¿se construyó con NODE_ENV=production?).");
 }
+if (patchedBf === 0) {
+  fail("no hay ninguna CSP de /business-friends en routes-manifest.json (¿se quitó su regla de next.config.ts?).");
+}
 
 attempt("no se pudo escribir .next/routes-manifest.json", () => writeFileSync(MANIFEST, JSON.stringify(manifest)));
 
@@ -102,13 +131,19 @@ attempt("no se pudo escribir .next/routes-manifest.json", () => writeFileSync(MA
 const written = attempt("no se pudo releer .next/routes-manifest.json tras escribirlo", () =>
   JSON.parse(readFileSync(MANIFEST, "utf8")),
 );
-const csps = (written.headers ?? []).flatMap((r) => r.headers ?? []).filter((h) => h.key === "Content-Security-Policy");
+const csps = (written.headers ?? []).flatMap((rule) =>
+  (rule.headers ?? [])
+    .filter((h) => h.key === "Content-Security-Policy")
+    .map((h) => ({ value: h.value, isBf: rule.source.startsWith("/business-friends") })),
+);
 if (csps.length === 0) fail("tras escribir, el manifiesto no contiene la cabecera Content-Security-Policy.");
-for (const { value } of csps) {
-  const missing = [...scripts].filter((hash) => !value.includes(hash));
-  if (missing.length > 0) fail(`tras escribir, a la CSP le faltan ${missing.length} hash(es) de script.`);
+for (const { value, isBf } of csps) {
+  if (value.includes("__CSP_")) fail("tras escribir, queda algún marcador __CSP_ en una CSP.");
+  const missing = (isBf ? [...bfStyles] : [...scripts]).filter((hash) => !value.includes(hash));
+  if (missing.length > 0) fail(`tras escribir, a la CSP${isBf ? " de /business-friends" : ""} le faltan ${missing.length} hash(es).`);
 }
 
 console.log(
-  `${TAG} CSP actualizada y verificada: ${scripts.size} hashes de script y ${styles.size} de estilo (${pages.length} páginas HTML).`,
+  `${TAG} CSP actualizada y verificada: ${scripts.size} hashes de script y ${styles.size} de estilo (${pages.length} páginas HTML); ` +
+    `/business-friends: ${bfStyles.size} de estilo.`,
 );
